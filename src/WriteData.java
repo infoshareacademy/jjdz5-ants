@@ -1,25 +1,34 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import java.io.EOFException;
+import org.json.simple.parser.JSONParser;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Scanner;
 
 public class WriteData {
 
-    public void Write(String obname) {
+    public void write(int id) {
 
     Scanner dataInput = new Scanner(System.in);
 
     JSONObject object = new JSONObject();
-    JSONArray array = new JSONArray();
-    object.put("name", obname);
+    //JSONArray array = new JSONArray();
+
+        try {
+            JSONParser parser = new JSONParser();
+            JSONArray array = (JSONArray) parser.parse(new FileReader("dataBasePlaces.json"));
 
 
-        System.out.println("Input ID: ");
+
+
+
+        object.put("ID", id);
+
+
+        System.out.println("Input name: ");
         String dataCollector = dataInput.nextLine();
-        object.put("ID", dataCollector);
+        object.put("Name", dataCollector);
 
         System.out.println("Input type: ");
         dataCollector = dataInput.nextLine();
@@ -124,13 +133,14 @@ public class WriteData {
 
         gps.add(longLat);
         object.put("GPS coordinates", gps);
+        array.add(object);
 
         try {
             File dataBasePlaces = new File("dataBasePlaces.json");
             dataBasePlaces.createNewFile();
 
             FileWriter writeObject = new FileWriter(dataBasePlaces);
-            writeObject.write(object.toJSONString());
+            writeObject.write(array.toJSONString());
             writeObject.close();
 
 
@@ -138,8 +148,10 @@ public class WriteData {
         catch(java.io.IOException exc) {
             System.out.println("EOFException");
         }
-        
 
+        } catch (java.io.IOException | org.json.simple.parser.ParseException exc) {
+            exc.printStackTrace();
+        }
     }
 
 }
