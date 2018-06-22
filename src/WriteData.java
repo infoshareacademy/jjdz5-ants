@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class WriteData {
 
-    public void write(int id) {
+    public void write() {
 
     Scanner dataInput = new Scanner(System.in);
 
@@ -20,81 +20,99 @@ public class WriteData {
             JSONArray array = (JSONArray) parser.parse(new FileReader("dataBasePlaces.json"));
 
 
+            for(Object obj : array) {
+                JSONObject tempObj = (JSONObject) obj;
+                Long id = (Long)((JSONObject) obj).get("ID");
+                System.out.println(tempObj);
+            }
+
+            for(int i = 0; i < 2;i++ ) {
+                System.out.println("Input ID: ");
+                int dataId = dataInput.nextInt();
+                for (Object obj : array) {
+                    JSONObject tempObj = (JSONObject) obj;
+                    Long id = (Long) ((JSONObject) obj).get("ID");
+                    if(dataId == id) {
+                        System.out.println("ID reserved, try again");
+                        i--;
+                        continue;
+                    }
+                }
 
 
-
-        object.put("ID", id);
-
-
-        System.out.println("Input name: ");
-        String dataCollector = dataInput.nextLine();
-        object.put("Name", dataCollector);
-
-        System.out.println("Input type: ");
-        dataCollector = dataInput.nextLine();
-        object.put("type", dataCollector);
-
-        System.out.println("Input description: ");
-        dataCollector = dataInput.nextLine();
-        object.put("description", dataCollector);
-
-        //set opening hours
-        System.out.println("Input opening hours: ");
-        JSONArray openingHours = new JSONArray();
-        JSONObject day = new JSONObject();
-        String nextDay;
-
-        System.out.println("Monday: ");
-        nextDay = dataInput.nextLine();
-        day.put("Monday", nextDay);
-
-        System.out.println("Tuesday: ");
-        nextDay = dataInput.nextLine();
-        day.put("Tuesday", nextDay);
-
-        System.out.println("Wednesday: ");
-        nextDay = dataInput.nextLine();
-        day.put("Wednesday", nextDay);
-
-        System.out.println("Thursday: ");
-        nextDay = dataInput.nextLine();
-        day.put("Thursday", nextDay);
-
-        System.out.println("Friday: ");
-        nextDay = dataInput.nextLine();
-        day.put("Friday", nextDay);
-
-        System.out.println("Saturday: ");
-        nextDay = dataInput.nextLine();
-        day.put("Saturday", nextDay);
-
-        System.out.println("Sunday: ");
-        nextDay = dataInput.nextLine();
-        day.put("Sunday", nextDay);
+                object.put("ID", dataId);
+            }
 
 
-        openingHours.add(day);
-        object.put("Opening hours: ", openingHours);
+            System.out.println("Input name: ");
+            String dataCollector = dataInput.nextLine();
+            object.put("Name", dataCollector);
+
+            System.out.println("Input type: ");
+            dataCollector = dataInput.nextLine();
+            object.put("type", dataCollector);
+
+            System.out.println("Input description: ");
+            dataCollector = dataInput.nextLine();
+            object.put("description", dataCollector);
+
+            //set opening hours
+            System.out.println("Input opening hours: ");
+            JSONArray openingHours = new JSONArray();
+            JSONObject day = new JSONObject();
+            String nextDay;
+
+            System.out.println("Monday: ");
+            nextDay = dataInput.nextLine();
+            day.put("Monday", nextDay);
+
+            System.out.println("Tuesday: ");
+            nextDay = dataInput.nextLine();
+            day.put("Tuesday", nextDay);
+
+            System.out.println("Wednesday: ");
+            nextDay = dataInput.nextLine();
+            day.put("Wednesday", nextDay);
+
+            System.out.println("Thursday: ");
+            nextDay = dataInput.nextLine();
+            day.put("Thursday", nextDay);
+
+            System.out.println("Friday: ");
+            nextDay = dataInput.nextLine();
+            day.put("Friday", nextDay);
+
+            System.out.println("Saturday: ");
+            nextDay = dataInput.nextLine();
+            day.put("Saturday", nextDay);
+
+            System.out.println("Sunday: ");
+            nextDay = dataInput.nextLine();
+            day.put("Sunday", nextDay);
 
 
-        //set prices
-        JSONArray prices = new JSONArray();
-        JSONObject priceCase = new JSONObject();
+            openingHours.add(day);
+            object.put("Opening hours: ", openingHours);
 
-        System.out.println("Input adults price: ");
-        String nextPrice = dataInput.nextLine();
-        priceCase.put("Adults price", nextPrice);
 
-        System.out.println("Input seniors price: ");
-        nextPrice = dataInput.nextLine();
-        priceCase.put("Seniors price", nextPrice);
+            //set prices
+            JSONArray prices = new JSONArray();
+            JSONObject priceCase = new JSONObject();
 
-        System.out.println("Input kids price: ");
-        nextPrice = dataInput.nextLine();
-        priceCase.put("kids price", nextPrice);
+            System.out.println("Input adults price: ");
+            String nextPrice = dataInput.nextLine();
+            priceCase.put("Adults price", nextPrice);
 
-        prices.add(priceCase);
-        object.put("Price list", prices);
+            System.out.println("Input seniors price: ");
+            nextPrice = dataInput.nextLine();
+            priceCase.put("Seniors price", nextPrice);
+
+            System.out.println("Input kids price: ");
+            nextPrice = dataInput.nextLine();
+            priceCase.put("kids price", nextPrice);
+
+            prices.add(priceCase);
+            object.put("Price list", prices);
 
 
         //set location data

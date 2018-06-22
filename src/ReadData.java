@@ -7,12 +7,12 @@ public class ReadData {
     public static void main(String[] args) {
 
 
-            //Poniższe wczytuje tablicę z pliku
+            //read array from file
             try {
                 JSONParser parser = new JSONParser();
                 JSONArray array = (JSONArray) parser.parse(new FileReader("dataBasePlaces.json"));
 
-                //Poniższe wyciąga obiekty z tablicy
+                //take out objects from array
                 for(Object obj : array) {
                     JSONObject tempObj = (JSONObject) obj;
                     System.out.println(tempObj);
