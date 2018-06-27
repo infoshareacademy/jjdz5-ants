@@ -7,4 +7,7 @@ public class Rating {
         very_poor, poor, neutral, good, very_good
     }
     private Map<String, Integer> Grades = new HashMap<String, Integer>();
+    private double avarageUserRating;
+    //private Array<Rating> usersRatings;
+    private double avarageCityRating;
 }
