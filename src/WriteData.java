@@ -26,7 +26,7 @@ public class WriteData {
                 System.out.println(tempObj);
             }
 
-            for(int i = 0; i < 2;i++ ) {
+            for(int i = 0; i < 1;i++ ) {
                 System.out.println("Input ID: ");
                 int dataId = dataInput.nextInt();
                 for (Object obj : array) {
@@ -44,17 +44,18 @@ public class WriteData {
             }
 
 
+            dataInput = new Scanner(System.in);
             System.out.println("Input name: ");
-            String dataCollector = dataInput.nextLine();
-            object.put("Name", dataCollector);
+            String dataCollector1 = dataInput.nextLine();
+            object.put("Name", dataCollector1);
 
             System.out.println("Input type: ");
-            dataCollector = dataInput.nextLine();
-            object.put("type", dataCollector);
+            String dataCollector2 = dataInput.nextLine();
+            object.put("type", dataCollector2);
 
             System.out.println("Input description: ");
-            dataCollector = dataInput.nextLine();
-            object.put("description", dataCollector);
+            String dataCollector3 = dataInput.nextLine();
+            object.put("description", dataCollector3);
 
             //set opening hours
             System.out.println("Input opening hours: ");
@@ -117,24 +118,24 @@ public class WriteData {
 
         //set location data
         System.out.println("Input city: ");
-        dataCollector = dataInput.nextLine();
-        object.put("City", dataCollector);
+        String dataCollector4 = dataInput.nextLine();
+        object.put("City", dataCollector4);
 
         System.out.println("Input district: ");
-        dataCollector = dataInput.nextLine();
-        object.put("District", dataCollector);
+        String dataCollector5 = dataInput.nextLine();
+        object.put("District", dataCollector5);
 
         System.out.println("Input street: ");
-        dataCollector = dataInput.nextLine();
-        object.put("Street", dataCollector);
+        String dataCollector6 = dataInput.nextLine();
+        object.put("Street", dataCollector6);
 
         System.out.println("Input building number: ");
-        dataCollector = dataInput.nextLine();
-        object.put("Building number", dataCollector);
+        String dataCollector7 = dataInput.nextLine();
+        object.put("Building number", dataCollector7);
 
         System.out.println("Input apartment: ");
-        dataCollector = dataInput.nextLine();
-        object.put("Apartment", dataCollector);
+        String dataCollector8 = dataInput.nextLine();
+        object.put("Apartment", dataCollector8);
 
 
         //set GPS coordinates
