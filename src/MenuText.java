@@ -27,14 +27,6 @@ public class MenuText {
         System.out.println();
     }
 
-//    public void userMenuHead(){
-//        System.out.println();
-//        System.out.println("--------------------------");
-//        System.out.println("| USTAWIENIA UŻYTKOWNIKA |");
-//        System.out.println("--------------------------");
-//        System.out.println();
-//    }
-
 //  OPTIONS DESCRIPTION.
 
     public String getMainMenuInfo(){
@@ -66,18 +58,5 @@ public class MenuText {
                 "------------------------------------------------------------\n\n" +
                 "Wybór opcji: ";
     }
-
-//    public String getUserMenuInfo(){
-//        return  "----------------------------------\n" +
-//                "[1] - Ustawienia tras\n" +
-//                "[2] - Ustawienia wyszukiwania\n\n" +
-//                "[3] - Ustawienia konta\n" +
-//                "[4] - Ustawienia aplikacji\n\n" +
-//                "[5] - Przywróć ustawienia domyślne\n" +
-//                "----------------------------------\n" +
-//                "[0] - Powrót do menu głównego\n" +
-//                "----------------------------------\n\n" +
-//                "Wybór opcji: ";
-//    }
 
 }

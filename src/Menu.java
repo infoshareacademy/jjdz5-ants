@@ -31,11 +31,6 @@ public class Menu {
         optionSelector(3, menuText.getPlaceMenuInfo());
     }
 
-//    public void userMenuOptions(){
-//        selection = -1;
-//        optionSelector(1,5, menuText.getUserMenuInfo());
-//    }
-
 //--------------------------
 // OPTION SELECTOR MECHANICS
 //--------------------------
