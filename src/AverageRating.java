@@ -9,6 +9,13 @@ public class AverageRating {
 
         }
 
+        return count/x.size();
+    }
+
+
+
+    public void addAvRating(ArrayList x, Double y) {
+        x.add(y);
     }
 
 }

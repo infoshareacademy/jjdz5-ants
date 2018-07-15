@@ -4,6 +4,8 @@ import org.json.simple.parser.JSONParser;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class WriteData {
@@ -28,9 +30,8 @@ public class WriteData {
 
             for(int i = 0; i < 1;i++ ) {
                 System.out.println("Input ID: ");
-                int dataId = dataInput.nextInt();
+                 Long dataId = dataInput.nextLong();
                 for (Object obj : array) {
-                    JSONObject tempObj = (JSONObject) obj;
                     Long id = (Long) ((JSONObject) obj).get("ID");
                     if(dataId == id) {
                         System.out.println("ID reserved, try again");
@@ -42,6 +43,12 @@ public class WriteData {
 
                 object.put("ID", dataId);
             }
+
+            List<Double> average = new ArrayList<>();
+            average.add(3.24);
+            average.add(4.56);
+            average.add(2.13);
+            object.put("averageRating", average);
 
 
             dataInput = new Scanner(System.in);
