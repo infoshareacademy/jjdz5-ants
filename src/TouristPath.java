@@ -10,8 +10,11 @@ public class TouristPath {
     private Integer estimatedTimeOfTour; //in mins
     private String[] transportRequired; //list of recommended vehicles
     private  PlaceOfInterest[] listOfAttractions;
-    private String touristPathsJSON;
 
+    public TouristPath(Integer touristPathId, String touristPathName) {
+        this.touristPathId = touristPathId;
+        this.touristPathName = touristPathName;
+    }
 
     public void displayTouristPath(List<TouristPath> touristPath){
         try {
