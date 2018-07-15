@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class SoutWriter {
 
     public void sout(String x) {
@@ -24,6 +26,22 @@ public class SoutWriter {
             }
             return null;
         }
+
+
+
+
+        public String soutString(String x) {
+            Scanner scan = new Scanner(System.in);
+            System.out.println(x);
+            return scan.nextLine();
+        }
+
+    public int soutInt(String x) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println(x);
+        return scan.nextInt();
+    }
+
     }
 
 
