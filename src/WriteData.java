@@ -45,9 +45,6 @@ public class WriteData {
             }
 
             List<Double> average = new ArrayList<>();
-            average.add(3.24);
-            average.add(4.56);
-            average.add(2.13);
             object.put("averageRating", average);
 
 
