@@ -7,6 +7,40 @@ public class Location {
     private String buildingNumber;
     private String apartmentNumber;
 
+    public Location(double[] coordinates, String country, String city, String district) {
+        this.coordinates = coordinates;
+        this.country = country;
+        this.city = city;
+        this.district = district;
+    }
+
+    public Location(double[] coordinates, String country, String city, String district, String streetName) {
+        this.coordinates = coordinates;
+        this.country = country;
+        this.city = city;
+        this.district = district;
+        this.streetName = streetName;
+    }
+
+    public Location(double[] coordinates, String country, String city, String district, String streetName, String buildingNumber) {
+        this.coordinates = coordinates;
+        this.country = country;
+        this.city = city;
+        this.district = district;
+        this.streetName = streetName;
+        this.buildingNumber = buildingNumber;
+    }
+
+    public Location(double[] coordinates, String country, String city, String district, String streetName, String buildingNumber, String apartmentNumber) {
+        this.coordinates = coordinates;
+        this.country = country;
+        this.city = city;
+        this.district = district;
+        this.streetName = streetName;
+        this.buildingNumber = buildingNumber;
+        this.apartmentNumber = apartmentNumber;
+    }
+
     public double[] getCoordinates() {
         return coordinates;
     }

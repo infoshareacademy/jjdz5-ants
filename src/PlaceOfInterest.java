@@ -8,6 +8,13 @@ public class PlaceOfInterest {
     private Location location;
     private float price;
 
+    public PlaceOfInterest(Integer id, String type, Location location, float price) {
+        this.id = id;
+        this.type = type;
+        this.location = location;
+        this.price = price;
+    }
+
     public Integer getId() {
         return id;
     }
