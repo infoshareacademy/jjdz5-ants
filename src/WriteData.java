@@ -15,7 +15,8 @@ public class WriteData {
     Scanner dataInput = new Scanner(System.in);
 
     JSONObject object = new JSONObject();
-    //JSONArray array = new JSONArray();
+    SoutWriter read = new SoutWriter();
+
 
         try {
             JSONParser parser = new JSONParser();
@@ -53,10 +54,13 @@ public class WriteData {
             String dataCollector1 = dataInput.nextLine();
             object.put("Name", dataCollector1);
 
-            System.out.println("Input type: ");
-            String dataCollector2 = dataInput.nextLine();
-            object.put("type", dataCollector2);
+            read.sout("Input type, choose from list below:");
+            read.enumSout();
+            int dataCollector2 = dataInput.nextInt();
+            PlaceOfInterestType choice = read.typeChoice(dataCollector2);
+            object.put("type", choice);
 
+            dataInput = new Scanner(System.in);
             System.out.println("Input description: ");
             String dataCollector3 = dataInput.nextLine();
             object.put("description", dataCollector3);
