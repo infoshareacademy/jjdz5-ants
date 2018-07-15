@@ -13,7 +13,9 @@ public class SoutWriter {
 
 
 
-    public PlaceOfInterestType typeChoice(int type) {
+
+
+        public PlaceOfInterestType typeChoice ( int type){
         switch (type) {
             case 1:
                 return PlaceOfInterestType.CASTLE;
@@ -25,9 +27,12 @@ public class SoutWriter {
                 return PlaceOfInterestType.MUSEUM;
             case 5:
                 return PlaceOfInterestType.PARK;
-            }
-            return null;
+            default:
+
         }
+
+        return null;
+    }
 
 
 

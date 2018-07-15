@@ -40,7 +40,7 @@ public class WriteData {
                         for (Object obj : array) {
                             Long id = (Long) ((JSONObject) obj).get("ID");
                             if (dataId == id) {
-                                System.out.println("ID reserved, try again");
+                                System.out.println("ID zarezerwowane, spróbuj ponownie");
                                 i--;
                                 continue;
                             }
@@ -56,26 +56,39 @@ public class WriteData {
                 }
             }
             while(flag == true);
+
+
             List<Double> average = new ArrayList<>();
             object.put("averageRating", average);
 
 
 
-            String dataCollector1 = read.soutString("Input name: ");
+            String dataCollector1 = read.soutString("Wprowadź nazwę: ");
             object.put("Name", dataCollector1);
 
-            read.sout("Input type, choose from list below:");
-            read.enumSout();
-            int dataCollector2 = dataInput.nextInt();
-            PlaceOfInterestType choice = read.typeChoice(dataCollector2);
-            object.put("type", choice.name());
+            flag = true;
+            do {
+                try {
+                    read.sout("Wybierz typ z poniższej listy:");
+                    read.enumSout();
+                    dataInput = new Scanner(System.in);
+                    int dataCollector2 = dataInput.nextInt();
+                    PlaceOfInterestType choice = read.typeChoice(dataCollector2);
+                    object.put("type", choice.name());
+                    flag = false;
+                } catch (InputMismatchException | NullPointerException exc) {
+                    read.sout("Niewłaściwy wybór");
+                }
+            }
+            while(flag == true);
+
 
 
             dataCollector1 = read.soutString("Input description: ");
             object.put("description", dataCollector1);
 
             //set opening hours
-            read.sout("Input opening hours: ");
+            read.sout("Wprowadź godziny otwarcia: ");
             JSONArray openingHours = new JSONArray();
             JSONObject day = new JSONObject();
             String nextDay;
@@ -136,24 +149,61 @@ public class WriteData {
         dataCollector1 = read.soutString("Podaj ulicę: ");
         object.put("Street", dataCollector1);
 
-        dataCollector2 = read.soutInt("Podaj numer budynku: ");
-        object.put("Building number", dataCollector2);
+        do {
+            try {
+                int dataCollector2 = read.soutInt("Podaj numer budynku: ");
+                object.put("Building number", dataCollector2);
+                flag = true;
+            } catch (InputMismatchException exc) {
+                System.out.println("Proszę wprowadzić liczbę całkowitą");
+            }
+        }
+        while(flag == false);
 
-        dataCollector2 = read.soutInt("Podaj numer mieszkania: ");
-        object.put("Apartment", dataCollector2);
+
+        do {
+            try {
+                int dataCollector2 = read.soutInt("Podaj numer mieszkania: ");
+                object.put("Apartment", dataCollector2);
+                flag = false;
+            } catch (InputMismatchException exc) {
+                System.out.println("Proszę wprowadzić liczbę całkowitą");
+            }
+        }
+        while(flag == true);
 
 
         //set GPS coordinates
         JSONArray gps = new JSONArray();
         JSONObject longLat = new JSONObject();
 
-        System.out.println("Input latitude: ");
-        double dataGps = dataInput.nextDouble();
-        longLat.put("Latitude", dataGps);
+        do {
+            try {
+                dataInput = new Scanner(System.in);
+                System.out.println("Wprowadź szerokość geograficzną (xx,yyyyyy): ");
+                double dataGps = dataInput.nextDouble();
+                longLat.put("Latitude", dataGps);
+                flag = true;
+            }
+            catch(InputMismatchException exc) {
+                System.out.println("Niewłaściwy format danych, spróbuj ponownie");
+            }
+        }
+        while(flag == false);
 
-        System.out.println("Input longitude: ");
-        dataGps = dataInput.nextDouble();
-        longLat.put("Longitude", dataGps);
+            do {
+                try {
+                    dataInput = new Scanner(System.in);
+                    System.out.println("Wprowadź długość geograficzną (xx,yyyyyy): ");
+                double dataGps = dataInput.nextDouble();
+                longLat.put("Longitude", dataGps);
+                flag = false;
+            }
+            catch(InputMismatchException exc) {
+                System.out.println("Niewłaściwy format danych, spróbuj ponownie");
+            }
+        }
+        while(flag == true);
 
         gps.add(longLat);
         object.put("GPS coordinates", gps);

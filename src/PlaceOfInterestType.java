@@ -3,5 +3,6 @@ public enum PlaceOfInterestType {
     CHURCH,
     MUSEUM,
     PARK,
-    MONUMENT
+    MONUMENT,
+    WRONG
 }
