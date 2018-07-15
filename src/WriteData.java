@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,29 +23,39 @@ public class WriteData {
             JSONParser parser = new JSONParser();
             JSONArray array = (JSONArray) parser.parse(new FileReader("dataBasePlaces.json"));
 
-
-            for(Object obj : array) {
+            //just for tests only:
+            for (Object obj : array) {
                 JSONObject tempObj = (JSONObject) obj;
-                Long id = (Long)((JSONObject) obj).get("ID");
                 System.out.println(tempObj);
             }
 
-            for(int i = 0; i < 1;i++ ) {
-                System.out.println("Input ID: ");
-                 Long dataId = dataInput.nextLong();
-                for (Object obj : array) {
-                    Long id = (Long) ((JSONObject) obj).get("ID");
-                    if(dataId == id) {
-                        System.out.println("ID reserved, try again");
-                        i--;
-                        continue;
+            boolean flag = true;
+
+            do {
+                try {
+                    for (int i = 0; i < 1; i++) {
+                        read.sout("Input ID: ");
+                        Scanner dataInput2 = new Scanner(System.in);
+                        Long dataId = dataInput2.nextLong();
+                        for (Object obj : array) {
+                            Long id = (Long) ((JSONObject) obj).get("ID");
+                            if (dataId == id) {
+                                System.out.println("ID reserved, try again");
+                                i--;
+                                continue;
+                            }
+                        }
+
+
+                        object.put("ID", dataId);
+                        flag = false;
                     }
+                } catch (InputMismatchException exc) {
+                    read.sout("Wprowadziłeś niewłaściwy typ danych, spróbuj ponownie: ");
+                    flag = true;
                 }
-
-
-                object.put("ID", dataId);
             }
-
+            while(flag == true);
             List<Double> average = new ArrayList<>();
             object.put("averageRating", average);
 
