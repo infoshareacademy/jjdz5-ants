@@ -49,54 +49,47 @@ public class WriteData {
             object.put("averageRating", average);
 
 
-            dataInput = new Scanner(System.in);
-            System.out.println("Input name: ");
-            String dataCollector1 = dataInput.nextLine();
+
+            String dataCollector1 = read.soutString("Input name: ");
             object.put("Name", dataCollector1);
 
             read.sout("Input type, choose from list below:");
             read.enumSout();
             int dataCollector2 = dataInput.nextInt();
             PlaceOfInterestType choice = read.typeChoice(dataCollector2);
-            object.put("type", choice);
+            object.put("type", choice.name());
 
-            dataInput = new Scanner(System.in);
-            System.out.println("Input description: ");
-            String dataCollector3 = dataInput.nextLine();
-            object.put("description", dataCollector3);
+
+            dataCollector1 = read.soutString("Input description: ");
+            object.put("description", dataCollector1);
 
             //set opening hours
-            System.out.println("Input opening hours: ");
+            read.sout("Input opening hours: ");
             JSONArray openingHours = new JSONArray();
             JSONObject day = new JSONObject();
             String nextDay;
 
-            System.out.println("Monday: ");
-            nextDay = dataInput.nextLine();
+
+            nextDay = read.soutString("Poniedziałek: ");
             day.put("Monday", nextDay);
 
-            System.out.println("Tuesday: ");
-            nextDay = dataInput.nextLine();
+
+            nextDay = read.soutString("Wtorek: ");
             day.put("Tuesday", nextDay);
 
-            System.out.println("Wednesday: ");
-            nextDay = dataInput.nextLine();
+            nextDay = read.soutString("Środa: ");
             day.put("Wednesday", nextDay);
 
-            System.out.println("Thursday: ");
-            nextDay = dataInput.nextLine();
+            nextDay = read.soutString("Czwartek: ");
             day.put("Thursday", nextDay);
 
-            System.out.println("Friday: ");
-            nextDay = dataInput.nextLine();
+            nextDay = read.soutString("Piątek: ");
             day.put("Friday", nextDay);
 
-            System.out.println("Saturday: ");
-            nextDay = dataInput.nextLine();
+            nextDay = read.soutString("Sobota: ");
             day.put("Saturday", nextDay);
 
-            System.out.println("Sunday: ");
-            nextDay = dataInput.nextLine();
+            nextDay = read.soutString("Niedziela: ");
             day.put("Sunday", nextDay);
 
 
@@ -108,16 +101,13 @@ public class WriteData {
             JSONArray prices = new JSONArray();
             JSONObject priceCase = new JSONObject();
 
-            System.out.println("Input adults price: ");
-            String nextPrice = dataInput.nextLine();
+            String nextPrice = read.soutString("Podaj cenę biletu dla dorosłych: ");
             priceCase.put("Adults price", nextPrice);
 
-            System.out.println("Input seniors price: ");
-            nextPrice = dataInput.nextLine();
+            nextPrice = read.soutString("Podaj cenę biletu dla seniorów: ");
             priceCase.put("Seniors price", nextPrice);
 
-            System.out.println("Input kids price: ");
-            nextPrice = dataInput.nextLine();
+            nextPrice = read.soutString("Podaj cenę biletu dla dzieci: ");
             priceCase.put("kids price", nextPrice);
 
             prices.add(priceCase);
@@ -125,25 +115,21 @@ public class WriteData {
 
 
         //set location data
-        System.out.println("Input city: ");
-        String dataCollector4 = dataInput.nextLine();
-        object.put("City", dataCollector4);
 
-        System.out.println("Input district: ");
-        String dataCollector5 = dataInput.nextLine();
-        object.put("District", dataCollector5);
+        dataCollector1 = read.soutString("Podaj miato: ");
+        object.put("City", dataCollector1);
 
-        System.out.println("Input street: ");
-        String dataCollector6 = dataInput.nextLine();
-        object.put("Street", dataCollector6);
+        dataCollector1 = read.soutString("Podaj dzielnicę: ");
+        object.put("District", dataCollector1);
 
-        System.out.println("Input building number: ");
-        String dataCollector7 = dataInput.nextLine();
-        object.put("Building number", dataCollector7);
+        dataCollector1 = read.soutString("Podaj ulicę: ");
+        object.put("Street", dataCollector1);
 
-        System.out.println("Input apartment: ");
-        String dataCollector8 = dataInput.nextLine();
-        object.put("Apartment", dataCollector8);
+        dataCollector2 = read.soutInt("Podaj numer budynku: ");
+        object.put("Building number", dataCollector2);
+
+        dataCollector2 = read.soutInt("Podaj numer mieszkania: ");
+        object.put("Apartment", dataCollector2);
 
 
         //set GPS coordinates
