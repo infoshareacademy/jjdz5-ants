@@ -4,7 +4,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 
 public class ReadData {
-    public static void main(String[] args) {
+    public void dataRead() {
 
 
             //read array from file

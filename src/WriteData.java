@@ -34,7 +34,7 @@ public class WriteData {
             do {
                 try {
                     for (int i = 0; i < 1; i++) {
-                        read.sout("Input ID: ");
+                        read.sout("Wprowadź ID: ");
                         Scanner dataInput2 = new Scanner(System.in);
                         Long dataId = dataInput2.nextLong();
                         for (Object obj : array) {
@@ -84,7 +84,7 @@ public class WriteData {
 
 
 
-            dataCollector1 = read.soutString("Input description: ");
+            dataCollector1 = read.soutString("Wprowadź opis obiektu: ");
             object.put("description", dataCollector1);
 
             //set opening hours
@@ -140,7 +140,7 @@ public class WriteData {
 
         //set location data
 
-        dataCollector1 = read.soutString("Podaj miato: ");
+        dataCollector1 = read.soutString("Podaj miasto: ");
         object.put("City", dataCollector1);
 
         dataCollector1 = read.soutString("Podaj dzielnicę: ");
