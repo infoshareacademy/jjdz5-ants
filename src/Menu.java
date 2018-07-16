@@ -31,9 +31,7 @@ public class Menu {
         optionSelector(3, menuText.getPlaceMenuInfo());
     }
 
-//--------------------------
 // OPTION SELECTOR MECHANICS
-//--------------------------
 
     private static void optionSelector(int max, String info){       // Option "0" always goes back / quit.
 
@@ -49,8 +47,7 @@ public class Menu {
                 System.out.println();
                 continue;
             }
-            if (selection == 0){ correctInput = true; }
-            else if (selection < 1 || selection > max){
+            if (selection < 0 || selection > max){
                 System.out.println();
                 System.out.println("WYBRANO NIEPRAWIDŁOWĄ OPCJĘ! Spróbuj ponownie.");
                 System.out.println();
@@ -59,9 +56,7 @@ public class Menu {
         }
     }
 
-//-------------------------
 // "ARE YOU SURE" MECHANICS
-//-------------------------
 
     private String yesNo;
     private boolean yesNoResult;
@@ -89,12 +84,10 @@ public class Menu {
 
             if (yesNo.equalsIgnoreCase("y")){
                 yesNoResult = true;
-                yesNo = "";
                 correctInput = true;
             }
             else if (yesNo.equalsIgnoreCase("n")){
                 yesNoResult = false;
-                yesNo = "";
                 correctInput = true;
             }
             else {
