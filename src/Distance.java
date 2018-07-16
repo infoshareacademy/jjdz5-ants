@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Distance {
 
-    public static void main(String[] args) {
+    public void distanceCounter() {
 
         Scanner input = new Scanner(System.in);
         System.out.print("Input the latitude of coordinate 1: ");

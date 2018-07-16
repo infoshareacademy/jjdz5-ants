@@ -149,6 +149,7 @@ public class WriteData {
         dataCollector1 = read.soutString("Podaj ulicę: ");
         object.put("Street", dataCollector1);
 
+        flag = false;
         do {
             try {
                 int dataCollector2 = read.soutInt("Podaj numer budynku: ");
@@ -161,16 +162,10 @@ public class WriteData {
         while(flag == false);
 
 
-        do {
-            try {
-                int dataCollector2 = read.soutInt("Podaj numer mieszkania: ");
-                object.put("Apartment", dataCollector2);
-                flag = false;
-            } catch (InputMismatchException exc) {
-                System.out.println("Proszę wprowadzić liczbę całkowitą");
-            }
-        }
-        while(flag == true);
+        String dataCollector2 = read.soutString("Podaj numer mieszkania: ");
+        object.put("Apartment", dataCollector2);
+
+
 
 
         //set GPS coordinates
