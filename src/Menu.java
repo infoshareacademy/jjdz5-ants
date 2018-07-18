@@ -31,6 +31,11 @@ public class Menu {
         optionSelector(3, menuText.getPlaceMenuInfo());
     }
 
+    public void placeMenuTypeOption(){
+        selection = -1;
+        optionSelector(6, menuText.getPlaceMenuTypeInfo());
+    }
+
 // OPTION SELECTOR MECHANICS
 
     private static void optionSelector(int max, String info){       // Option "0" always goes back / quit.

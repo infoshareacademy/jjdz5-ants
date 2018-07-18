@@ -59,4 +59,13 @@ public class MenuText {
                 "Wybór opcji: ";
     }
 
+    public String getPlaceMenuTypeInfo() {
+        return  "------------------------------------------------------------\n" +
+                "Dostępne kategorie:\n" + (new TypeSelector().getTypes()) +
+                "------------------------------------------------------------\n" +
+                "[0] - Powrót do menu atrakcji turystycznych\n" +
+                "------------------------------------------------------------\n\n" +
+                "Wybór opcji: ";
+    }
+
 }
