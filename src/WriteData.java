@@ -18,18 +18,10 @@ public class WriteData {
     JSONObject object = new JSONObject();
     SoutWriter read = new SoutWriter();
 
-
         try {
             JSONParser parser = new JSONParser();
             JSONArray array = (JSONArray) parser.parse(new FileReader("dataBasePlaces.json"));
-
-            //just for tests only:
-            for (Object obj : array) {
-                JSONObject tempObj = (JSONObject) obj;
-                System.out.println(tempObj);
-            }
-
-            boolean flag = true;
+             boolean flag = true;
 
             do {
                 try {
@@ -45,8 +37,6 @@ public class WriteData {
                                 continue;
                             }
                         }
-
-
                         object.put("ID", dataId);
                         flag = false;
                     }
@@ -57,11 +47,8 @@ public class WriteData {
             }
             while(flag == true);
 
-
             List<Double> average = new ArrayList<>();
             object.put("averageRating", average);
-
-
 
             String dataCollector1 = read.soutString("Wprowadź nazwę: ");
             object.put("Name", dataCollector1);
@@ -82,8 +69,6 @@ public class WriteData {
             }
             while(flag == true);
 
-
-
             dataCollector1 = read.soutString("Wprowadź opis obiektu: ");
             object.put("description", dataCollector1);
 
@@ -93,10 +78,8 @@ public class WriteData {
             JSONObject day = new JSONObject();
             String nextDay;
 
-
             nextDay = read.soutString("Poniedziałek: ");
             day.put("Monday", nextDay);
-
 
             nextDay = read.soutString("Wtorek: ");
             day.put("Tuesday", nextDay);
@@ -116,10 +99,8 @@ public class WriteData {
             nextDay = read.soutString("Niedziela: ");
             day.put("Sunday", nextDay);
 
-
             openingHours.add(day);
             object.put("Opening hours: ", openingHours);
-
 
             //set prices
             JSONArray prices = new JSONArray();
@@ -137,9 +118,7 @@ public class WriteData {
             prices.add(priceCase);
             object.put("Price list", prices);
 
-
         //set location data
-
         dataCollector1 = read.soutString("Podaj miasto: ");
         object.put("City", dataCollector1);
 
@@ -161,12 +140,8 @@ public class WriteData {
         }
         while(flag == false);
 
-
         String dataCollector2 = read.soutString("Podaj numer mieszkania: ");
         object.put("Apartment", dataCollector2);
-
-
-
 
         //set GPS coordinates
         JSONArray gps = new JSONArray();
@@ -212,15 +187,12 @@ public class WriteData {
             writeObject.write(array.toJSONString());
             writeObject.close();
 
-
         }
         catch(java.io.IOException exc) {
             System.out.println("EOFException");
         }
-
         } catch (java.io.IOException | org.json.simple.parser.ParseException exc) {
             exc.printStackTrace();
         }
     }
-
 }

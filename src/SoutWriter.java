@@ -1,19 +1,12 @@
 import java.util.Scanner;
 
 public class SoutWriter {
-
     public void sout(String x) {
         System.out.println(x);
     }
-
-
     public void enumSout() {
         System.out.println("1.  CASTLE\n2.  CHURCH\n3.  MONUMENT\n4.  MUSEUM\n5.  PARK");
     }
-
-
-
-
 
         public PlaceOfInterestType typeChoice ( int type){
         switch (type) {
@@ -28,14 +21,9 @@ public class SoutWriter {
             case 5:
                 return PlaceOfInterestType.PARK;
             default:
-
         }
-
         return null;
     }
-
-
-
 
         public String soutString(String x) {
             Scanner scan = new Scanner(System.in);
@@ -48,7 +36,6 @@ public class SoutWriter {
         System.out.println(x);
         return scan.nextInt();
     }
-
-    }
+}
 
 
