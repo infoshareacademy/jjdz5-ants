@@ -1,10 +1,28 @@
 import org.json.simple.JSONArray;
 
+import java.util.ArrayList;
+
 public class AverageRating {
 
     private ReadData reader = new ReadData();
     private TextFormat txt = new TextFormat();
     private JSONArray array = new PlacesAccess().getCorrectPlacesArray();
+
+//  CODE FROM Feature/JZAN-2
+
+    public Double avRating(ArrayList rating) {
+        Double count = 0.00;
+        for(int i = 0; i < rating.size(); i ++) {
+            count += (Double) rating.get(i);
+        }
+        return count/rating.size();
+    }
+
+    public void addAvRating(ArrayList x, Double newRating) {
+        x.add(newRating);
+    }
+
+//  CODE FROM Feature/JZAN-5
 
 //  PRINTING INFO.
 
