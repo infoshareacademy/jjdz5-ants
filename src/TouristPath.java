@@ -16,7 +16,7 @@ public class TouristPath {
         this.touristPathName = touristPathName;
     }
 
-    public void displayTouristPath(List<TouristPath> touristPath){
+    public void displayTouristPath(TouristPath touristPath){
         try {
             System.out.println("Trasy:");
             for(PlaceOfInterest placeOfInterest: listOfAttractions){
@@ -27,9 +27,9 @@ public class TouristPath {
         }
     }
 
-    public void displayAllTouristPaths(List<TouristPath> touristPathsNames){
+    public void displayAllTouristPaths(List<TouristPath> touristPaths){
         try{
-            for(TouristPath touristPathName: touristPathsNames){
+            for(TouristPath touristPathName: touristPaths){
                 System.out.format("%s", touristPathName.touristPathName);
             }
         } catch (Exception e) {
