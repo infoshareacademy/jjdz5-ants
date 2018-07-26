@@ -11,17 +11,19 @@ import java.util.Scanner;
 
 public class WriteData {
 
+//  CODE FROM Feature/JZAN-2
+
     public void write() {
 
-    Scanner dataInput = new Scanner(System.in);
+        Scanner dataInput = new Scanner(System.in);
 
-    JSONObject object = new JSONObject();
-    SoutWriter read = new SoutWriter();
+        JSONObject object = new JSONObject();
+        SoutWriter read = new SoutWriter();
 
         try {
             JSONParser parser = new JSONParser();
             JSONArray array = (JSONArray) parser.parse(new FileReader("dataBasePlaces.json"));
-             boolean flag = true;
+            boolean flag = true;
 
             do {
                 try {
@@ -118,81 +120,95 @@ public class WriteData {
             prices.add(priceCase);
             object.put("Price list", prices);
 
-        //set location data
-        dataCollector1 = read.soutString("Podaj miasto: ");
-        object.put("City", dataCollector1);
+            //set location data
+            dataCollector1 = read.soutString("Podaj miasto: ");
+            object.put("City", dataCollector1);
 
-        dataCollector1 = read.soutString("Podaj dzielnicę: ");
-        object.put("District", dataCollector1);
+            dataCollector1 = read.soutString("Podaj dzielnicę: ");
+            object.put("District", dataCollector1);
 
-        dataCollector1 = read.soutString("Podaj ulicę: ");
-        object.put("Street", dataCollector1);
+            dataCollector1 = read.soutString("Podaj ulicę: ");
+            object.put("Street", dataCollector1);
 
-        flag = false;
-        do {
-            try {
-                int dataCollector2 = read.soutInt("Podaj numer budynku: ");
-                object.put("Building number", dataCollector2);
-                flag = true;
-            } catch (InputMismatchException exc) {
-                System.out.println("Proszę wprowadzić liczbę całkowitą");
+            flag = false;
+            do {
+                try {
+                    int dataCollector2 = read.soutInt("Podaj numer budynku: ");
+                    object.put("Building number", dataCollector2);
+                    flag = true;
+                } catch (InputMismatchException exc) {
+                    System.out.println("Proszę wprowadzić liczbę całkowitą");
+                }
             }
-        }
-        while(flag == false);
+            while(flag == false);
 
-        String dataCollector2 = read.soutString("Podaj numer mieszkania: ");
-        object.put("Apartment", dataCollector2);
+            String dataCollector2 = read.soutString("Podaj numer mieszkania: ");
+            object.put("Apartment", dataCollector2);
 
-        //set GPS coordinates
-        JSONArray gps = new JSONArray();
-        JSONObject longLat = new JSONObject();
+            //set GPS coordinates
+            JSONArray gps = new JSONArray();
+            JSONObject longLat = new JSONObject();
 
-        do {
-            try {
-                dataInput = new Scanner(System.in);
-                System.out.println("Wprowadź szerokość geograficzną (xx,yyyyyy): ");
-                double dataGps = dataInput.nextDouble();
-                longLat.put("Latitude", dataGps);
-                flag = true;
+            do {
+                try {
+                    dataInput = new Scanner(System.in);
+                    System.out.println("Wprowadź szerokość geograficzną (xx,yyyyyy): ");
+                    double dataGps = dataInput.nextDouble();
+                    longLat.put("Latitude", dataGps);
+                    flag = true;
+                }
+                catch(InputMismatchException exc) {
+                    System.out.println("Niewłaściwy format danych, spróbuj ponownie");
+                }
             }
-            catch(InputMismatchException exc) {
-                System.out.println("Niewłaściwy format danych, spróbuj ponownie");
-            }
-        }
-        while(flag == false);
+            while(flag == false);
 
             do {
                 try {
                     dataInput = new Scanner(System.in);
                     System.out.println("Wprowadź długość geograficzną (xx,yyyyyy): ");
-                double dataGps = dataInput.nextDouble();
-                longLat.put("Longitude", dataGps);
-                flag = false;
+                    double dataGps = dataInput.nextDouble();
+                    longLat.put("Longitude", dataGps);
+                    flag = false;
+                }
+                catch(InputMismatchException exc) {
+                    System.out.println("Niewłaściwy format danych, spróbuj ponownie");
+                }
             }
-            catch(InputMismatchException exc) {
-                System.out.println("Niewłaściwy format danych, spróbuj ponownie");
+            while(flag == true);
+
+            gps.add(longLat);
+            object.put("GPS coordinates", gps);
+            array.add(object);
+
+            try {
+                File dataBasePlaces = new File("dataBasePlaces.json");
+                dataBasePlaces.createNewFile();
+
+                FileWriter writeObject = new FileWriter(dataBasePlaces);
+                writeObject.write(array.toJSONString());
+                writeObject.close();
+
             }
-        }
-        while(flag == true);
-
-        gps.add(longLat);
-        object.put("GPS coordinates", gps);
-        array.add(object);
-
-        try {
-            File dataBasePlaces = new File("dataBasePlaces.json");
-            dataBasePlaces.createNewFile();
-
-            FileWriter writeObject = new FileWriter(dataBasePlaces);
-            writeObject.write(array.toJSONString());
-            writeObject.close();
-
-        }
-        catch(java.io.IOException exc) {
-            System.out.println("EOFException");
-        }
+            catch(java.io.IOException exc) {
+                System.out.println("EOFException");
+            }
         } catch (java.io.IOException | org.json.simple.parser.ParseException exc) {
             exc.printStackTrace();
         }
     }
+
+//  CODE FROM Feature/JZAN-5
+
+    public void WriteJSONArray(JSONArray array, String FILEPATH) {
+        try {
+            FileWriter updateArray = new FileWriter(new File(FILEPATH));
+            updateArray.write(array.toJSONString());
+            updateArray.close();
+        }
+        catch (java.io.IOException e) {
+            System.out.println("\nBŁĄD AKTUALIZACJI PLIKU: \"" + FILEPATH + "\"!\n");
+        }
+    }
+
 }
