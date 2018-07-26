@@ -8,7 +8,7 @@ public class SoutWriter {
         System.out.println("1.  CASTLE\n2.  CHURCH\n3.  MONUMENT\n4.  MUSEUM\n5.  PARK");
     }
 
-        public PlaceOfInterestType typeChoice (int type){
+    public PlaceOfInterestType typeChoice (int type){
         switch (type) {
             case 1:
                 return PlaceOfInterestType.CASTLE;
@@ -37,5 +37,3 @@ public class SoutWriter {
         return scan.nextInt();
     }
 }
-
-
