@@ -48,4 +48,10 @@ public class AverageRating {
         return reader.getSubJSONArray(array,index,"averageRating").size();
     }
 
+    public void addSingleRating(int index, int ratingValue) {
+        JSONArray subArray = reader.getSubJSONArray(array,index,"averageRating");
+        subArray.add((double) ratingValue);
+        new WriteData().WriteJSONArray(array,new Configuration().getPlacesDB());
+    }
+
 }

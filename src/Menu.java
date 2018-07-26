@@ -28,12 +28,17 @@ public class Menu {
 
     public void placeMenuOptions(){
         selection = -1;
-        optionSelector(3, menuText.getPlaceMenuInfo());
+        optionSelector(6, menuText.getPlaceMenuInfo());
     }
 
     public void placeMenuTypeOption(){
         selection = -1;
         optionSelector(6, menuText.getPlaceMenuTypeInfo());
+    }
+
+    public void placeMenuRatingOption(){
+        selection = -1;
+        optionSelector(5, menuText.getPlaceMenuRatingInfo());
     }
 
 // OPTION SELECTOR MECHANICS
@@ -47,15 +52,11 @@ public class Menu {
             System.out.print(info);
             try{ selection = readInteger(); }
             catch(InputMismatchException e){
-                System.out.println();
-                System.out.println("WYBRANO NIEPRAWIDŁOWĄ OPCJĘ! Spróbuj ponownie.");
-                System.out.println();
+                System.out.println("\nWYBRANO NIEPRAWIDŁOWĄ OPCJĘ! Spróbuj ponownie.\n");
                 continue;
             }
             if (selection < 0 || selection > max){
-                System.out.println();
-                System.out.println("WYBRANO NIEPRAWIDŁOWĄ OPCJĘ! Spróbuj ponownie.");
-                System.out.println();
+                System.out.println("\nWYBRANO NIEPRAWIDŁOWĄ OPCJĘ! Spróbuj ponownie.\n");
             }
             else { correctInput = true; }
         }
@@ -81,9 +82,7 @@ public class Menu {
 
             try{ yesNo = readString(); }
             catch(InputMismatchException e){
-                System.out.println();
-                System.out.println("WYBRANO NIEPRAWIDŁOWĄ OPCJĘ! Spróbuj ponownie.");
-                System.out.println();
+                System.out.println("\nWYBRANO NIEPRAWIDŁOWĄ OPCJĘ! Spróbuj ponownie.\n");
                 continue;
             }
 
@@ -96,11 +95,25 @@ public class Menu {
                 correctInput = true;
             }
             else {
-                System.out.println();
-                System.out.println("WYBRANO NIEPRAWIDŁOWĄ OPCJĘ! Spróbuj ponownie.");
-                System.out.println();
+                System.out.println("\nWYBRANO NIEPRAWIDŁOWĄ OPCJĘ! Spróbuj ponownie.\n");
             }
         }
+    }
+
+    public int idTyping(IDType idType){
+        int idTyped = -1;
+        while(idTyped < 0) {
+            System.out.print("\nPodaj numer #ID " + idType.toString() + " (liczbę całkowitą dodatnią): ");
+            try { idTyped = readInteger(); }
+            catch (InputMismatchException e) {
+                System.out.println("\nWprowadzono nieprawidłowy format!");
+                continue;
+            }
+            if (idTyped < 0){
+                System.out.println("\nProszę wprowadzić liczbę całkowitą DODATNIĄ.");
+            }
+        }
+        return idTyped;
     }
 
 }

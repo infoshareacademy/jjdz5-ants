@@ -13,8 +13,12 @@ public class TextFormat {
     public String ratingValue(Double d){ return new DecimalFormat("0.00").format(d); }
 
     public String capitalize(String s){
-        String trimmedS = s.trim();
-        return trimmedS.substring(0,1).toUpperCase() + trimmedS.substring(1);
+            String trimmedS = s.trim();
+            try {
+                return trimmedS.substring(0, 1).toUpperCase() + trimmedS.substring(1);
+            }
+            catch (StringIndexOutOfBoundsException e) { return ""; }
+
     }
 
     public void separator(){

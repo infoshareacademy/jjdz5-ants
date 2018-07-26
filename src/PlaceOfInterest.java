@@ -7,17 +7,13 @@ public class PlaceOfInterest{
     private TextFormat txt = new TextFormat();
     private Location loc = new Location();
     private AverageRating rating = new AverageRating();
-    private JSONArray array;
-
-    public void setArray(JSONArray array) {
-        this.array = array;
-    }
+    private JSONArray array = new PlacesAccess().getCorrectPlacesArray();
 
     //  PRINTING INFO.
 
     public void printAllPlaces(){
-        for (Object o : array) {
-            printFullInfo(array.indexOf(o));
+        for (Object object : array) {
+            printFullInfo(array.indexOf(object));
         }
     }
 
@@ -39,6 +35,21 @@ public class PlaceOfInterest{
         }
     }
 
+    public void printByID(int index){
+        try { printFullInfo(index); }
+        catch(IndexOutOfBoundsException e) {
+            System.out.println("Brak atrakcji turystycznej z podanym #ID.");
+        }
+    }
+
+    public void printSimpleList(){
+        txt.separator();
+        for (Object object : array){
+            System.out.println("#ID: " + getID(array.indexOf(object)) + "   -   Nazwa: " + getName(array.indexOf(object)));
+        }
+        txt.separator();
+    }
+
     public void printFullInfo(int index){
         printBasicInfo(index);
         loc.printAdress(index);
@@ -51,7 +62,7 @@ public class PlaceOfInterest{
 
     public void printBasicInfo(int index){
         txt.separator();
-        System.out.println("---|| " + getName(index).toUpperCase() + " ||---");
+        System.out.println("\n---|| " + getName(index).toUpperCase() + " ||---");
         txt.separator();
         System.out.println("ID obiektu: #" + getID(index) + " / " + index);
         System.out.println("Typ obiektu: " + getType(index).toString());

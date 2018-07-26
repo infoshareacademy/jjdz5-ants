@@ -1,7 +1,6 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -208,9 +207,7 @@ public class WriteData {
             updateArray.close();
         }
         catch (java.io.IOException e) {
-            System.out.println();
-            System.out.println("BŁĄD AKTUALIZACJI PLIKU: \"" + FILEPATH + "\"!");
-            System.out.println();
+            System.out.println("\nBŁĄD AKTUALIZACJI PLIKU: \"" + FILEPATH + "\"!\n");
         }
     }
 

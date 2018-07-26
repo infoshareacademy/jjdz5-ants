@@ -30,9 +30,7 @@ public class ReadData {
             return (JSONArray) jsonParser.parse(new FileReader(FILEPATH));
         }
         catch (java.io.IOException | org.json.simple.parser.ParseException exc) {
-            System.out.println();
-            System.out.println("BŁĄD ODCZYTU PLIKU: \"" + FILEPATH + "\"!");
-            System.out.println();
+            System.out.println("\nBŁĄD ODCZYTU PLIKU: \"" + FILEPATH + "\"!\n");
         }
         return null;
     }

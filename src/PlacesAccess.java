@@ -1,12 +1,13 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.awt.Menu;
-
 public class PlacesAccess {
 
     private String FILEPATH = new Configuration().getPlacesDB();
-    private JSONArray correctArray = correctPlacesArray(new ReadData().getJSONArray(FILEPATH));
+
+    public JSONArray getCorrectPlacesArray(){
+        return correctPlacesArray(new ReadData().getJSONArray(FILEPATH));
+    }
 
     private JSONArray correctPlacesArray(JSONArray array){
         boolean isCorrect = true;
@@ -14,8 +15,7 @@ public class PlacesAccess {
             array.sort(new IDComparator());
         }
         catch (ClassCastException e){
-            System.out.println();
-            System.out.println("Niestety lista atrakcji \"" + FILEPATH + "\", nie może zostać poprawnie wczytana.");
+            System.out.println("\nNiestety lista atrakcji \"" + FILEPATH + "\", nie może zostać poprawnie wczytana.");
             System.out.println("Powód:");
             isCorrect = false;
         }
@@ -37,15 +37,9 @@ public class PlacesAccess {
             return array;
         }
         else{
-            System.out.println();
-            System.out.println("Proszę naprawić bazę danych przed ponowną próbą.");
-            System.out.println();
+            System.out.println("\nProszę naprawić bazę danych przed ponowną próbą.\n");
             return null;
         }
-    }
-
-    public JSONArray getCorrectPlacesArray(){
-        return correctArray;
     }
 
 }
