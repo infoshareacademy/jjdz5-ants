@@ -8,8 +8,9 @@ public class PlaceOfInterest {
     private Location location;
     private float price;
 
-    public PlaceOfInterest(Integer id, String type, Location location, float price) {
+    public PlaceOfInterest(Integer id, String name, String type, Location location, float price) {
         this.id = id;
+        this.name = name;
         this.type = type;
         this.location = location;
         this.price = price;
