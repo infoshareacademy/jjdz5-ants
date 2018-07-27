@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class WriteData {
 
-    private static String readString(){
+    private String readString(){
         return new Scanner(System.in).nextLine();
     }
     private Long readLong() { return  new Scanner(System.in).nextLong(); }
@@ -19,6 +19,8 @@ public class WriteData {
     private Configuration cfg = new Configuration();
     private Menu menu = new Menu();
     private TextFormat txt = new TextFormat();
+    private Double overallDistance = 0.0;
+    private List<Double> distances = new ArrayList<>();
 
 //  CODE FROM Feature/JZAN-2
 
@@ -288,58 +290,115 @@ public class WriteData {
                         continue;
                     }
                 case 2:
-                    txt.separator();
-                    System.out.println("Aktualny stan listy oczekującej:\n");
-                    for (Long waitingID : places) {
-                        System.out.println("#ID: " + place.getID(Math.toIntExact(waitingID)) + "   -   Nazwa: " + place.getName(Math.toIntExact(waitingID)));
+                    placesWaitingListStatus(places,false);
+                    if (places.size() < 1) {
+                        break;
                     }
-                    txt.separator();
-                    int deleteID = menu.idTyping(IDType.PLACEOFINTEREST);
-                    int deleteIndex = -1;
-                    boolean isPresent = false;
-                    for (Long waitingID : places) {
-                        if (deleteID == waitingID) {
-                            deleteIndex = places.indexOf(waitingID);
-                            isPresent = true;
+                    else {
+                        int deleteID = menu.idTyping(IDType.PLACEOFINTEREST);
+                        int deleteIndex = -1;
+                        boolean isPresent = false;
+                        for (Long waitingID : places) {
+                            if (deleteID == waitingID) {
+                                deleteIndex = places.indexOf(waitingID);
+                                isPresent = true;
+                            }
+                        }
+                        if (isPresent) {
+                            menu.areYouSure("\nCzy jesteś pewien, że chcesz usunąć \"" + txt.capitalize(place.getName(deleteID)) + "\" z listy?");
+                            if (menu.getYesNoResult()) {
+                                places.remove(deleteIndex);
+                                System.out.println("\nUsunięto " + txt.capitalize(place.getName(deleteID)) + " z listy oczekującej.");
+                                break;
+                            } else {
+                                break;
+                            }
+                        } else {
+                            System.out.println("\nLista nie posiada miejsca o takim numerze #ID.");
+                            break;
                         }
                     }
-                    if (isPresent) {
-                        menu.areYouSure("\nCzy jesteś pewien, że chcesz usunąć \"" + txt.capitalize(place.getName(deleteID)) + " z listy?");
+                case 3:
+                    placesWaitingListStatus(places,false);
+                    break;
+                case 0:
+                    if (places.size() < 2){
+                        System.out.println("Nowa trasa turystyczna nie może zawierać mniej niż DWIE atrakcje!");
+                        break;
+                    }
+                    else {
+                        overallDistance = 0.0;
+                        distances.removeAll(distances);
+                        placesWaitingListStatus(places,true);
+                        Long placesQuantity = (long) places.size();
+                        System.out.println("Ilość atrakcji: " + placesQuantity);
+                        System.out.println("Dystans całej trasy: " + txt.distanceKM(overallDistance));
+                        System.out.println("Szacowany czas przejścia trasy: ???");
+                        menu.areYouSure("Czy chcesz dodać aktualną listę do nowej trasy turystycznej?");
                         if (menu.getYesNoResult()) {
-                            places.remove(deleteIndex);
-                            System.out.println("Usunięto " + txt.capitalize(place.getName(deleteID)) + " z listy oczekującej.");
+                            jsonObject.put("placesList", places);
+                            jsonObject.put("placesQuantity", placesQuantity);
+                            jsonObject.put("overallDistance", overallDistance);
+                            jsonObject.put("distancesList", distances);
+                            addingDone = true;
                             break;
                         }
                         else {
                             break;
                         }
                     }
-                    else {
-                        System.out.println("\nLista nie posiada miejsca o takim numerze #ID.");
-                        break;
-                    }
-                case 3:
-                    txt.separator();
-                    System.out.println("Aktualny stan listy oczekującej:\n");
-                    for (Long waitingID : places) {
-                        System.out.println("#ID: " + place.getID(Math.toIntExact(waitingID)) + "   -   Nazwa: " + place.getName(Math.toIntExact(waitingID)));
-                    }
-                    txt.separator();
+
             }
         }
 
+        // ADDING NAME
+
+        System.out.print("Podaj nazwę dla nowej trasy turystycznej: ");
+        jsonObject.put("routeName", readString());
+
         jsonArray.add(jsonObject);
         WriteJSONArray(jsonArray,cfg.getDefaultTR());
+
+        System.out.println("Trasa została dodana do pliku \"" + cfg.getDefaultTR() + "\".");
     }
 
-//    private void placesListStatus(ArrayList<Long> arrayList){
-//        txt.separator();
-//        System.out.println("Aktualny stan listy oczekującej: ");
-//        for (Object object : arrayList) {
-//            System.out.println("#ID: " + place.getID(Math.toIntExact((Long) object)) + "   -   Nazwa: " + place.getName(Math.toIntExact((Long) object)));
-//        }
-//        txt.separator();
-//    }
+    private void placesWaitingListStatus(List<Long> list, boolean isFinal){
+        if (list.size() > 0) {
+            PlaceOfInterest infoPlace = new PlaceOfInterest();
+            Location infoLocation = new Location();
+            List<Double> previousPosition = new ArrayList<>();
+            Distance dist = new Distance();
+            Double distance;
+            txt.separator();
+            System.out.println("Aktualny stan listy oczekującej:\n");
+            for (Long waitingID : list) {
+                Double currentLat = infoLocation.getCoordinate(Math.toIntExact(waitingID),"Latitude");
+                Double currentLong = infoLocation.getCoordinate(Math.toIntExact(waitingID),"Longitude");
+                try {
+                    distance = dist.distanceCounter(previousPosition.get(0), previousPosition.get(1), currentLat, currentLong);
+                }
+                catch (IndexOutOfBoundsException e) {
+                    distance = 0.0;
+                }
+                if (distance > 0.0) {
+                    System.out.println(" --- Dystans: " + txt.distanceKM(distance) + " --- ");
+                    if (isFinal) {
+                        distances.add(distance);
+                    }
+                }
+                System.out.println("#ID: " + infoPlace.getID(Math.toIntExact(waitingID)) + "   -   Nazwa: " + infoPlace.getName(Math.toIntExact(waitingID)));
+                overallDistance += distance;
+                previousPosition.removeAll(previousPosition);
+                previousPosition.add(currentLat);
+                previousPosition.add(currentLong);
+
+            }
+            txt.separator();
+        }
+        else {
+            System.out.println("\nLista narazie jest PUSTA.");
+        }
+    }
 
 //  CODE FROM Feature/JZAN-5
 

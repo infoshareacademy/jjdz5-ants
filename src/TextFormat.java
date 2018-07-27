@@ -10,6 +10,8 @@ public class TextFormat {
         return new DecimalFormat("0.0000").format(d);
     }
 
+    public String distanceKM(Double d) { return new DecimalFormat("0.000 km").format(d); }
+
     public String ratingValue(Double d){ return new DecimalFormat("0.00").format(d); }
 
     public String capitalize(String s){

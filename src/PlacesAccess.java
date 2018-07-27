@@ -3,19 +3,25 @@ import org.json.simple.JSONObject;
 
 public class PlacesAccess {
 
-    private String FILEPATH = new Configuration().getPlacesDB();
+    private Configuration cfg = new Configuration();
+    private String placesFP = cfg.getPlacesDB();
+    private String routesFP = cfg.getDefaultTR();
 
     public JSONArray getCorrectPlacesArray(){
-        return correctPlacesArray(new ReadData().getJSONArray(FILEPATH));
+        return correctArray(new ReadData().getJSONArray(placesFP), placesFP,"atrakcji \"" + placesFP + "\"");
     }
 
-    private JSONArray correctPlacesArray(JSONArray array){
+    public JSONArray getCorrectRoutesArray(){
+        return correctArray(new ReadData().getJSONArray(routesFP), routesFP,"tras \"" + routesFP + "\"");
+    }
+
+    private JSONArray correctArray(JSONArray array,String FILEPATH, String info){
         boolean isCorrect = true;
         try {
             array.sort(new IDComparator());
         }
         catch (ClassCastException e){
-            System.out.println("\nNiestety lista atrakcji \"" + FILEPATH + "\", nie może zostać poprawnie wczytana.");
+            System.out.println("\nNiestety lista " + info + ", nie może zostać poprawnie wczytana.");
             System.out.println("Powód:");
             isCorrect = false;
         }

@@ -9,7 +9,7 @@ public class PlaceOfInterest{
     private AverageRating rating = new AverageRating();
     private JSONArray array = new PlacesAccess().getCorrectPlacesArray();
 
-    //  PRINTING INFO.
+//  PRINTING INFO.
 
     public void printAllPlaces(){
         for (Object object : array) {
