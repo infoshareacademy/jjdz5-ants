@@ -5,7 +5,7 @@ public class Location{
 
     private ReadData reader = new ReadData();
     private TextFormat txt = new TextFormat();
-    private JSONArray array = new PlacesAccess().getCorrectPlacesArray();
+    private JSONArray array = new ArraysAccess().getCorrectPlacesArray();
 
 //  PRINTING INFO
 

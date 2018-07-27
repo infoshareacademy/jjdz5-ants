@@ -6,7 +6,7 @@ public class AverageRating {
 
     private ReadData reader = new ReadData();
     private TextFormat txt = new TextFormat();
-    private JSONArray array = new PlacesAccess().getCorrectPlacesArray();
+    private JSONArray array = new ArraysAccess().getCorrectPlacesArray();
 
 //  CODE FROM Feature/JZAN-2
 

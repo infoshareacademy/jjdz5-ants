@@ -1,7 +1,7 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class PlacesAccess {
+public class ArraysAccess {
 
     private Configuration cfg = new Configuration();
     private String placesFP = cfg.getPlacesDB();

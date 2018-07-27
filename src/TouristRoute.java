@@ -6,7 +6,7 @@ import java.util.List;
 public class TouristRoute {
 
     private ReadData reader = new ReadData();
-    private JSONArray array = new PlacesAccess().getCorrectRoutesArray();
+    private JSONArray array = new ArraysAccess().getCorrectRoutesArray();
     private PlaceOfInterest place = new PlaceOfInterest();
     private TextFormat txt = new TextFormat();
 

@@ -7,7 +7,7 @@ public class PlaceOfInterest{
     private TextFormat txt = new TextFormat();
     private Location loc = new Location();
     private AverageRating rating = new AverageRating();
-    private JSONArray array = new PlacesAccess().getCorrectPlacesArray();
+    private JSONArray array = new ArraysAccess().getCorrectPlacesArray();
 
 //  PRINTING INFO.
 

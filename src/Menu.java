@@ -23,7 +23,7 @@ public class Menu {
 
     public void routeMenuOptions(){
         selection = -1;
-        optionSelector(1, menuText.getRouteMenuInfo());
+        optionSelector(5, menuText.getRouteMenuInfo());
     }
 
     public void routeMenuAddingPoiOptions(){

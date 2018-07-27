@@ -35,7 +35,14 @@ public class MenuText {
 
     public String getRouteMenuInfo(){
         return  "------------------------------------------------------\n" +
-                "[1] - Wyświetl spis predefiniowanych tras\n" +
+                "[1] - Wyświetl podstawowy spis predefiniowanych tras\n\n" +
+                "[2] - Wyświetl prostą listę \"#ID - NAZWA\"\n" +
+                "[3] - Wyświetl konkretną trasę - PODSTAWOWE informacje\n" +
+                "      (należy podać #ID trasy)\n" +
+                "[4] - Wyświetl konkretną trasę - PEŁNE informacje\n" +
+                "      (należy podać #ID trasy)\n\n" +
+                "[5] - Dodawanie nowej trasy turystycznej\n" +
+                "      ( OPCJA TYLKO DLA ADMINISTRATORÓW :) )\n" +
                 "------------------------------------------------------\n" +
                 "[0] - Powrót do menu głównego\n" +
                 "------------------------------------------------------\n\n" +

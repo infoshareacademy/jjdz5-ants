@@ -3,10 +3,11 @@ public class Main {
     private static Menu menu = new Menu();
     private static MenuText menuText = new MenuText();
     private static PlaceOfInterest place;
+    private static TouristRoute route = new TouristRoute();
 
     public static void main(String[] args) {
 
-        if (new PlacesAccess().getCorrectPlacesArray() != null) {
+        if (new ArraysAccess().getCorrectPlacesArray() != null) {
             place = new PlaceOfInterest();
         }
         else {
@@ -50,10 +51,29 @@ public class Main {
             switch (selection) {
                 case 1:
                     selection = -1;
-                    System.out.println();
-                    System.out.println("---| TUTAJ BĘDZIE WYŚWIETLANA LISTA PREDEFINIOWANYCH TRAS |---");
-                    System.out.println();
+                    route.printAllRoutes();
                     break;
+                case 2:
+                    selection = -1;
+                    route.printSimpleList();
+                    break;
+                case 3:
+                    selection = -1;
+                    route.printByID(menu.idTyping(IDType.ROUTE),true);
+                    break;
+                case 4:
+                    selection = -1;
+                    route.printByID(menu.idTyping(IDType.ROUTE),false);
+                    break;
+                case 5:
+                    selection = -1;
+                    menu.areYouSure("\nCzy napewno chcesz dodać nową trasę turystyczną do bazy danych?");
+                    if (!menu.getYesNoResult()) { break; }
+                    else {
+                        new WriteData().writeRoute();
+                        route = new TouristRoute();
+                        break;
+                    }
                 case 0:
                     selection = 0;
                     menuText.mainMenuHead();

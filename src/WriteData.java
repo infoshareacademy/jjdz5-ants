@@ -210,7 +210,7 @@ public class WriteData {
         }
     }
 
-//  CODE FROM Feature/JZAN-6/FIX
+//  CODE "JUST IN CASE"
 
     public void writeRoute() {
 
@@ -222,14 +222,14 @@ public class WriteData {
         boolean correctInput = false;
         while (!correctInput) {
             try {
-                System.out.print("Wprowadź #ID nowej " + IDType.ROUTE + " (liczba całkowita dodatnia): ");
+                System.out.print("\nWprowadź #ID nowej " + IDType.ROUTE + " (liczba całkowita dodatnia): ");
                 long typedID = readLong();
                 if (typedID >= 0){
                     boolean repeatedID = true;
                     for (Object object : jsonArray) {
                         long savedID = (Long) reader.getJSONObject(jsonArray, jsonArray.indexOf(object)).get("ID");
                         if (typedID == savedID) {
-                            System.out.println("\nPodane #ID zostało już wcześniej przypisane. Spróbuj ponownie.\n");
+                            System.out.println("\nPodane #ID zostało już wcześniej przypisane. Spróbuj ponownie.");
                             repeatedID = true;
                             break;
                         }
@@ -243,11 +243,11 @@ public class WriteData {
                     }
                 }
                 else {
-                    System.out.println("\nProszę wprowadzić liczbę całkowitą DODATNIĄ.\n");
+                    System.out.println("\nProszę wprowadzić liczbę całkowitą DODATNIĄ.");
                 }
             }
             catch (InputMismatchException e) {
-                System.out.println("\nWprowadzono nieprawidłowy format!\n");
+                System.out.println("\nWprowadzono nieprawidłowy format!");
             }
         }
 
@@ -278,7 +278,10 @@ public class WriteData {
                             if (menu.getYesNoResult()) {
                                 places.add((long) addingID);
                                 System.out.println("\n" + txt.capitalize(place.getName(addingID)) + " dodano do listy!");
-                                continue;
+                                break;
+                            }
+                            else {
+                                break;
                             }
                         }
                         else {
@@ -287,7 +290,7 @@ public class WriteData {
                     }
                     catch (IndexOutOfBoundsException e) {
                         System.out.println("Brak atrakcji turystycznej z podanym #ID.");
-                        continue;
+                        break;
                     }
                 case 2:
                     placesWaitingListStatus(places,false);
@@ -323,7 +326,7 @@ public class WriteData {
                     break;
                 case 0:
                     if (places.size() < 2){
-                        System.out.println("Nowa trasa turystyczna nie może zawierać mniej niż DWIE atrakcje!");
+                        System.out.println("\nNowa trasa turystyczna nie może zawierać mniej niż DWIE atrakcje!");
                         break;
                     }
                     else {
