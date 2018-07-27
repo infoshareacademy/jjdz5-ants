@@ -3,12 +3,13 @@ public class Main {
     private static Menu menu = new Menu();
     private static MenuText menuText = new MenuText();
     private static PlaceOfInterest place;
-    private static TouristRoute route = new TouristRoute();
+    private static TouristRoute route;
 
     public static void main(String[] args) {
 
-        if (new ArraysAccess().getCorrectPlacesArray() != null) {
+        if (new ArraysAccess().getCorrectPlacesArray() != null && new ArraysAccess().getCorrectRoutesArray() != null) {
             place = new PlaceOfInterest();
+            route = new TouristRoute();
         }
         else {
             System.out.println("\n---- KONIEC APLIKACJI ----");
