@@ -97,7 +97,7 @@ public class Main {
                     menu.areYouSure("\nCzy napewno chcesz dodać nową atrakcję turystyczną do bazy danych?");
                     if (!menu.getYesNoResult()) { break; }
                     else {
-                        new WriteData().write();
+                        new WriteData().writePlace();
                         place = new PlaceOfInterest();
                         break;
                     }
@@ -109,7 +109,7 @@ public class Main {
         }
     }
 
-    public static void placeMenuTypeOption(){
+    private static void placeMenuTypeOption(){
        int selection = menu.getSelection();
        while(selection != 0){
            menu.placeMenuTypeOption();
@@ -126,15 +126,20 @@ public class Main {
        }
     }
 
-    public static void placeMenuRatingOption(){
+    private static void placeMenuRatingOption(){
         int idSelection = menu.idTyping(IDType.PLACEOFINTEREST);
-        place.printBasicInfo(idSelection);
-        menu.areYouSure("\nCzy chcesz ocenić tą atrakcję turystyczną?");
-        if (menu.getYesNoResult()){
-            menu.placeMenuRatingOption();
-            new AverageRating().addSingleRating(idSelection,menu.getSelection());
-            System.out.println("\nDziękujemy za oddanie oceny!");
-            place = new PlaceOfInterest();
+        try {
+            place.printBasicInfo(idSelection);
+            menu.areYouSure("\nCzy chcesz ocenić tą atrakcję turystyczną?");
+            if (menu.getYesNoResult()) {
+                menu.placeMenuRatingOption();
+                new AverageRating().addSingleRating(idSelection, menu.getSelection());
+                System.out.println("\nDziękujemy za oddanie oceny!");
+                place = new PlaceOfInterest();
+            }
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("Brak atrakcji turystycznej z podanym #ID.");
         }
 
     }

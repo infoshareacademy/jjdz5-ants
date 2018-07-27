@@ -26,6 +26,11 @@ public class Menu {
         optionSelector(1, menuText.getRouteMenuInfo());
     }
 
+    public void routeMenuAddingPoiOptions(){
+        selection = -1;
+        optionSelector(3,menuText.getRouteMenuAddingPoiInfo());
+    }
+
     public void placeMenuOptions(){
         selection = -1;
         optionSelector(6, menuText.getPlaceMenuInfo());

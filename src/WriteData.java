@@ -11,11 +11,21 @@ import java.util.Scanner;
 
 public class WriteData {
 
+    private static String readString(){
+        return new Scanner(System.in).nextLine();
+    }
+    private Long readLong() { return  new Scanner(System.in).nextLong(); }
+    private ReadData reader = new ReadData();
+    private Configuration cfg = new Configuration();
+    private Menu menu = new Menu();
+    private TextFormat txt = new TextFormat();
+
 //  CODE FROM Feature/JZAN-2
 
-    public void write() {
+    public void writePlace() {
 
         Scanner dataInput = new Scanner(System.in);
+
 
         JSONObject object = new JSONObject();
         SoutWriter read = new SoutWriter();
@@ -197,6 +207,139 @@ public class WriteData {
             exc.printStackTrace();
         }
     }
+
+//  CODE FROM Feature/JZAN-6/FIX
+
+    public void writeRoute() {
+
+        JSONArray jsonArray = new ReadData().getJSONArray(cfg.getDefaultTR());
+        JSONObject jsonObject = new JSONObject();
+
+        // NEW #ID TYPING
+
+        boolean correctInput = false;
+        while (!correctInput) {
+            try {
+                System.out.print("Wprowadź #ID nowej " + IDType.ROUTE + " (liczba całkowita dodatnia): ");
+                long typedID = readLong();
+                if (typedID >= 0){
+                    boolean repeatedID = true;
+                    for (Object object : jsonArray) {
+                        long savedID = (Long) reader.getJSONObject(jsonArray, jsonArray.indexOf(object)).get("ID");
+                        if (typedID == savedID) {
+                            System.out.println("\nPodane #ID zostało już wcześniej przypisane. Spróbuj ponownie.\n");
+                            repeatedID = true;
+                            break;
+                        }
+                        else {
+                            repeatedID = false;
+                        }
+                    }
+                    if (!repeatedID) {
+                        jsonObject.put("ID",typedID);
+                        correctInput = true;
+                    }
+                }
+                else {
+                    System.out.println("\nProszę wprowadzić liczbę całkowitą DODATNIĄ.\n");
+                }
+            }
+            catch (InputMismatchException e) {
+                System.out.println("\nWprowadzono nieprawidłowy format!\n");
+            }
+        }
+
+        // ADDING PLACES TO ROUTE
+
+        boolean addingDone = false;
+        List<Long> places = new ArrayList<>();
+        while (!addingDone) {
+            PlaceOfInterest place = new PlaceOfInterest();
+            new Menu().routeMenuAddingPoiOptions();
+            int selection = menu.getSelection();
+            switch (selection) {
+                case 1:
+                    place.printSimpleList();
+                    int addingID = menu.idTyping(IDType.PLACEOFINTEREST);
+                    try {
+                        boolean repeatedID = false;
+                        for (Long waitingID : places) {
+                            if (addingID == waitingID) {
+                                System.out.println("\nPodana atrakcja została już wcześniej dodana do listy.");
+                                repeatedID = true;
+                                break;
+                            }
+                        }
+                        if (!repeatedID) {
+                            place.printBasicInfo(addingID);
+                            menu.areYouSure("\nCzy chcesz dodać daną atrakcję do listy?");
+                            if (menu.getYesNoResult()) {
+                                places.add((long) addingID);
+                                System.out.println("\n" + txt.capitalize(place.getName(addingID)) + " dodano do listy!");
+                                continue;
+                            }
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                    catch (IndexOutOfBoundsException e) {
+                        System.out.println("Brak atrakcji turystycznej z podanym #ID.");
+                        continue;
+                    }
+                case 2:
+                    txt.separator();
+                    System.out.println("Aktualny stan listy oczekującej:\n");
+                    for (Long waitingID : places) {
+                        System.out.println("#ID: " + place.getID(Math.toIntExact(waitingID)) + "   -   Nazwa: " + place.getName(Math.toIntExact(waitingID)));
+                    }
+                    txt.separator();
+                    int deleteID = menu.idTyping(IDType.PLACEOFINTEREST);
+                    int deleteIndex = -1;
+                    boolean isPresent = false;
+                    for (Long waitingID : places) {
+                        if (deleteID == waitingID) {
+                            deleteIndex = places.indexOf(waitingID);
+                            isPresent = true;
+                        }
+                    }
+                    if (isPresent) {
+                        menu.areYouSure("\nCzy jesteś pewien, że chcesz usunąć \"" + txt.capitalize(place.getName(deleteID)) + " z listy?");
+                        if (menu.getYesNoResult()) {
+                            places.remove(deleteIndex);
+                            System.out.println("Usunięto " + txt.capitalize(place.getName(deleteID)) + " z listy oczekującej.");
+                            break;
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                    else {
+                        System.out.println("\nLista nie posiada miejsca o takim numerze #ID.");
+                        break;
+                    }
+                case 3:
+                    txt.separator();
+                    System.out.println("Aktualny stan listy oczekującej:\n");
+                    for (Long waitingID : places) {
+                        System.out.println("#ID: " + place.getID(Math.toIntExact(waitingID)) + "   -   Nazwa: " + place.getName(Math.toIntExact(waitingID)));
+                    }
+                    txt.separator();
+            }
+        }
+
+        jsonArray.add(jsonObject);
+        WriteJSONArray(jsonArray,cfg.getDefaultTR());
+    }
+
+//    private void placesListStatus(ArrayList<Long> arrayList){
+//        txt.separator();
+//        System.out.println("Aktualny stan listy oczekującej: ");
+//        for (Object object : arrayList) {
+//            System.out.println("#ID: " + place.getID(Math.toIntExact((Long) object)) + "   -   Nazwa: " + place.getName(Math.toIntExact((Long) object)));
+//        }
+//        txt.separator();
+//    }
 
 //  CODE FROM Feature/JZAN-5
 

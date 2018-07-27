@@ -42,6 +42,19 @@ public class MenuText {
                 "Wybór opcji: ";
     }
 
+    public String getRouteMenuAddingPoiInfo(){
+        return  "---------------------------------------------------------------------\n" +
+                "ATRAKCJE TURYSTYCZNE NALEŻY PODAWAĆ W KOLEJNOŚCI ZWIEDZANIA!\n" +
+                "---------------------------------------------------------------------\n" +
+                "[1] - Dodaj miejsce do trasy (należy podać #ID atrakcji turystycznej)\n" +
+                "[2] - Usuń miejsce z trasy (należy podać #ID atrakcji turystycznej)\n" +
+                "[3] - Pokaż aktualny stan listy\n\n" +
+                "[0] - Zatwierdź listę dodanych miejsc\n" +
+                "---------------------------------------------------------------------\n\n" +
+                "Wybór opcji: ";
+
+    }
+
     public String getPlaceMenuInfo(){
         return  "----------------------------------------------------------------------\n" +
                 "[1] - Wyświetl wszystkie informacje dla KAŻDEJ atrakcji\n" +
