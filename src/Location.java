@@ -1,9 +1,59 @@
-public class Location {
-    private double[] coordinates;
-    private String country;
-    private String city;
-    private String district;
-    private String streetName;
-    private String buildingNumber;
-    private String apartmentNumber;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+public class Location{
+
+    private ReadData reader = new ReadData();
+    private TextFormat txt = new TextFormat();
+    private JSONArray array = new ArraysAccess().getCorrectPlacesArray();
+
+//  PRINTING INFO
+
+    public void printAdress(int index){
+        String apartment = "";
+        if (getApartmentNumber(index) != null) { apartment = ("/" + getApartmentNumber(index)); }
+        txt.separator();
+        System.out.println("Adres:");
+        System.out.println("Ul. " + txt.capitalize(getStreet(index)) + " " + getBuildingNumber(index) + apartment);
+        System.out.println(txt.capitalize(getCity(index)) + " " + txt.capitalize(getDistrict(index)));
+    }
+
+    public void printGPSPosition(int index){
+        txt.separator();
+        System.out.println("WSPÓŁRZĘDNE GPS:");
+        System.out.print("Szerokość: " + txt.gpsValue(getCoordinate(index, "Latitude")));
+        System.out.println("  Długość: " + txt.gpsValue(getCoordinate(index, "Longitude")));
+    }
+
+//  ADRESS.
+
+    public String getCity(int index) {
+        return reader.getJSONObject(array,index).get("City").toString();
+    }
+
+    public String getDistrict(int index) {
+        return reader.getJSONObject(array,index).get("District").toString();
+    }
+
+    public String getStreet(int index) {
+        return reader.getJSONObject(array,index).get("Street").toString();
+    }
+
+    public String getBuildingNumber(int index) {
+        return reader.getJSONObject(array, index).get("Building number").toString();
+    }
+
+    public Integer getApartmentNumber(int index) {
+        try { return Integer.valueOf(reader.getJSONObject(array,index).get("Apartment").toString()); }
+        catch (NumberFormatException e) { return null; }
+    }
+
+//  GPS COORDINATES.
+
+    public Double getCoordinate(int index, String coordinate){
+        JSONObject object = reader.getSubJSONObject(array,index,"GPS coordinates");
+        try { return Double.valueOf(object.get(coordinate).toString()); }
+        catch (NumberFormatException e) { return 0.0; }
+    }
+
 }
