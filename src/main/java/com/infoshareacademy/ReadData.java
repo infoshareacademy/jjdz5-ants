@@ -1,3 +1,5 @@
+package com.infoshareacademy;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,7 +13,7 @@ public class ReadData {
         //read array from file
         try {
             JSONParser parser = new JSONParser();
-            JSONArray array = (JSONArray) parser.parse(new FileReader("dataBasePlaces.json"));
+            JSONArray array = (JSONArray) parser.parse(new FileReader(new Configuration().getPlacesDB()));
             //take out objects from array
             for(Object obj : array) {
                 JSONObject tempObj = (JSONObject) obj;

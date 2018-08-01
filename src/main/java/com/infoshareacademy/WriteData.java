@@ -1,3 +1,5 @@
+package com.infoshareacademy;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -34,7 +36,7 @@ public class WriteData {
 
         try {
             JSONParser parser = new JSONParser();
-            JSONArray array = (JSONArray) parser.parse(new FileReader("dataBasePlaces.json"));
+            JSONArray array = (JSONArray) parser.parse(new FileReader(cfg.getPlacesDB()));
             boolean flag = true;
 
             do {
@@ -194,7 +196,7 @@ public class WriteData {
             array.add(object);
 
             try {
-                File dataBasePlaces = new File("dataBasePlaces.json");
+                File dataBasePlaces = new File(cfg.getPlacesDB());
                 dataBasePlaces.createNewFile();
 
                 FileWriter writeObject = new FileWriter(dataBasePlaces);

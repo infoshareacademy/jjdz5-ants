@@ -1,3 +1,5 @@
+package com.infoshareacademy;
+
 public class TypeSelector {
 
     public String getTypes() {

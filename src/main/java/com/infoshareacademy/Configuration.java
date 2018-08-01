@@ -1,3 +1,5 @@
+package com.infoshareacademy;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -5,35 +7,32 @@ public class Configuration {
 
     private Properties cfg = new Properties();
 
-    public String getPlacesDB(){
+    public Configuration() {
         loadConfig();
+    }
+
+    public String getPlacesDB(){
         return cfg.getProperty("placesDB");
     }
 
-    public String getDefaultTR(){
-        loadConfig();
-        return cfg.getProperty("defaultTR");
-    }
+    public String getDefaultTR(){ return cfg.getProperty("defaultTR"); }
 
     public String getUserTR(){
-        loadConfig();
         return cfg.getProperty("userTR");
     }
 
     public String getTripOTD(){
-        loadConfig();
         return cfg.getProperty("tripOTD");
     }
 
     public String getTestFile(){
-        loadConfig();
         return cfg.getProperty("testFile");
     }
 
     private void loadConfig() {
 
         try {
-            cfg.load(new FileInputStream("resources/cfg.properties"));
+            cfg.load(getClass().getClassLoader().getResourceAsStream("cfg.properties"));
         } catch (FileNotFoundException e) {
             System.out.println("NIE ZNALEZIONO PLIKU KONFIGURACYJNEGO!");
         } catch (IOException e) {

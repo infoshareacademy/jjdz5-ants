@@ -1,3 +1,5 @@
+package com.infoshareacademy;
+
 import java.text.DecimalFormat;
 
 public class TextFormat {

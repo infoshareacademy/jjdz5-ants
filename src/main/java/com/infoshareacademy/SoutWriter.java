@@ -1,3 +1,5 @@
+package com.infoshareacademy;
+
 import java.util.Scanner;
 
 public class SoutWriter {

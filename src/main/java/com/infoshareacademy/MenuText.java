@@ -1,3 +1,5 @@
+package com.infoshareacademy;
+
 public class MenuText {
 
 //  HEAD's.

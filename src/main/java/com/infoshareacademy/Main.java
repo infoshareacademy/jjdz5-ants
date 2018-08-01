@@ -1,3 +1,5 @@
+package com.infoshareacademy;
+
 public class Main {
 
     private static Menu menu = new Menu();

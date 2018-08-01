@@ -1,3 +1,5 @@
+package com.infoshareacademy;
+
 // CLASS WRITTEN BY BARTŁOMIEJ "EXEOL" KOWALSKI.
 
 public class Distance {
