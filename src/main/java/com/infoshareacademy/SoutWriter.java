@@ -7,7 +7,7 @@ public class SoutWriter {
         System.out.println(x);
     }
     public void enumSout() {
-        System.out.println("1.  CASTLE\n2.  CHURCH\n3.  MONUMENT\n4.  MUSEUM\n5.  PARK");
+        System.out.println("1.  Zamek\n2.  Kośćiół\n3.  Pomnik\n4.  Muzemu\n5.  Park");
     }
 
         public PlaceOfInterestType typeChoice (int type){
