@@ -13,13 +13,13 @@ public class SoutWriter {
         public PlaceOfInterestType typeChoice (int type){
         switch (type) {
             case 1:
-                return PlaceOfInterestType.CASTLE;
+                return PlaceOfInterestType.ZAMEK;
             case 2:
-                return PlaceOfInterestType.CHURCH;
+                return PlaceOfInterestType.KOŚCIÓŁ;
             case 3:
-                return PlaceOfInterestType.MONUMENT;
+                return PlaceOfInterestType.POMNIK;
             case 4:
-                return PlaceOfInterestType.MUSEUM;
+                return PlaceOfInterestType.MUZEUM;
             case 5:
                 return PlaceOfInterestType.PARK;
             default:

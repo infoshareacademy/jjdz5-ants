@@ -107,7 +107,7 @@ public class PlaceOfInterest{
                 return poiType;
             }
         }
-        return PlaceOfInterestType.WRONG;
+        return PlaceOfInterestType.BŁĘDNY_TYP;
     }
 
     public String getName(int index) {
