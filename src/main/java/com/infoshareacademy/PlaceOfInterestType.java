@@ -2,27 +2,27 @@ package com.infoshareacademy;
 
 public enum PlaceOfInterestType {
 
-    CASTLE,
-    CHURCH,
-    MUSEUM,
+    ZAMEK,
+    KOŚCIÓŁ,
+    MUZEUM,
     PARK,
-    MONUMENT,
-    WRONG;
+    POMNIK,
+    BŁĘDNY_TYP;
 
     @Override
     public String toString(){
         switch (this){
-            case CASTLE:
+            case ZAMEK:
                 return "Zamek";
-            case CHURCH:
+            case KOŚCIÓŁ:
                 return "Kościół";
-            case MUSEUM:
+            case MUZEUM:
                 return "Muzeum";
             case PARK:
                 return "Park";
-            case MONUMENT:
+            case POMNIK:
                 return "Pomnik";
-            case WRONG:
+            case BŁĘDNY_TYP:
                 return "Inny";
         }
         return null;

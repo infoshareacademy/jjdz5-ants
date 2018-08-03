@@ -7,19 +7,19 @@ public class SoutWriter {
         System.out.println(x);
     }
     public void enumSout() {
-        System.out.println("1.  CASTLE\n2.  CHURCH\n3.  MONUMENT\n4.  MUSEUM\n5.  PARK");
+        System.out.println("1.  Zamek\n2.  Kośćiół\n3.  Pomnik\n4.  Muzemu\n5.  Park");
     }
 
         public PlaceOfInterestType typeChoice (int type){
         switch (type) {
             case 1:
-                return PlaceOfInterestType.CASTLE;
+                return PlaceOfInterestType.ZAMEK;
             case 2:
-                return PlaceOfInterestType.CHURCH;
+                return PlaceOfInterestType.KOŚCIÓŁ;
             case 3:
-                return PlaceOfInterestType.MONUMENT;
+                return PlaceOfInterestType.POMNIK;
             case 4:
-                return PlaceOfInterestType.MUSEUM;
+                return PlaceOfInterestType.MUZEUM;
             case 5:
                 return PlaceOfInterestType.PARK;
             default:
