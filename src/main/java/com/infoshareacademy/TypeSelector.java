@@ -1,4 +1,5 @@
 package com.infoshareacademy;
+//
 
 public class TypeSelector {
 
