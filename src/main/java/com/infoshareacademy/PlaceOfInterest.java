@@ -135,7 +135,7 @@ public class PlaceOfInterest{
                 return "ZA DARMO";
             }
             else {
-                return txt.pricePLN(Double.valueOf(object.get(ageGroup).toString()));
+                return txt.pricePLN(price);
             }
         }
         catch (NumberFormatException e){
