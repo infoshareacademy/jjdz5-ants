@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class WriteData {
 
-    private String readString() {
+    private String readString(){
         return new Scanner(System.in).nextLine();
     }
 
@@ -68,7 +68,7 @@ public class WriteData {
                     read.sout("Wprowadziłeś niewłaściwy typ danych, spróbuj ponownie: ");
                 }
             }
-            while (incorrectData == true);
+            while(incorrectData == true);
 
             List<Double> average = new ArrayList<>();
             object.put("averageRating", average);
@@ -90,7 +90,7 @@ public class WriteData {
                     read.sout("Niewłaściwy wybór");
                 }
             }
-            while (incorrectData == true);
+            while(incorrectData == true);
 
             dataCollector1 = read.soutString("Wprowadź opis obiektu: ");
             object.put("description", dataCollector1);
@@ -164,7 +164,7 @@ public class WriteData {
                     System.out.println("Proszę wprowadzić liczbę całkowitą");
                 }
             }
-            while (incorrectData == true);
+            while(incorrectData == true);
 
             String dataCollector2 = read.soutString("Podaj numer mieszkania: ");
             object.put("Apartment", dataCollector2);
@@ -181,11 +181,12 @@ public class WriteData {
                     double dataGps = dataInput.nextDouble();
                     longLat.put("Latitude", dataGps);
                     incorrectData = false;
-                } catch (InputMismatchException exc) {
+                }
+                catch (InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
                 }
             }
-            while (incorrectData == true);
+            while(incorrectData == true);
 
             incorrectData = true;
             do {
@@ -195,7 +196,8 @@ public class WriteData {
                     double dataGps = dataInput.nextDouble();
                     longLat.put("Longitude", dataGps);
                     incorrectData = false;
-                } catch (InputMismatchException exc) {
+                }
+                catch (InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
                 }
             }
@@ -213,7 +215,8 @@ public class WriteData {
                 writeObject.write(array.toJSONString());
                 writeObject.close();
 
-            } catch (java.io.IOException exc) {
+            }
+            catch (java.io.IOException exc) {
                 System.out.println("EOFException");
             }
         } catch (java.io.IOException | org.json.simple.parser.ParseException exc) {
@@ -235,7 +238,7 @@ public class WriteData {
             try {
                 System.out.print("\nWprowadź #ID nowej " + IDType.ROUTE + " (liczba całkowita dodatnia): ");
                 long typedID = readLong();
-                if (typedID >= 0) {
+                if (typedID >= 0){
                     boolean repeatedID = true;
                     for (Object object : jsonArray) {
                         long savedID = (Long) reader.getJSONObject(jsonArray, jsonArray.indexOf(object)).get("ID");
@@ -243,18 +246,21 @@ public class WriteData {
                             System.out.println("\nPodane #ID zostało już wcześniej przypisane. Spróbuj ponownie.");
                             repeatedID = true;
                             break;
-                        } else {
+                        }
+                        else {
                             repeatedID = false;
                         }
                     }
                     if (!repeatedID) {
-                        jsonObject.put("ID", typedID);
+                        jsonObject.put("ID",typedID);
                         correctInput = true;
                     }
-                } else {
+                }
+                else {
                     System.out.println("\nProszę wprowadzić liczbę całkowitą DODATNIĄ.");
                 }
-            } catch (InputMismatchException e) {
+            }
+            catch (InputMismatchException e) {
                 System.out.println("\nWprowadzono nieprawidłowy format!");
             }
         }
@@ -287,18 +293,21 @@ public class WriteData {
                                 places.add((long) addingID);
                                 System.out.println("\n" + txt.capitalize(place.getName(addingID)) + " dodano do listy!");
                                 break;
-                            } else {
+                            }
+                            else {
                                 break;
                             }
-                        } else {
+                        }
+                        else {
                             break;
                         }
-                    } catch (IndexOutOfBoundsException e) {
+                    }
+                    catch (IndexOutOfBoundsException e) {
                         System.out.println("Brak atrakcji turystycznej z podanym #ID.");
                         break;
                     }
                 case 2:
-                    placesWaitingListStatus(places, false);
+                    placesWaitingListStatus(places,false);
                     if (places.size() < 1) {
                         break;
                     } else {
@@ -329,13 +338,14 @@ public class WriteData {
                     placesWaitingListStatus(places, false);
                     break;
                 case 0:
-                    if (places.size() < 2) {
+                    if (places.size() < 2){
                         System.out.println("\nNowa trasa turystyczna nie może zawierać mniej niż DWIE atrakcje!");
                         break;
-                    } else {
+                    }
+                    else {
                         overallDistance = 0.0;
                         distances.removeAll(distances);
-                        placesWaitingListStatus(places, true);
+                        placesWaitingListStatus(places,true);
                         Long placesQuantity = (long) places.size();
                         System.out.println("Ilość atrakcji: " + placesQuantity);
                         System.out.println("Dystans całej trasy: " + txt.distanceKM(overallDistance));
@@ -348,7 +358,8 @@ public class WriteData {
                             jsonObject.put("distancesList", distances);
                             addingDone = true;
                             break;
-                        } else {
+                        }
+                        else {
                             break;
                         }
                     }
@@ -362,12 +373,12 @@ public class WriteData {
         jsonObject.put("routeName", readString());
 
         jsonArray.add(jsonObject);
-        WriteJSONArray(jsonArray, cfg.getDefaultTR());
+        WriteJSONArray(jsonArray,cfg.getDefaultTR());
 
         System.out.println("Trasa została dodana do pliku \"" + cfg.getDefaultTR() + "\".");
     }
 
-    private void placesWaitingListStatus(List<Long> list, boolean isFinal) {
+    private void placesWaitingListStatus(List<Long> list, boolean isFinal){
         if (list.size() > 0) {
             PlaceOfInterest infoPlace = new PlaceOfInterest();
             Location infoLocation = new Location();
@@ -377,11 +388,12 @@ public class WriteData {
             txt.separator();
             System.out.println("Aktualny stan listy oczekującej:\n");
             for (Long waitingID : list) {
-                Double currentLat = infoLocation.getCoordinate(Math.toIntExact(waitingID), "Latitude");
-                Double currentLong = infoLocation.getCoordinate(Math.toIntExact(waitingID), "Longitude");
+                Double currentLat = infoLocation.getCoordinate(Math.toIntExact(waitingID),"Latitude");
+                Double currentLong = infoLocation.getCoordinate(Math.toIntExact(waitingID),"Longitude");
                 try {
                     distance = dist.distanceCounter(previousPosition.get(0), previousPosition.get(1), currentLat, currentLong);
-                } catch (IndexOutOfBoundsException e) {
+                }
+                catch (IndexOutOfBoundsException e) {
                     distance = 0.0;
                 }
                 if (distance > 0.0) {
@@ -398,7 +410,8 @@ public class WriteData {
 
             }
             txt.separator();
-        } else {
+        }
+        else {
             System.out.println("\nLista narazie jest PUSTA.");
         }
     }
@@ -410,7 +423,8 @@ public class WriteData {
             FileWriter updateArray = new FileWriter(new File(FILEPATH));
             updateArray.write(array.toJSONString());
             updateArray.close();
-        } catch (java.io.IOException e) {
+        }
+        catch (java.io.IOException e) {
             System.out.println("\nBŁĄD AKTUALIZACJI PLIKU: \"" + FILEPATH + "\"!\n");
         }
     }
