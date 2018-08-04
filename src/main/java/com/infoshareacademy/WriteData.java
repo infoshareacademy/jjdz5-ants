@@ -182,7 +182,7 @@ public class WriteData {
                     longLat.put("Latitude", dataGps);
                     incorrectData = false;
                 }
-                catch (InputMismatchException exc) {
+                catch(InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
                 }
             }
@@ -197,11 +197,11 @@ public class WriteData {
                     longLat.put("Longitude", dataGps);
                     incorrectData = false;
                 }
-                catch (InputMismatchException exc) {
+                catch(InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
                 }
             }
-            while (incorrectData == true);
+            while(incorrectData == true);
 
             gps.add(longLat);
             object.put("GPS coordinates", gps);
@@ -216,7 +216,7 @@ public class WriteData {
                 writeObject.close();
 
             }
-            catch (java.io.IOException exc) {
+            catch(java.io.IOException exc) {
                 System.out.println("EOFException");
             }
         } catch (java.io.IOException | org.json.simple.parser.ParseException exc) {
@@ -310,7 +310,8 @@ public class WriteData {
                     placesWaitingListStatus(places,false);
                     if (places.size() < 1) {
                         break;
-                    } else {
+                    }
+                    else {
                         int deleteID = menu.idTyping(IDType.PLACEOFINTEREST);
                         int deleteIndex = -1;
                         boolean isPresent = false;
@@ -335,7 +336,7 @@ public class WriteData {
                         }
                     }
                 case 3:
-                    placesWaitingListStatus(places, false);
+                    placesWaitingListStatus(places,false);
                     break;
                 case 0:
                     if (places.size() < 2){
