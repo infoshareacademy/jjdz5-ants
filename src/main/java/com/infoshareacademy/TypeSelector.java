@@ -16,17 +16,17 @@ public class TypeSelector {
     public PlaceOfInterestType typeChoice (int type) {
         switch (type) {
             case 1:
-                return PlaceOfInterestType.ZAMEK;
+                return PlaceOfInterestType.CASTLE;
             case 2:
-                return PlaceOfInterestType.KOŚCIÓŁ;
+                return PlaceOfInterestType.CHURCH;
             case 3:
-                return PlaceOfInterestType.MUZEUM;
+                return PlaceOfInterestType.MUSEUM;
             case 4:
                 return PlaceOfInterestType.PARK;
             case 5:
-                return PlaceOfInterestType.POMNIK;
+                return PlaceOfInterestType.MONUMENT;
             case 6:
-                return PlaceOfInterestType.BŁĘDNY_TYP;
+                return PlaceOfInterestType.WRONG_TYPE;
         }
         return null;
     }

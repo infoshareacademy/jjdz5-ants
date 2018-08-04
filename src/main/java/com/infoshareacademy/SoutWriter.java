@@ -10,18 +10,18 @@ public class SoutWriter {
         System.out.println("1.  Zamek\n2.  Kośćiół\n3.  Pomnik\n4.  Muzemu\n5.  Park");
     }
 
-        public PlaceOfInterestType typeChoice (int type){
+        public String typeChoice (int type){
         switch (type) {
             case 1:
-                return PlaceOfInterestType.ZAMEK;
+                return PlaceOfInterestType.CASTLE.toString();
             case 2:
-                return PlaceOfInterestType.KOŚCIÓŁ;
+                return PlaceOfInterestType.CHURCH.toString();
             case 3:
-                return PlaceOfInterestType.POMNIK;
+                return PlaceOfInterestType.MONUMENT.toString();
             case 4:
-                return PlaceOfInterestType.MUZEUM;
+                return PlaceOfInterestType.MUSEUM.toString();
             case 5:
-                return PlaceOfInterestType.PARK;
+                return PlaceOfInterestType.PARK.toString();
             default:
         }
         return null;
