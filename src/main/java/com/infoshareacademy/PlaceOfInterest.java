@@ -130,7 +130,13 @@ public class PlaceOfInterest{
     public String getPrice(int index, String ageGroup){
         JSONObject object = reader.getSubJSONObject(array,index,"Price list");
         try{
-            return txt.pricePLN(Double.valueOf(object.get(ageGroup).toString()));
+            Double price = Double.valueOf(object.get(ageGroup).toString());
+            if (price == 0) {
+                return "ZA DARMO";
+            }
+            else {
+                return txt.pricePLN(Double.valueOf(object.get(ageGroup).toString()));
+            }
         }
         catch (NumberFormatException e){
             return object.get(ageGroup).toString();
