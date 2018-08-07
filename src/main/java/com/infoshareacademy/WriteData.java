@@ -202,37 +202,9 @@ public class WriteData {
 
         // NEW #ID TYPING
 
-        boolean correctInput = false;
-        while (!correctInput) {
-            try {
-                System.out.print("\nWprowadź #ID nowej " + IDType.ROUTE + " (liczba całkowita dodatnia): ");
-                long typedID = readLong();
-                if (typedID >= 0){
-                    boolean repeatedID = true;
-                    for (Object object : jsonArray) {
-                        long savedID = (Long) reader.getJSONObject(jsonArray, jsonArray.indexOf(object)).get("ID");
-                        if (typedID == savedID) {
-                            System.out.println("\nPodane #ID zostało już wcześniej przypisane. Spróbuj ponownie.");
-                            repeatedID = true;
-                            break;
-                        }
-                        else {
-                            repeatedID = false;
-                        }
-                    }
-                    if (!repeatedID) {
-                        jsonObject.put("ID",typedID);
-                        correctInput = true;
-                    }
-                }
-                else {
-                    System.out.println("\nProszę wprowadzić liczbę całkowitą DODATNIĄ.");
-                }
-            }
-            catch (InputMismatchException e) {
-                System.out.println("\nWprowadzono nieprawidłowy format!");
-            }
-        }
+        long dataID = jsonArray.size();
+        jsonObject.put("ID", dataID);
+        System.out.println("\nDodawana trasa otrzyma numer #ID: " + dataID + "\n");
 
         // ADDING PLACES TO ROUTE
 
