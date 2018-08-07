@@ -130,15 +130,15 @@ public class WriteData {
             JSONObject priceCase = new JSONObject();
 
             System.out.println("\nPodaj cenę biletu dla dorosłych: ");
-            Double nextPrice = priceVerifier();
+            Double nextPrice = priceReadAndVerify();
             priceCase.put("Adults price", nextPrice);
 
             System.out.println("\nPodaj cenę biletu dla seniorów: ");
-            nextPrice = priceVerifier();
+            nextPrice = priceReadAndVerify();
             priceCase.put("Seniors price", nextPrice);
 
             System.out.println("\nPodaj cenę biletu dla dzieci: ");
-            nextPrice = priceVerifier();
+            nextPrice = priceReadAndVerify();
             priceCase.put("kids price", nextPrice);
 
             prices.add(priceCase);
@@ -432,7 +432,7 @@ public class WriteData {
 
 // OTHER CODE
 
-    private Double priceVerifier() {
+    private Double priceReadAndVerify() {
         boolean correctInput = false;
         Double price;
         while (!correctInput) {
