@@ -166,31 +166,42 @@ public class WriteData {
             do {
                 try {
                     dataInput = new Scanner(System.in);
-                    System.out.println("Wprowadź szerokość geograficzną (xx,yyyyyy): ");
+                    System.out.println("Wprowadź szerokość geograficzną (xx.yyyyyy): ");
                     double dataGps = dataInput.nextDouble();
-                    longLat.put("Latitude", dataGps);
-                    incorrectData = false;
+                    if (verifyGPSCoords(dataGps, "latitude")) {
+                        longLat.put("Latitude", dataGps);
+                        incorrectData = false;
+                    } else {
+                        System.out.println("Niewłaściwy zakres spróbuj ponownie");
+                        incorrectData = true;
+                    }
                 }
                 catch(InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
+                    incorrectData = true;
                 }
             }
-            while(incorrectData == true);
+            while(incorrectData);
 
-            incorrectData = true;
             do {
                 try {
                     dataInput = new Scanner(System.in);
-                    System.out.println("Wprowadź długość geograficzną (xx,yyyyyy): ");
-                    double dataGps = dataInput.nextDouble();
-                    longLat.put("Longitude", dataGps);
-                    incorrectData = false;
+                    System.out.println("Wprowadź długość geograficzną (xx.yyyyyy): ");
+                    double dataGPS = dataInput.nextDouble();
+                    if (verifyGPSCoords(dataGPS, "longitude")) {
+                        longLat.put("Longitude", dataGPS);
+                        incorrectData = false;
+                    } else {
+                        System.out.println("Niewłaściwy zakres spróbuj ponownie");
+                        incorrectData = true;
+                    }
                 }
                 catch(InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
+                    incorrectData = true;
                 }
             }
-            while(incorrectData == true);
+            while(incorrectData);
 
             gps.add(longLat);
             object.put("GPS coordinates", gps);
@@ -417,6 +428,22 @@ public class WriteData {
         catch (java.io.IOException e) {
             System.out.println("\nBŁĄD AKTUALIZACJI PLIKU: \"" + FILEPATH + "\"!\n");
         }
+    }
+    public Boolean verifyGPSCoords(double coords, String coordsType) {
+        if (coordsType == "latitude") {
+            if (coords >= -45 && coords <= +45) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (coordsType == "longitude") {
+            if (coords >= -180 && coords <= 180) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
 }
