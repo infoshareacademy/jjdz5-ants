@@ -431,7 +431,7 @@ public class WriteData {
     }
     public Boolean verifyGPSCoords(double coords, String coordsType) {
         if (coordsType == "latitude") {
-            if (coords >= -45 && coords <= +45) {
+            if (coords >= -90 && coords <= +90) {
                 return true;
             } else {
                 return false;
