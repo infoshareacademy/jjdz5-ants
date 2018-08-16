@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
+import java.time.LocalTime;
 
 public class WriteData {
 
@@ -41,78 +44,95 @@ public class WriteData {
 
             do {
                 try {
-                    for (int i = 0; i < 1; i++) {
-                        read.sout("Wprowadź ID: ");
-                        Scanner dataInput2 = new Scanner(System.in);
-                        Long dataId = dataInput2.nextLong();
-                        for (Object obj : array) {
-                            Long id = (Long) ((JSONObject) obj).get("ID");
-                            if (dataId == id) {
-                                System.out.println("ID zarezerwowane, spróbuj ponownie");
-                                i--;
-                                continue;
-                            }
-                        }
-                        object.put("ID", dataId);
-                        incorrectData = false;
-                    }
-                } catch (InputMismatchException exc) {
-                    read.sout("Wprowadziłeś niewłaściwy typ danych, spróbuj ponownie: ");
-                }
-            }
-            while(incorrectData == true);
+	    for (int i = 0; i < 1; i++) {
+		read.sout("Wprowadź ID: ");
+		Scanner dataInput2 = new Scanner(System.in);
+		Long dataId = dataInput2.nextLong();
+		for (Object obj : array) {
+		    Long id = (Long) ((JSONObject) obj).get("ID");
+		    if (dataId == id) {
+			System.out.println("ID zarezerwowane, spróbuj ponownie");
+			i--;
+			continue;
+		    }
+		}
+		object.put("ID", dataId);
+		incorrectData = false;
+	    }
+	} catch (InputMismatchException exc) {
+	    read.sout("Wprowadziłeś niewłaściwy typ danych, spróbuj ponownie: ");
+	}
+    }
+    while(incorrectData == true);
 
-            List<Double> average = new ArrayList<>();
-            object.put("averageRating", average);
+    List<Double> average = new ArrayList<>();
+    object.put("averageRating", average);
 
-            String dataCollector1 = read.soutString("Wprowadź nazwę: ");
-            object.put("Name", dataCollector1);
+    String dataCollector1 = read.soutString("Wprowadź nazwę: ");
+    object.put("Name", dataCollector1);
 
-            incorrectData = true;
-            do {
-                try {
-                    read.sout("Wybierz typ z poniższej listy:");
-                    read.enumSout();
-                    dataInput = new Scanner(System.in);
-                    int dataCollector2 = dataInput.nextInt();
-                    PlaceOfInterestType choice = read.typeChoice(dataCollector2);
-                    object.put("type", choice.name());
-                    incorrectData = false;
-                } catch (InputMismatchException | NullPointerException exc) {
-                    read.sout("Niewłaściwy wybór");
-                }
-            }
-            while(incorrectData == true);
+    incorrectData = true;
+    do {
+	try {
+	    read.sout("Wybierz typ z poniższej listy:");
+	    read.enumSout();
+	    dataInput = new Scanner(System.in);
+	    int dataCollector2 = dataInput.nextInt();
+	    PlaceOfInterestType choice = read.typeChoice(dataCollector2);
+	    object.put("type", choice.name());
+	    incorrectData = false;
+	} catch (InputMismatchException | NullPointerException exc) {
+	    read.sout("Niewłaściwy wybór");
+	}
+    }
+    while(incorrectData == true);
 
-            dataCollector1 = read.soutString("Wprowadź opis obiektu: ");
-            object.put("description", dataCollector1);
+    dataCollector1 = read.soutString("Wprowadź opis obiektu: ");
+    object.put("description", dataCollector1);
 
-            //set opening hours
-            read.sout("Wprowadź godziny otwarcia: ");
-            JSONArray openingHours = new JSONArray();
-            JSONObject day = new JSONObject();
-            String nextDay;
+    //set opening hours
+    read.sout("Wprowadź godziny otwarcia (format HH:MM-HH:MM): ");
+    JSONArray openingHours = new JSONArray();
+    JSONObject day = new JSONObject();
+    String nextDay;
+    Map<String,String> weekDays = new HashMap<String,String>()
+	    {
+		{
+		put("Monday", "Poniedzialek"); 
+		put("Tuesday", "Wtorek");
+		put("Wednesday", "Sroda");
+		put("Thursday", "Czwartek");
+		put("Friday", "Piatek");
+		put("Saturday", "Sobota");
+		put("Sunday", "Niedziela");
+	}};
+	    try {
+		    for (Map.Entry<String,String> weekDay: weekDays.entrySet()){
+		    	do{
+			    nextDay = read.soutString(weekDay.getValue()+":");
+			    if (nextDay.toLowerCase().equals("zamkniete")){
+			    	day.put(weekDay.getKey(), nextDay);
+                                incorrectData = false;
 
-            nextDay = read.soutString("Poniedziałek: ");
-            day.put("Monday", nextDay);
-
-            nextDay = read.soutString("Wtorek: ");
-            day.put("Tuesday", nextDay);
-
-            nextDay = read.soutString("Środa: ");
-            day.put("Wednesday", nextDay);
-
-            nextDay = read.soutString("Czwartek: ");
-            day.put("Thursday", nextDay);
-
-            nextDay = read.soutString("Piątek: ");
-            day.put("Friday", nextDay);
-
-            nextDay = read.soutString("Sobota: ");
-            day.put("Saturday", nextDay);
-
-            nextDay = read.soutString("Niedziela: ");
-            day.put("Sunday", nextDay);
+			    }
+			    else if(nextDay.equals("")){
+			    	day.put(weekDay.getKey(), "00.00-23.59");
+				incorrectData = false;
+			    }
+			    else if(hoursValidator(nextDay))
+				{
+					day.put(weekDay.getKey(), nextDay);
+					incorrectData = false;
+				}
+			    else{
+				    System.out.println("Zly format danych. Sprobuj ponownie (HH:MM-HH:MM");
+				    incorrectData = true;
+		    	}
+		    }while(incorrectData);
+		    	}
+	    } catch (Exception e){
+	    	System.out.println(e.getMessage());
+	    }
 
             openingHours.add(day);
             object.put("Opening hours: ", openingHours);
@@ -419,4 +439,18 @@ public class WriteData {
         }
     }
 
+	public Boolean hoursValidator(String openingHours){
+		String hoursPattern = "(([0-1]{0,1}[0-9])||(2[0-3]))\\:([0-5][0-9])";
+		String fullPattern = "^(" + hoursPattern + "\\-" + hoursPattern + ")$";	
+		return (openingHours.matches(fullPattern) && openCloseTimesValidator(openingHours));
+	}
+	public Boolean openCloseTimesValidator(String openingHours){
+		String[] times = openingHours.split("-");
+		System.out.println(times[0] + " " + times[1]);
+		LocalTime openingTime = LocalTime.parse(times[0]);
+                LocalTime closingTime = LocalTime.parse(times[1]);
+		System.out.println(openingTime + " " + closingTime);
+		return openingTime.isBefore(closingTime);
+
+	}
 }
