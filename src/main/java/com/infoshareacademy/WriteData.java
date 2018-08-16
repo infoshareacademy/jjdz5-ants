@@ -37,7 +37,7 @@ public class WriteData {
         try {
             JSONParser parser = new JSONParser();
             JSONArray array = (JSONArray) parser.parse(new FileReader(cfg.getPlacesDB()));
-            boolean flag = true;
+            boolean incorrectData = true;
 
             do {
                 try {
@@ -54,14 +54,13 @@ public class WriteData {
                             }
                         }
                         object.put("ID", dataId);
-                        flag = false;
+                        incorrectData = false;
                     }
                 } catch (InputMismatchException exc) {
                     read.sout("Wprowadziłeś niewłaściwy typ danych, spróbuj ponownie: ");
-                    flag = true;
                 }
             }
-            while(flag == true);
+            while(incorrectData == true);
 
             List<Double> average = new ArrayList<>();
             object.put("averageRating", average);
@@ -69,7 +68,7 @@ public class WriteData {
             String dataCollector1 = read.soutString("Wprowadź nazwę: ");
             object.put("Name", dataCollector1);
 
-            flag = true;
+            incorrectData = true;
             do {
                 try {
                     read.sout("Wybierz typ z poniższej listy:");
@@ -83,7 +82,7 @@ public class WriteData {
                     read.sout("Niewłaściwy wybór");
                 }
             }
-            while(flag == true);
+            while(incorrectData == true);
 
             dataCollector1 = read.soutString("Wprowadź opis obiektu: ");
             object.put("description", dataCollector1);
@@ -144,17 +143,17 @@ public class WriteData {
             dataCollector1 = read.soutString("Podaj ulicę: ");
             object.put("Street", dataCollector1);
 
-            flag = false;
+            incorrectData = true;
             do {
                 try {
                     int dataCollector2 = read.soutInt("Podaj numer budynku: ");
                     object.put("Building number", dataCollector2);
-                    flag = true;
+                    incorrectData = false;
                 } catch (InputMismatchException exc) {
                     System.out.println("Proszę wprowadzić liczbę całkowitą");
                 }
             }
-            while(flag == false);
+            while(incorrectData == true);
 
             String dataCollector2 = read.soutString("Podaj numer mieszkania: ");
             object.put("Apartment", dataCollector2);
@@ -163,33 +162,35 @@ public class WriteData {
             JSONArray gps = new JSONArray();
             JSONObject longLat = new JSONObject();
 
+            incorrectData = true;
             do {
                 try {
                     dataInput = new Scanner(System.in);
                     System.out.println("Wprowadź szerokość geograficzną (xx,yyyyyy): ");
                     double dataGps = dataInput.nextDouble();
                     longLat.put("Latitude", dataGps);
-                    flag = true;
+                    incorrectData = false;
                 }
                 catch(InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
                 }
             }
-            while(flag == false);
+            while(incorrectData == true);
 
+            incorrectData = true;
             do {
                 try {
                     dataInput = new Scanner(System.in);
                     System.out.println("Wprowadź długość geograficzną (xx,yyyyyy): ");
                     double dataGps = dataInput.nextDouble();
                     longLat.put("Longitude", dataGps);
-                    flag = false;
+                    incorrectData = false;
                 }
                 catch(InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
                 }
             }
-            while(flag == true);
+            while(incorrectData == true);
 
             gps.add(longLat);
             object.put("GPS coordinates", gps);
