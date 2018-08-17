@@ -433,13 +433,13 @@ public class WriteData {
 // OTHER CODE
 
     private Double priceReadAndVerify() {
-        boolean correctInput = false;
+        boolean incorrectInput = true;
         Double price;
-        while (!correctInput) {
+        while (incorrectInput) {
             try {
                 price = readDouble();
                 if (price >= 0) {
-                    correctInput = true;
+                    incorrectInput = false;
                     return price;
                 }
                 else {
