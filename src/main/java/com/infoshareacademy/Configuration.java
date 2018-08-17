@@ -11,6 +11,8 @@ public class Configuration {
         loadConfig();
     }
 
+    public String getAdminPass() { return cfg.getProperty("adminPass"); }
+
     public String getPlacesDB(){
         return cfg.getProperty("placesDB");
     }

@@ -70,11 +70,16 @@ public class Main {
                     break;
                 case 5:
                     selection = -1;
-                    menu.areYouSure("\nCzy napewno chcesz dodać nową trasę turystyczną do bazy danych?");
-                    if (!menu.getYesNoResult()) { break; }
-                    else {
-                        new WriteData().writeRoute();
-                        route = new TouristRoute();
+                    if (menu.isAdmin()) {
+                        menu.areYouSure("\nCzy napewno chcesz dodać nową trasę turystyczną do bazy danych?");
+                        if (!menu.getYesNoResult()) {
+                            break;
+                        } else {
+                            new WriteData().writeRoute();
+                            route = new TouristRoute();
+                            break;
+                        }
+                    } else {
                         break;
                     }
                 case 0:
@@ -117,11 +122,16 @@ public class Main {
                     break;
                 case 6:
                     selection = -1;
-                    menu.areYouSure("\nCzy napewno chcesz dodać nową atrakcję turystyczną do bazy danych?");
-                    if (!menu.getYesNoResult()) { break; }
-                    else {
-                        new WriteData().writePlace();
-                        place = new PlaceOfInterest();
+                    if (menu.isAdmin()) {
+                        menu.areYouSure("\nCzy napewno chcesz dodać nową atrakcję turystyczną do bazy danych?");
+                        if (!menu.getYesNoResult()) {
+                            break;
+                        } else {
+                            new WriteData().writePlace();
+                            place = new PlaceOfInterest();
+                            break;
+                        }
+                    } else {
                         break;
                     }
                 case 0:
