@@ -85,7 +85,7 @@ public class Menu {
         while(!correctInput){
 
             System.out.println(info);
-            System.out.println("\"Y\" - Tak      \"N\" - Nie");
+            System.out.println("\"t\" - Tak      \"n\" - Nie");
 
             try{ yesNo = readString(); }
             catch(InputMismatchException e){
@@ -93,7 +93,7 @@ public class Menu {
                 continue;
             }
 
-            if (yesNo.equalsIgnoreCase("y")){
+            if (yesNo.equalsIgnoreCase("t")){
                 yesNoResult = true;
                 correctInput = true;
             }
