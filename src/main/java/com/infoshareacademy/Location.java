@@ -13,7 +13,8 @@ public class Location{
 
     public void printAdress(int index){
         String apartment = "";
-        if (getApartmentNumber(index) != null) { apartment = ("/" + getApartmentNumber(index)); }
+        Integer apartmentNumber = getApartmentNumber(index);
+        if (apartmentNumber != 0) { apartment = ("/" + apartmentNumber); }
         txt.separator();
         System.out.println("Adres:");
         System.out.println("Ul. " + txt.capitalize(getStreet(index)) + " " + getBuildingNumber(index) + apartment);
@@ -46,8 +47,10 @@ public class Location{
     }
 
     public Integer getApartmentNumber(int index) {
-        try { return Integer.valueOf(reader.getJSONObject(array,index).get("Apartment").toString()); }
-        catch (NumberFormatException e) { return null; }
+        try {
+            return Integer.valueOf(reader.getJSONObject(array,index).get("Apartment").toString());
+        }
+        catch (NumberFormatException e) { return 0; }
     }
 
 //  GPS COORDINATES.

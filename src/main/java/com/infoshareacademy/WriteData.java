@@ -77,7 +77,6 @@ public class WriteData {
                     int dataCollector2 = dataInput.nextInt();
                     String choice = read.typeChoice(dataCollector2);
                     object.put("type", choice);
-                    flag = false;
                 } catch (InputMismatchException | NullPointerException exc) {
                     read.sout("Niewłaściwy wybór");
                 }
@@ -155,8 +154,9 @@ public class WriteData {
             }
             while(incorrectData == true);
 
-            String dataCollector2 = read.soutString("Podaj numer mieszkania: ");
-            object.put("Apartment", dataCollector2);
+            System.out.println("Podaj numer mieszkania (jeżeli nie występuje, proszę wpisać \"0\"): ");
+            Long apartmentNumber = apartmentReadAndVerify();
+            object.put("Apartment", apartmentNumber);
 
             //set GPS coordinates
             JSONArray gps = new JSONArray();
@@ -417,6 +417,25 @@ public class WriteData {
         catch (java.io.IOException e) {
             System.out.println("\nBŁĄD AKTUALIZACJI PLIKU: \"" + FILEPATH + "\"!\n");
         }
+    }
+
+    private Long apartmentReadAndVerify() {
+        boolean incorrectInput = true;
+        Long apartmentNumber;
+        while (incorrectInput) {
+            try {
+                apartmentNumber = readLong();
+                if (apartmentNumber >= 0) {
+                    incorrectInput = false;
+                    return apartmentNumber;
+                } else {
+                    System.out.println("\nProszę podać liczbę większą lub równą 0.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\nWprowadzono nieprawidłowy format!");
+            }
+        }
+        return 0L;
     }
 
 }
