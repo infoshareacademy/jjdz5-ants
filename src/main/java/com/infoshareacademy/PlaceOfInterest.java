@@ -131,15 +131,9 @@ public class PlaceOfInterest{
         JSONObject object = reader.getSubJSONObject(array,index,"Price list");
         try{
             Double price = Double.valueOf(object.get(ageGroup).toString());
-            if (price == 0) {
-                return "ZA DARMO";
-            }
-            else {
-                return txt.pricePLN(price);
-            }
-        }
-        catch (NumberFormatException e){
-            return object.get(ageGroup).toString();
+            return price == 0 ? ("ZA DARMO") : (txt.pricePLN(price));
+        } catch (NumberFormatException e){
+            return "BRAK DANYCH";
         }
     }
 
