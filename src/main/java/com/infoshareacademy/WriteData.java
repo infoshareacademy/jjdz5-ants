@@ -77,7 +77,6 @@ public class WriteData {
                     int dataCollector2 = dataInput.nextInt();
                     String choice = read.typeChoice(dataCollector2);
                     object.put("type", choice);
-//                    flag = false;
                 } catch (InputMismatchException | NullPointerException exc) {
                     read.sout("Niewłaściwy wybór");
                 }
