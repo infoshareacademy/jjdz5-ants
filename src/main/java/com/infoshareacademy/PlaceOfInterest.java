@@ -66,7 +66,7 @@ public class PlaceOfInterest{
         txt.separator();
         System.out.println("\n---|| " + getName(index).toUpperCase() + " ||---");
         txt.separator();
-        System.out.println("ID obiektu: #" + getID(index) + " / " + index);
+        System.out.println("ID obiektu: " + getID(index));
         System.out.println("Typ obiektu: " + getType(index).toString());
         System.out.println();
         System.out.println("Opis: " + txt.capitalize(getDescription(index)));
@@ -107,7 +107,7 @@ public class PlaceOfInterest{
                 return poiType;
             }
         }
-        return PlaceOfInterestType.WRONG;
+        return PlaceOfInterestType.WRONG_TYPE;
     }
 
     public String getName(int index) {
