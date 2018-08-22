@@ -37,38 +37,18 @@ public class WriteData {
         try {
             JSONParser parser = new JSONParser();
             JSONArray array = (JSONArray) parser.parse(new FileReader(cfg.getPlacesDB()));
-            boolean incorrectData = true;
 
-            do {
-                try {
-                    for (int i = 0; i < 1; i++) {
-                        read.sout("Wprowadź ID: ");
-                        Scanner dataInput2 = new Scanner(System.in);
-                        Long dataId = dataInput2.nextLong();
-                        for (Object obj : array) {
-                            Long id = (Long) ((JSONObject) obj).get("ID");
-                            if (dataId == id) {
-                                System.out.println("ID zarezerwowane, spróbuj ponownie");
-                                i--;
-                                continue;
-                            }
-                        }
-                        object.put("ID", dataId);
-                        incorrectData = false;
-                    }
-                } catch (InputMismatchException exc) {
-                    read.sout("Wprowadziłeś niewłaściwy typ danych, spróbuj ponownie: ");
-                }
-            }
-            while(incorrectData == true);
+            long dataID = array.size();
+            object.put("ID", dataID);
+            System.out.println("Dodawana atrakcja otrzyma numer #ID: " + dataID);
 
             List<Double> average = new ArrayList<>();
             object.put("averageRating", average);
 
-            String dataCollector1 = read.soutString("Wprowadź nazwę: ");
+            String dataCollector1 = read.soutString("\nWprowadź nazwę: ");
             object.put("Name", dataCollector1);
 
-            incorrectData = true;
+            boolean incorrectData = true;
             do {
                 try {
                     read.sout("Wybierz typ z poniższej listy:");
@@ -222,37 +202,9 @@ public class WriteData {
 
         // NEW #ID TYPING
 
-        boolean correctInput = false;
-        while (!correctInput) {
-            try {
-                System.out.print("\nWprowadź #ID nowej " + IDType.ROUTE + " (liczba całkowita dodatnia): ");
-                long typedID = readLong();
-                if (typedID >= 0){
-                    boolean repeatedID = true;
-                    for (Object object : jsonArray) {
-                        long savedID = (Long) reader.getJSONObject(jsonArray, jsonArray.indexOf(object)).get("ID");
-                        if (typedID == savedID) {
-                            System.out.println("\nPodane #ID zostało już wcześniej przypisane. Spróbuj ponownie.");
-                            repeatedID = true;
-                            break;
-                        }
-                        else {
-                            repeatedID = false;
-                        }
-                    }
-                    if (!repeatedID) {
-                        jsonObject.put("ID",typedID);
-                        correctInput = true;
-                    }
-                }
-                else {
-                    System.out.println("\nProszę wprowadzić liczbę całkowitą DODATNIĄ.");
-                }
-            }
-            catch (InputMismatchException e) {
-                System.out.println("\nWprowadzono nieprawidłowy format!");
-            }
-        }
+        long dataID = jsonArray.size();
+        jsonObject.put("ID", dataID);
+        System.out.println("\nDodawana trasa otrzyma numer #ID: " + dataID + "\n");
 
         // ADDING PLACES TO ROUTE
 
