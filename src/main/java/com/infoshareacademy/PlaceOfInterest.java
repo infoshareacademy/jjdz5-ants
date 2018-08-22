@@ -11,6 +11,9 @@ public class PlaceOfInterest{
     private AverageRating rating = new AverageRating();
     private JSONArray array = new ArraysAccess().getCorrectPlacesArray();
 
+    private static final String forFree = "ZA DARMO";
+    private static final String noData = "BRAK DANYCH";
+
 //  PRINTING INFO.
 
     public void printAllPlaces(){
@@ -131,9 +134,9 @@ public class PlaceOfInterest{
         JSONObject object = reader.getSubJSONObject(array,index,"Price list");
         try{
             Double price = Double.valueOf(object.get(ageGroup).toString());
-            return price == 0 ? ("ZA DARMO") : (txt.pricePLN(price));
+            return price == 0 ? (forFree) : (txt.pricePLN(price));
         } catch (NumberFormatException e){
-            return "BRAK DANYCH";
+            return noData;
         }
     }
 
