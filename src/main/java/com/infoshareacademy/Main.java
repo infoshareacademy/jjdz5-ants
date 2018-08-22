@@ -72,12 +72,12 @@ public class Main {
                     selection = -1;
                     if (menu.isAdmin()) {
                         menu.areYouSure("\nCzy napewno chcesz dodać nową trasę turystyczną do bazy danych?");
-                        if (!menu.getYesNoResult()) {
-                            break;
-                        } else {
+                        if (menu.getYesNoResult()) {
                             new WriteData().writeRoute();
                             route = new TouristRoute();
                             break;
+                        } else {
+                            continue;
                         }
                     } else {
                         break;
@@ -124,12 +124,12 @@ public class Main {
                     selection = -1;
                     if (menu.isAdmin()) {
                         menu.areYouSure("\nCzy napewno chcesz dodać nową atrakcję turystyczną do bazy danych?");
-                        if (!menu.getYesNoResult()) {
-                            break;
-                        } else {
+                        if (menu.getYesNoResult()) {
                             new WriteData().writePlace();
                             place = new PlaceOfInterest();
                             break;
+                        } else {
+                            continue;
                         }
                     } else {
                         break;

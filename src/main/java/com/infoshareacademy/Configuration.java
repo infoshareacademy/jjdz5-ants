@@ -11,24 +11,16 @@ public class Configuration {
         loadConfig();
     }
 
-    public String getAdminPass() { return cfg.getProperty("adminPass"); }
+    public String getAdminPass() {
+        return cfg.getProperty("adminPass");
+    }
 
-    public String getPlacesDB(){
+    public String getPlacesDB() {
         return cfg.getProperty("placesDB");
     }
 
-    public String getDefaultTR(){ return cfg.getProperty("defaultTR"); }
-
-    public String getUserTR(){
-        return cfg.getProperty("userTR");
-    }
-
-    public String getTripOTD(){
-        return cfg.getProperty("tripOTD");
-    }
-
-    public String getTestFile(){
-        return cfg.getProperty("testFile");
+    public String getDefaultTR(){
+        return cfg.getProperty("defaultTR");
     }
 
     private void loadConfig() {
@@ -41,18 +33,4 @@ public class Configuration {
             System.out.println("BŁĄD ODCZYTU!");
         }
     }
-
-    public void allLineReader(String FILEPATH){
-
-        String line;
-
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(FILEPATH))) {
-            while ((line = bufferedReader.readLine()) != null){
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
