@@ -16,7 +16,15 @@ public class WriteData {
     private String readString(){
         return new Scanner(System.in).nextLine();
     }
-    private Long readLong() { return  new Scanner(System.in).nextLong(); }
+
+    private Long readLong() {
+        return new Scanner(System.in).nextLong();
+    }
+
+    private Double readDouble() {
+        return new Scanner(System.in).nextDouble();
+    }
+
     private ReadData reader = new ReadData();
     private Configuration cfg = new Configuration();
     private Menu menu = new Menu();
@@ -57,7 +65,7 @@ public class WriteData {
                     int dataCollector2 = dataInput.nextInt();
                     String choice = read.typeChoice(dataCollector2);
                     object.put("type", choice);
-                    flag = false;
+                    incorrectData = false;
                 } catch (InputMismatchException | NullPointerException exc) {
                     read.sout("Niewłaściwy wybór");
                 }
@@ -101,13 +109,16 @@ public class WriteData {
             JSONArray prices = new JSONArray();
             JSONObject priceCase = new JSONObject();
 
-            String nextPrice = read.soutString("Podaj cenę biletu dla dorosłych: ");
+            System.out.println("\nPodaj cenę biletu dla dorosłych: ");
+            Double nextPrice = priceReadAndVerify();
             priceCase.put("Adults price", nextPrice);
 
-            nextPrice = read.soutString("Podaj cenę biletu dla seniorów: ");
+            System.out.println("\nPodaj cenę biletu dla seniorów: ");
+            nextPrice = priceReadAndVerify();
             priceCase.put("Seniors price", nextPrice);
 
-            nextPrice = read.soutString("Podaj cenę biletu dla dzieci: ");
+            System.out.println("\nPodaj cenę biletu dla dzieci: ");
+            nextPrice = priceReadAndVerify();
             priceCase.put("kids price", nextPrice);
 
             prices.add(priceCase);
@@ -369,6 +380,27 @@ public class WriteData {
         catch (java.io.IOException e) {
             System.out.println("\nBŁĄD AKTUALIZACJI PLIKU: \"" + FILEPATH + "\"!\n");
         }
+    }
+
+// OTHER CODE
+
+    private Double priceReadAndVerify() {
+        boolean incorrectInput = true;
+        Double price = 0d;
+        while (incorrectInput) {
+            try {
+                price = readDouble();
+                if (price >= 0) {
+                    incorrectInput = false;
+                    return price;
+                } else {
+                    System.out.println("\nProszę podać liczbę większą lub równą 0.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\nWprowadzono nieprawidłowy format!");
+            }
+        }
+        return price;
     }
 
 }

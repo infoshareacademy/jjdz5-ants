@@ -11,6 +11,9 @@ public class PlaceOfInterest{
     private AverageRating rating = new AverageRating();
     private JSONArray array = new ArraysAccess().getCorrectPlacesArray();
 
+    private static final String FOR_FREE = "Wstęp wolny";
+    private static final String NO_DATA = "Brak danych";
+
 //  PRINTING INFO.
 
     public void printAllPlaces(){
@@ -130,10 +133,10 @@ public class PlaceOfInterest{
     public String getPrice(int index, String ageGroup){
         JSONObject object = reader.getSubJSONObject(array,index,"Price list");
         try{
-            return txt.pricePLN(Double.valueOf(object.get(ageGroup).toString()));
-        }
-        catch (NumberFormatException e){
-            return object.get(ageGroup).toString();
+            Double price = Double.valueOf(object.get(ageGroup).toString());
+            return price == 0 ? (FOR_FREE) : (txt.pricePLN(price));
+        } catch (NumberFormatException e){
+            return NO_DATA;
         }
     }
 
