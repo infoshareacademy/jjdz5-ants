@@ -65,7 +65,7 @@ public class WriteData {
                     int dataCollector2 = dataInput.nextInt();
                     String choice = read.typeChoice(dataCollector2);
                     object.put("type", choice);
-                    flag = false;
+                    incorrectData = false;
                 } catch (InputMismatchException | NullPointerException exc) {
                     read.sout("Niewłaściwy wybór");
                 }
@@ -386,23 +386,21 @@ public class WriteData {
 
     private Double priceReadAndVerify() {
         boolean incorrectInput = true;
-        Double price;
+        Double price = 0d;
         while (incorrectInput) {
             try {
                 price = readDouble();
                 if (price >= 0) {
                     incorrectInput = false;
                     return price;
-                }
-                else {
+                } else {
                     System.out.println("\nProszę podać liczbę większą lub równą 0.");
                 }
-            }
-            catch (InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("\nWprowadzono nieprawidłowy format!");
             }
         }
-        return 0.0;
+        return price;
     }
 
 }
