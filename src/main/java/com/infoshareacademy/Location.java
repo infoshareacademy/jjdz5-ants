@@ -9,12 +9,17 @@ public class Location{
     private TextFormat txt = new TextFormat();
     private JSONArray array = new ArraysAccess().getCorrectPlacesArray();
 
+    public static final String APARTMENT = "Apartment";
+    private static final Integer EMPTY = 0;
+
 //  PRINTING INFO
 
     public void printAdress(int index){
         String apartment = "";
         Integer apartmentNumber = getApartmentNumber(index);
-        if (apartmentNumber != 0) { apartment = ("/" + apartmentNumber); }
+        if (apartmentNumber != EMPTY) {
+            apartment = ("/" + apartmentNumber);
+        }
         txt.separator();
         System.out.println("Adres:");
         System.out.println("Ul. " + txt.capitalize(getStreet(index)) + " " + getBuildingNumber(index) + apartment);
@@ -48,9 +53,11 @@ public class Location{
 
     public Integer getApartmentNumber(int index) {
         try {
-            return Integer.valueOf(reader.getJSONObject(array,index).get("Apartment").toString());
+            return Integer.valueOf(reader.getJSONObject(array,index).get(APARTMENT).toString());
         }
-        catch (NumberFormatException e) { return 0; }
+        catch (NumberFormatException e) {
+            return EMPTY;
+        }
     }
 
 //  GPS COORDINATES.

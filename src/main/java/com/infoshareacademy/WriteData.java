@@ -24,6 +24,8 @@ public class WriteData {
     private Double overallDistance = 0.0;
     private List<Double> distances = new ArrayList<>();
 
+    private static final String APARTMENT = "Apartment";
+
 //  CODE FROM Feature/JZAN-2
 
     public void writePlace() {
@@ -137,7 +139,7 @@ public class WriteData {
 
             System.out.println("Podaj numer mieszkania (jeżeli nie występuje, proszę wpisać \"0\"): ");
             Long apartmentNumber = apartmentReadAndVerify();
-            object.put("Apartment", apartmentNumber);
+            object.put(Location.APARTMENT, apartmentNumber);
 
             //set GPS coordinates
             JSONArray gps = new JSONArray();
@@ -374,7 +376,7 @@ public class WriteData {
 
     private Long apartmentReadAndVerify() {
         boolean incorrectInput = true;
-        Long apartmentNumber;
+        Long apartmentNumber = 0L;
         while (incorrectInput) {
             try {
                 apartmentNumber = readLong();
@@ -388,7 +390,7 @@ public class WriteData {
                 System.out.println("\nWprowadzono nieprawidłowy format!");
             }
         }
-        return 0L;
+        return apartmentNumber;
     }
 
 }
