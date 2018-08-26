@@ -7,8 +7,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.time.LocalTime;
-import java.util.*;
 import java.lang.Math;
+import java.util.*;
 
 public class WriteData {
 
@@ -79,26 +79,17 @@ public class WriteData {
             JSONArray openingHours = new JSONArray();
             JSONObject day = new JSONObject();
             String nextDay;
-            Map<String,String> weekDays = new LinkedHashMap<String,String>()
-            {
-                {
-                    put("Monday", "Poniedziałek");
-                    put("Tuesday", "Wtorek");
-                    put("Wednesday", "Środa");
-                    put("Thursday", "Czwartek");
-                    put("Friday", "Piątek");
-                    put("Saturday", "Sobota");
-                    put("Sunday", "Niedziela");
-                }};
+
+
             try {
-                for (Map.Entry<String,String> weekDay: weekDays.entrySet()){
+                for (Map.Entry<String,String> weekDay: WeekDays.weekDaysDefinition.entrySet()){
                     do{
                         nextDay = read.soutString(weekDay.getValue()+":");
                         if (nextDay.toLowerCase().equals("zamknięte")){
                             day.put(weekDay.getKey(), nextDay);
                             incorrectData = false;
                         }
-                        else if(nextDay.equals("")){
+                        else if(nextDay.isEmpty()){
                             day.put(weekDay.getKey(), "00.00-23.59");
                             incorrectData = false;
                         }
