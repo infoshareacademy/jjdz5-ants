@@ -60,7 +60,7 @@ public class TouristRoute {
     public void printBasicInfo(int index) {
         txt.separator();
         System.out.println("Nazwa trasy: \"" + getName(index) + "\"\n");
-        System.out.println("#ID: " + getID(index));
+        System.out.println("#ID: " + getID(index) + " / " + index + "\n");
         System.out.println("Ilość atrakcji: " + getPlacesQuantity(index));
         System.out.println("Ogólny dystans: " + txt.distanceKM(getOverallDistance(index)) + "\n");
     }

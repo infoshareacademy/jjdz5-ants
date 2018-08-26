@@ -133,7 +133,6 @@ public class Main {
     }
 
     private static void placeMenuTypeOption(){
-
        int selection = menu.getSelection();
        while(selection != 0){
            menu.placeMenuTypeOption();

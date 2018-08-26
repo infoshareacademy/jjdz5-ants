@@ -6,6 +6,8 @@ import org.json.simple.parser.JSONParser;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -47,6 +49,7 @@ public class WriteData {
             JSONParser parser = new JSONParser();
             JSONArray array = (JSONArray) parser.parse(new FileReader(cfg.getPlacesDB()));
 
+
             long dataID = array.size();
             object.put("ID", dataID);
             System.out.println("Dodawana atrakcja otrzyma numer #ID: " + dataID);
@@ -76,32 +79,49 @@ public class WriteData {
             dataCollector1 = read.soutString("Wprowadź opis obiektu: ");
             object.put("description", dataCollector1);
 
-            //set opening hours
-            read.sout("Wprowadź godziny otwarcia: ");
-            JSONArray openingHours = new JSONArray();
-            JSONObject day = new JSONObject();
-            String nextDay;
-
-            nextDay = read.soutString("Poniedziałek: ");
-            day.put("Monday", nextDay);
-
-            nextDay = read.soutString("Wtorek: ");
-            day.put("Tuesday", nextDay);
-
-            nextDay = read.soutString("Środa: ");
-            day.put("Wednesday", nextDay);
-
-            nextDay = read.soutString("Czwartek: ");
-            day.put("Thursday", nextDay);
-
-            nextDay = read.soutString("Piątek: ");
-            day.put("Friday", nextDay);
-
-            nextDay = read.soutString("Sobota: ");
-            day.put("Saturday", nextDay);
-
-            nextDay = read.soutString("Niedziela: ");
-            day.put("Sunday", nextDay);
+            //set opening hours    //set opening hours
+                read.sout("Wprowadź godziny otwarcia (format HH:MM-HH:MM lub 'zamknięte' lub zostaw puste pole jeśli obiekt jest otwarty całą dobę): ");
+                JSONArray openingHours = new JSONArray();
+                JSONObject day = new JSONObject();
+                String nextDay;
+                Map<String,String> weekDays = new LinkedHashMap<String,String>()
+            	    {
+            		{
+            		put("Monday", "Poniedziałek");
+            		put("Tuesday", "Wtorek");
+            		put("Wednesday", "Środa");
+            		put("Thursday", "Czwartek");
+            		put("Friday", "Piątek");
+            		put("Saturday", "Sobota");
+            		put("Sunday", "Niedziela");
+            	}};
+            	    try {
+            		    for (Map.Entry<String,String> weekDay: weekDays.entrySet()){
+            		    	do{
+            			        nextDay = read.soutString(weekDay.getValue()+":");
+            			        if (nextDay.toLowerCase().equals("zamknięte")){
+            			    	    day.put(weekDay.getKey(), nextDay);
+            			    	    incorrectData = false;
+            			        }
+            			        else if(nextDay.equals("")){
+            			    	    day.put(weekDay.getKey(), "00.00-23.59");
+            				        incorrectData = false;
+            			        }
+            			        else if(hoursValidator(nextDay))
+            				    {
+            					    day.put(weekDay.getKey(), nextDay);
+            					    incorrectData = false;
+            				    }
+            			        else{
+            				        System.out.println("Zły format danych. Spróbuj ponownie (HH:MM-HH:MM lub zamknięte lub ''):" +
+                                        "");
+            				        incorrectData = true;
+            		    	    }
+            		        } while(incorrectData);
+            		    }
+            	    } catch (Exception e){
+            	    	System.out.println(e.getMessage());
+            	    }
 
             openingHours.add(day);
             object.put("Opening hours: ", openingHours);
@@ -419,4 +439,16 @@ public class WriteData {
         return price;
     }
 
+	public Boolean hoursValidator(String openingHours){
+		String hoursPattern = "(([0-1]{0,1}[0-9])||(2[0-3]))\\:([0-5][0-9])";
+		String fullPattern = "^(" + hoursPattern + "\\-" + hoursPattern + ")$";	
+		return (openingHours.matches(fullPattern) && openCloseTimesValidator(openingHours));
+	}
+	public Boolean openCloseTimesValidator(String openingHours){
+		String[] times = openingHours.split("-");
+		LocalTime openingTime = LocalTime.parse(times[0]);
+                LocalTime closingTime = LocalTime.parse(times[1]);
+		return openingTime.isBefore(closingTime);
+
+	}
 }

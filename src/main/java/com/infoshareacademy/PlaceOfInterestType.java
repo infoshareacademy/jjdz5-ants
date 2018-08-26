@@ -7,7 +7,7 @@ public enum PlaceOfInterestType {
     MUSEUM,
     PARK,
     MONUMENT,
-    WRONG_TYPE;
+    WRONG;
 
     @Override
     public String toString(){
@@ -22,7 +22,7 @@ public enum PlaceOfInterestType {
                 return "Park";
             case MONUMENT:
                 return "Pomnik";
-            case WRONG_TYPE:
+            case WRONG:
                 return "Inny";
         }
         return null;

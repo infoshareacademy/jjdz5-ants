@@ -1,5 +1,4 @@
 package com.infoshareacademy;
-//
 
 public class TypeSelector {
 
@@ -26,7 +25,7 @@ public class TypeSelector {
             case 5:
                 return PlaceOfInterestType.MONUMENT;
             case 6:
-                return PlaceOfInterestType.WRONG_TYPE;
+                return PlaceOfInterestType.WRONG;
         }
         return null;
     }
