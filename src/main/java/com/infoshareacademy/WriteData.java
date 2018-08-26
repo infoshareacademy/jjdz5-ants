@@ -8,13 +8,26 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+import java.lang.Math;
 
 public class WriteData {
 
     private String readString(){
         return new Scanner(System.in).nextLine();
     }
-    private Long readLong() { return  new Scanner(System.in).nextLong(); }
+
+    private Long readLong() {
+        return new Scanner(System.in).nextLong();
+    }
+
+    private Double readDouble() {
+        return new Scanner(System.in).nextDouble();
+    }
+
     private ReadData reader = new ReadData();
     private Configuration cfg = new Configuration();
     private Menu menu = new Menu();
@@ -35,100 +48,80 @@ public class WriteData {
         try {
             JSONParser parser = new JSONParser();
             JSONArray array = (JSONArray) parser.parse(new FileReader(cfg.getPlacesDB()));
-            boolean incorrectData = true;
 
+
+            long dataID = array.size();
+            object.put("ID", dataID);
+            System.out.println("Dodawana atrakcja otrzyma numer #ID: " + dataID);
+
+            List<Double> average = new ArrayList<>();
+            object.put("averageRating", average);
+
+            String dataCollector1 = read.soutString("\nWprowadź nazwę: ");
+            object.put("Name", dataCollector1);
+
+            boolean incorrectData = true;
             do {
                 try {
-	    for (int i = 0; i < 1; i++) {
-		read.sout("Wprowadź ID: ");
-		Scanner dataInput2 = new Scanner(System.in);
-		Long dataId = dataInput2.nextLong();
-		for (Object obj : array) {
-		    Long id = (Long) ((JSONObject) obj).get("ID");
-		    if (dataId == id) {
-			System.out.println("ID zarezerwowane, spróbuj ponownie");
-			i--;
-			continue;
-		    }
-		}
-		object.put("ID", dataId);
-		incorrectData = false;
-	    }
-	} catch (InputMismatchException exc) {
-	    read.sout("Wprowadziłeś niewłaściwy typ danych, spróbuj ponownie: ");
-	}
-    }
-    while(incorrectData == true);
+                    read.sout("Wybierz typ z poniższej listy:");
+                    read.enumSout();
+                    dataInput = new Scanner(System.in);
+                    int dataCollector2 = dataInput.nextInt();
+                    String choice = read.typeChoice(dataCollector2);
+                    object.put("type", choice);
+                    incorrectData = false;
+                } catch (InputMismatchException | NullPointerException exc) {
+                    read.sout("Niewłaściwy wybór");
+                }
+            }
+            while(incorrectData == true);
 
-    List<Double> average = new ArrayList<>();
-    object.put("averageRating", average);
+            dataCollector1 = read.soutString("Wprowadź opis obiektu: ");
+            object.put("description", dataCollector1);
 
-    String dataCollector1 = read.soutString("Wprowadź nazwę: ");
-    object.put("Name", dataCollector1);
-
-    incorrectData = true;
-    do {
-	try {
-	    read.sout("Wybierz typ z poniższej listy:");
-	    read.enumSout();
-	    dataInput = new Scanner(System.in);
-	    int dataCollector2 = dataInput.nextInt();
-	    PlaceOfInterestType choice = read.typeChoice(dataCollector2);
-	    object.put("type", choice.name());
-	    incorrectData = false;
-	} catch (InputMismatchException | NullPointerException exc) {
-	    read.sout("Niewłaściwy wybór");
-	}
-    }
-    while(incorrectData == true);
-
-    dataCollector1 = read.soutString("Wprowadź opis obiektu: ");
-    object.put("description", dataCollector1);
-
-    //set opening hours
-    read.sout("Wprowadź godziny otwarcia (format HH:MM-HH:MM lub 'zamknięte' lub zostaw puste pole jeśli obiekt jest otwarty całą dobę): ");
-    JSONArray openingHours = new JSONArray();
-    JSONObject day = new JSONObject();
-    String nextDay;
-    Map<String,String> weekDays = new LinkedHashMap<String,String>()
-	    {
-		{
-		put("Monday", "Poniedziałek");
-		put("Tuesday", "Wtorek");
-		put("Wednesday", "Środa");
-		put("Thursday", "Czwartek");
-		put("Friday", "Piątek");
-		put("Saturday", "Sobota");
-		put("Sunday", "Niedziela");
-	}};
-	    try {
-		    for (Map.Entry<String,String> weekDay: weekDays.entrySet()){
-		    	do{
-			    nextDay = read.soutString(weekDay.getValue()+":");
-			    if (nextDay.toLowerCase().equals("zamknięte")){
-			    	day.put(weekDay.getKey(), nextDay);
-                                incorrectData = false;
-
-			    }
-			    else if(nextDay.equals("")){
-			    	day.put(weekDay.getKey(), "00.00-23.59");
-				incorrectData = false;
-			    }
-			    else if(hoursValidator(nextDay))
-				{
-					day.put(weekDay.getKey(), nextDay);
-					incorrectData = false;
-				}
-			    else{
-				    System.out.println("Zły format danych. Spróbuj ponownie (HH:MM-HH:MM lub zamknięte lub ''):" +
-                            "");
-				    incorrectData = true;
-		    	}
-		    }while(incorrectData);
-		    	}
-	    } catch (Exception e){
-	    	System.out.println(e.getMessage());
-	    }
+            //set opening hours    //set opening hours
+                read.sout("Wprowadź godziny otwarcia (format HH:MM-HH:MM lub 'zamknięte' lub zostaw puste pole jeśli obiekt jest otwarty całą dobę): ");
+                JSONArray openingHours = new JSONArray();
+                JSONObject day = new JSONObject();
+                String nextDay;
+                Map<String,String> weekDays = new LinkedHashMap<String,String>()
+            	    {
+            		{
+            		put("Monday", "Poniedziałek");
+            		put("Tuesday", "Wtorek");
+            		put("Wednesday", "Środa");
+            		put("Thursday", "Czwartek");
+            		put("Friday", "Piątek");
+            		put("Saturday", "Sobota");
+            		put("Sunday", "Niedziela");
+            	}};
+            	    try {
+            		    for (Map.Entry<String,String> weekDay: weekDays.entrySet()){
+            		    	do{
+            			        nextDay = read.soutString(weekDay.getValue()+":");
+            			        if (nextDay.toLowerCase().equals("zamknięte")){
+            			    	    day.put(weekDay.getKey(), nextDay);
+            			    	    incorrectData = false;
+            			        }
+            			        else if(nextDay.equals("")){
+            			    	    day.put(weekDay.getKey(), "00.00-23.59");
+            				        incorrectData = false;
+            			        }
+            			        else if(hoursValidator(nextDay))
+            				    {
+            					    day.put(weekDay.getKey(), nextDay);
+            					    incorrectData = false;
+            				    }
+            			        else{
+            				        System.out.println("Zły format danych. Spróbuj ponownie (HH:MM-HH:MM lub zamknięte lub ''):" +
+                                        "");
+            				        incorrectData = true;
+            		    	    }
+            		        } while(incorrectData);
+            		    }
+            	    } catch (Exception e){
+            	    	System.out.println(e.getMessage());
+            	    }
 
             openingHours.add(day);
             object.put("Opening hours: ", openingHours);
@@ -137,13 +130,16 @@ public class WriteData {
             JSONArray prices = new JSONArray();
             JSONObject priceCase = new JSONObject();
 
-            String nextPrice = read.soutString("Podaj cenę biletu dla dorosłych: ");
+            System.out.println("\nPodaj cenę biletu dla dorosłych: ");
+            Double nextPrice = priceReadAndVerify();
             priceCase.put("Adults price", nextPrice);
 
-            nextPrice = read.soutString("Podaj cenę biletu dla seniorów: ");
+            System.out.println("\nPodaj cenę biletu dla seniorów: ");
+            nextPrice = priceReadAndVerify();
             priceCase.put("Seniors price", nextPrice);
 
-            nextPrice = read.soutString("Podaj cenę biletu dla dzieci: ");
+            System.out.println("\nPodaj cenę biletu dla dzieci: ");
+            nextPrice = priceReadAndVerify();
             priceCase.put("kids price", nextPrice);
 
             prices.add(priceCase);
@@ -182,31 +178,40 @@ public class WriteData {
             do {
                 try {
                     dataInput = new Scanner(System.in);
-                    System.out.println("Wprowadź szerokość geograficzną (xx,yyyyyy): ");
+                    System.out.println("Wprowadź szerokość geograficzną (xx.yyyyyy): ");
                     double dataGps = dataInput.nextDouble();
-                    longLat.put("Latitude", dataGps);
-                    incorrectData = false;
+                    if (verifyLatitude(dataGps)) {
+                        longLat.put("Latitude", dataGps);
+                        incorrectData = false;
+                    } else {
+                        System.out.println("Niewłaściwy zakres spróbuj ponownie");
+                        incorrectData = true;
+                    }
                 }
                 catch(InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
+                    incorrectData = true;
                 }
-            }
-            while(incorrectData == true);
+            }while(incorrectData);
 
-            incorrectData = true;
             do {
                 try {
                     dataInput = new Scanner(System.in);
-                    System.out.println("Wprowadź długość geograficzną (xx,yyyyyy): ");
-                    double dataGps = dataInput.nextDouble();
-                    longLat.put("Longitude", dataGps);
-                    incorrectData = false;
+                    System.out.println("Wprowadź długość geograficzną (xx.yyyyyy): ");
+                    double dataGPS = dataInput.nextDouble();
+                    if (verifyLongitude(dataGPS)) {
+                        longLat.put("Longitude", dataGPS);
+                        incorrectData = false;
+                    } else {
+                        System.out.println("Niewłaściwy zakres spróbuj ponownie");
+                        incorrectData = true;
+                    }
                 }
                 catch(InputMismatchException exc) {
                     System.out.println("Niewłaściwy format danych, spróbuj ponownie");
+                    incorrectData = true;
                 }
-            }
-            while(incorrectData == true);
+            }while(incorrectData);
 
             gps.add(longLat);
             object.put("GPS coordinates", gps);
@@ -238,37 +243,9 @@ public class WriteData {
 
         // NEW #ID TYPING
 
-        boolean correctInput = false;
-        while (!correctInput) {
-            try {
-                System.out.print("\nWprowadź #ID nowej " + IDType.ROUTE + " (liczba całkowita dodatnia): ");
-                long typedID = readLong();
-                if (typedID >= 0){
-                    boolean repeatedID = true;
-                    for (Object object : jsonArray) {
-                        long savedID = (Long) reader.getJSONObject(jsonArray, jsonArray.indexOf(object)).get("ID");
-                        if (typedID == savedID) {
-                            System.out.println("\nPodane #ID zostało już wcześniej przypisane. Spróbuj ponownie.");
-                            repeatedID = true;
-                            break;
-                        }
-                        else {
-                            repeatedID = false;
-                        }
-                    }
-                    if (!repeatedID) {
-                        jsonObject.put("ID",typedID);
-                        correctInput = true;
-                    }
-                }
-                else {
-                    System.out.println("\nProszę wprowadzić liczbę całkowitą DODATNIĄ.");
-                }
-            }
-            catch (InputMismatchException e) {
-                System.out.println("\nWprowadzono nieprawidłowy format!");
-            }
-        }
+        long dataID = jsonArray.size();
+        jsonObject.put("ID", dataID);
+        System.out.println("\nDodawana trasa otrzyma numer #ID: " + dataID + "\n");
 
         // ADDING PLACES TO ROUTE
 
@@ -433,6 +410,33 @@ public class WriteData {
         catch (java.io.IOException e) {
             System.out.println("\nBŁĄD AKTUALIZACJI PLIKU: \"" + FILEPATH + "\"!\n");
         }
+    }
+    public Boolean verifyLatitude(double coords) {
+            return (Math.abs(coords) <= 90);
+    }
+    public Boolean verifyLongitude(double coords) {
+	    return (Math.abs(coords) <=180);
+    }
+
+// OTHER CODE
+
+    private Double priceReadAndVerify() {
+        boolean incorrectInput = true;
+        Double price = 0d;
+        while (incorrectInput) {
+            try {
+                price = readDouble();
+                if (price >= 0) {
+                    incorrectInput = false;
+                    return price;
+                } else {
+                    System.out.println("\nProszę podać liczbę większą lub równą 0.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\nWprowadzono nieprawidłowy format!");
+            }
+        }
+        return price;
     }
 
 	public Boolean hoursValidator(String openingHours){
