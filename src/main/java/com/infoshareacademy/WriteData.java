@@ -6,12 +6,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 import java.time.LocalTime;
 
 public class WriteData {
@@ -91,18 +86,18 @@ public class WriteData {
     object.put("description", dataCollector1);
 
     //set opening hours
-    read.sout("Wprowadź godziny otwarcia (format HH:MM-HH:MM): ");
+    read.sout("Wprowadź godziny otwarcia (format HH:MM-HH:MM lub 'zamknięte' lub zostaw puste pole jeśli obiekt jest otwarty całą dobę): ");
     JSONArray openingHours = new JSONArray();
     JSONObject day = new JSONObject();
     String nextDay;
-    Map<String,String> weekDays = new HashMap<String,String>()
+    Map<String,String> weekDays = new LinkedHashMap<String,String>()
 	    {
 		{
-		put("Monday", "Poniedzialek"); 
+		put("Monday", "Poniedziałek");
 		put("Tuesday", "Wtorek");
-		put("Wednesday", "Sroda");
+		put("Wednesday", "Środa");
 		put("Thursday", "Czwartek");
-		put("Friday", "Piatek");
+		put("Friday", "Piątek");
 		put("Saturday", "Sobota");
 		put("Sunday", "Niedziela");
 	}};
@@ -110,7 +105,7 @@ public class WriteData {
 		    for (Map.Entry<String,String> weekDay: weekDays.entrySet()){
 		    	do{
 			    nextDay = read.soutString(weekDay.getValue()+":");
-			    if (nextDay.toLowerCase().equals("zamkniete")){
+			    if (nextDay.toLowerCase().equals("zamknięte")){
 			    	day.put(weekDay.getKey(), nextDay);
                                 incorrectData = false;
 
@@ -125,7 +120,8 @@ public class WriteData {
 					incorrectData = false;
 				}
 			    else{
-				    System.out.println("Zly format danych. Sprobuj ponownie (HH:MM-HH:MM");
+				    System.out.println("Zły format danych. Spróbuj ponownie (HH:MM-HH:MM lub zamknięte lub ''):" +
+                            "");
 				    incorrectData = true;
 		    	}
 		    }while(incorrectData);
@@ -446,10 +442,8 @@ public class WriteData {
 	}
 	public Boolean openCloseTimesValidator(String openingHours){
 		String[] times = openingHours.split("-");
-		System.out.println(times[0] + " " + times[1]);
 		LocalTime openingTime = LocalTime.parse(times[0]);
                 LocalTime closingTime = LocalTime.parse(times[1]);
-		System.out.println(openingTime + " " + closingTime);
 		return openingTime.isBefore(closingTime);
 
 	}
