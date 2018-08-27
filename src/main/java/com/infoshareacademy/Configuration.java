@@ -7,50 +7,35 @@ public class Configuration {
 
     private Properties cfg = new Properties();
 
+    private static final String CFG_FILEPATH = "cfg.properties";
+    private static final String ADMIN_PASS = "adminPass";
+    private static final String PLACES_DB = "placesDB";
+    private static final String DEFAULT_TR = "defaultTR";
+
     public Configuration() {
         loadConfig();
     }
 
-    public String getPlacesDB(){
-        return cfg.getProperty("placesDB");
+    public String getAdminPass() {
+        return cfg.getProperty(ADMIN_PASS);
     }
 
-    public String getDefaultTR(){ return cfg.getProperty("defaultTR"); }
-
-    public String getUserTR(){
-        return cfg.getProperty("userTR");
+    public String getPlacesDB() {
+        return cfg.getProperty(PLACES_DB);
     }
 
-    public String getTripOTD(){
-        return cfg.getProperty("tripOTD");
-    }
-
-    public String getTestFile(){
-        return cfg.getProperty("testFile");
+    public String getDefaultTR(){
+        return cfg.getProperty(DEFAULT_TR);
     }
 
     private void loadConfig() {
 
         try {
-            cfg.load(getClass().getClassLoader().getResourceAsStream("cfg.properties"));
+            cfg.load(getClass().getClassLoader().getResourceAsStream(CFG_FILEPATH));
         } catch (FileNotFoundException e) {
             System.out.println("NIE ZNALEZIONO PLIKU KONFIGURACYJNEGO!");
         } catch (IOException e) {
             System.out.println("BŁĄD ODCZYTU!");
         }
     }
-
-    public void allLineReader(String FILEPATH){
-
-        String line;
-
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(FILEPATH))) {
-            while ((line = bufferedReader.readLine()) != null){
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

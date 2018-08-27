@@ -12,6 +12,7 @@ public class Menu {
         return new Scanner(System.in).nextInt();
     }
     private MenuText menuText = new MenuText();
+    private Configuration cfg = new Configuration();
     private static int selection = -1;
 
     public int getSelection() {
@@ -121,6 +122,24 @@ public class Menu {
             }
         }
         return idTyped;
+    }
+
+    public boolean isAdmin() {
+        String typedPassword;
+        System.out.println("\nPodaj hasło administratora:");
+        try {
+            typedPassword = readString();
+            if (typedPassword.equals(cfg.getAdminPass())) {
+                System.out.println("\nHasło poprawne.");
+                return true;
+            } else {
+                System.out.println("\nHasło nieprawidłowe.\n");
+                return false;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("\nWprowadzono nieprawidłowy format!");
+            return false;
+        }
     }
 
 }
