@@ -24,8 +24,6 @@ public class WriteData {
     private Double overallDistance = 0.0;
     private List<Double> distances = new ArrayList<>();
 
-    private static final String APARTMENT = "Apartment";
-
 //  CODE FROM Feature/JZAN-2
 
     public void writePlace() {
