@@ -147,8 +147,9 @@ public class WriteData {
             }
             while(incorrectData == true);
 
-            String dataCollector2 = read.soutString("Podaj numer mieszkania: ");
-            object.put("Apartment", dataCollector2);
+            System.out.println("Podaj numer mieszkania (jeżeli nie występuje, proszę wpisać \"0\"): ");
+            Long apartmentNumber = apartmentReadAndVerify();
+            object.put(Location.APARTMENT, apartmentNumber);
 
             //set GPS coordinates
             JSONArray gps = new JSONArray();
@@ -417,6 +418,25 @@ public class WriteData {
             }
         }
         return price;
+    }
+
+    private Long apartmentReadAndVerify() {
+        boolean incorrectInput = true;
+        Long apartmentNumber = 0L;
+        while (incorrectInput) {
+            try {
+                apartmentNumber = readLong();
+                if (apartmentNumber >= 0) {
+                    incorrectInput = false;
+                    return apartmentNumber;
+                } else {
+                    System.out.println("\nProszę podać liczbę większą lub równą 0.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\nWprowadzono nieprawidłowy format!");
+            }
+        }
+        return apartmentNumber;
     }
 
 }
