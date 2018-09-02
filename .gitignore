@@ -1,3 +1,10 @@
+
 .idea/
+console-app/.idea/
+web-app/.idea/
+
 target/
-jjdz5-ants.iml
+console-app/target/
+web-app/target/
+
+*.iml
