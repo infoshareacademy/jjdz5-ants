@@ -10,8 +10,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="scss/style.css">
+  <link rel="stylesheet" href="css/style.css">
   <script src="js/scripts.js"></script>
+
 </head>
 
 <body>
@@ -21,24 +22,24 @@
       <a class="navbarButton dropDownBars" href="javascript:void(0);" onclick="toggleMenu()" title="Toggle Navigation Menu">
         <i class="fa fa-bars"></i>
       </a>
-      <a href="#home" class="navbarButton ">HOME</a>
-      <a href="#routes" class="navbarButton hideMenuOnMobile">
-        <i class="fa fa-map"></i> TRASY</a>
-      <a href="#attractions" class="navbarButton hideMenuOnMobile">
-        <i class="fa fa-map-pin"></i> ATRAKCJE</a>
-      <a href="#help" class="navbarButton hideMenuOnMobile">
+      <a href="#contentTab" class="navbarButton ">HOME</a>
+      <a href="#contentTab" class="navbarButton hideMenuOnMobile">
+        <i class="fa fa-map"></i> TRASY<i class="fa fa-caret-down"></i></a>
+      <a href="#contentTab" class="navbarButton hideMenuOnMobile">
+        <i class="fa fa-map-pin"></i> ATRAKCJE<i class="fa fa-caret-down"></i></a>
+      <a href="#contentTab" class="navbarButton hideMenuOnMobile">
         <i class="fa fa-question-circle"></i> POMOC</a>
-      <a href="#contact" class="navbarButton hideMenuOnMobile">
+      <a href="#contentTab" class="navbarButton hideMenuOnMobile">
         <i class="fa fa-user"></i> LOGOWANIE</a>
     </div>
 
     <!-- Navbar on small screens -->
     <div id="navDemo" class="bg-light">
-      <a href="#about" class="navbarButton" onclick="toggleMenu()">HOME</a>
-      <a href="#education" class="navbarButton" onclick="toggleMenu()">TRASY</a>
-      <a href="#keySkills" class="navbarButton" onclick="toggleMenu()">ATRAKCJE</a>
-      <a href="#portfolio" class="navbarButton" onclick="toggleMenu()">POMOC</a>
-      <a href="#contact" class="navbarButton" onclick="toggleMenu()">LOGOWANIE</a>
+      <a href="#contentTab" class="navbarButton" onclick="toggleMenu()">HOME</a>
+      <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map"></i> TRASY<i class="fa fa-caret-down"></i></a>
+      <a href="#attractions" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map-pin"></i> ATRAKCJE<i class="fa fa-caret-down"></i></a>
+      <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-question-circle"></i> POMOC</a>
+      <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-user"></i> LOGOWANIE</a>
     </div>
   </div>
 
@@ -52,6 +53,8 @@
     </div>
   </div>
 
+<span id="contentTab"></span>
+
   <!-- Welcome section -->
   <div class="sectionContent container sectionDesc" id="home">
     <h3 class="center">Home</h3>
@@ -59,7 +62,10 @@
       <em>Witaj!</em>
     </p>
     <p>
-      Consequat tempor ut aliqua veniam. Consectetur duis quis deserunt commodo sit aliqua velit non ut duis qui sunt Lorem do. Et reprehenderit velit nulla qui quis et pariatur nostrud. Qui sint irure Lorem velit reprehenderit fugiat anim aliqua laboris deserunt et do mollit dolor. Culpa elit reprehenderit sunt ipsum sit consectetur proident nisi cillum ipsum velit qui sunt esse. Proident consectetur ut reprehenderit dolore. Ullamco veniam do aliqua enim sunt.
+      Consequat tempor ut aliqua veniam. Consectetur duis quis deserunt commodo sit aliqua velit non ut duis qui sunt Lorem do.
+      Et reprehenderit velit nulla qui quis et pariatur nostrud. Qui sint irure Lorem velit reprehenderit fugiat anim aliqua
+      laboris deserunt et do mollit dolor. Culpa elit reprehenderit sunt ipsum sit consectetur proident nisi cillum ipsum
+      velit qui sunt esse. Proident consectetur ut reprehenderit dolore. Ullamco veniam do aliqua enim sunt.
     </p>
     <div class="row">
       <div class="col-12 col-sm-12 col-md-6 center">
@@ -71,15 +77,17 @@
           <img src="images/logo.png" class="profilePhoto" alt="App logo">
         </div>
       </div>
-      
+
       <!-- Private info -->
       <div class="privSection col-12 col-sm-12 col-md-6">
-          <p>
-            Ea minim duis incididunt consequat sunt et anim et Lorem nisi occaecat. Aliqua in occaecat excepteur et dolore adipisicing culpa nisi minim. Sit deserunt commodo do labore sit fugiat laborum et exercitation duis mollit. Minim sint ut aute duis. Labore ad est ex sit.
-          </p>
-        </div>
+        <p>
+          Ea minim duis incididunt consequat sunt et anim et Lorem nisi occaecat. Aliqua in occaecat excepteur et dolore adipisicing
+          culpa nisi minim. Sit deserunt commodo do labore sit fugiat laborum et exercitation duis mollit. Minim sint ut
+          aute duis. Labore ad est ex sit.
+        </p>
       </div>
     </div>
+  </div>
 
   <!-- Footer -->
   <footer class="footer center">
