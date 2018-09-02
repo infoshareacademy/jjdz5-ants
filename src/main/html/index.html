@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>AquaticIntii</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="scss/style.css">
+  <script src="js/scripts.js"></script>
+</head>
+
+<body>
+  <!-- Navbar menu -->
+  <div class="topMenu">
+    <div class="hideOverflow" id="myNavbar">
+      <a class="navbarButton dropDownBars" href="javascript:void(0);" onclick="toggleMenu()" title="Toggle Navigation Menu">
+        <i class="fa fa-bars"></i>
+      </a>
+      <a href="#home" class="navbarButton ">HOME</a>
+      <a href="#routes" class="navbarButton hideMenuOnMobile">
+        <i class="fa fa-map"></i> TRASY</a>
+      <a href="#attractions" class="navbarButton hideMenuOnMobile">
+        <i class="fa fa-map-pin"></i> ATRAKCJE</a>
+      <a href="#help" class="navbarButton hideMenuOnMobile">
+        <i class="fa fa-question-circle"></i> POMOC</a>
+      <a href="#contact" class="navbarButton hideMenuOnMobile">
+        <i class="fa fa-user"></i> LOGOWANIE</a>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="bg-light">
+      <a href="#about" class="navbarButton" onclick="toggleMenu()">HOME</a>
+      <a href="#education" class="navbarButton" onclick="toggleMenu()">TRASY</a>
+      <a href="#keySkills" class="navbarButton" onclick="toggleMenu()">ATRAKCJE</a>
+      <a href="#portfolio" class="navbarButton" onclick="toggleMenu()">POMOC</a>
+      <a href="#contact" class="navbarButton" onclick="toggleMenu()">LOGOWANIE</a>
+    </div>
+  </div>
+
+  <!-- Main banner -->
+  <div class="bannerMain bannerContainer" id="home">
+    <div class="middle row" style="white-space:nowrap;">
+      <div class="col-12 center logoText">
+        <img src="images/logo.png">
+        <h2>APP_TITLE</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome section -->
+  <div class="sectionContent container sectionDesc" id="home">
+    <h3 class="center">Home</h3>
+    <p class="center">
+      <em>Witaj!</em>
+    </p>
+    <p>
+      Consequat tempor ut aliqua veniam. Consectetur duis quis deserunt commodo sit aliqua velit non ut duis qui sunt Lorem do. Et reprehenderit velit nulla qui quis et pariatur nostrud. Qui sint irure Lorem velit reprehenderit fugiat anim aliqua laboris deserunt et do mollit dolor. Culpa elit reprehenderit sunt ipsum sit consectetur proident nisi cillum ipsum velit qui sunt esse. Proident consectetur ut reprehenderit dolore. Ullamco veniam do aliqua enim sunt.
+    </p>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-6 center">
+        <h4>
+          <b>TITLE2</b>
+        </h4>
+        <br>
+        <div class="profilePhoto">
+          <img src="images/logo.png" class="profilePhoto" alt="App logo">
+        </div>
+      </div>
+      
+      <!-- Private info -->
+      <div class="privSection col-12 col-sm-12 col-md-6">
+          <p>
+            Ea minim duis incididunt consequat sunt et anim et Lorem nisi occaecat. Aliqua in occaecat excepteur et dolore adipisicing culpa nisi minim. Sit deserunt commodo do labore sit fugiat laborum et exercitation duis mollit. Minim sint ut aute duis. Labore ad est ex sit.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  <!-- Footer -->
+  <footer class="footer center">
+    <a href="#home" class="footerButton">
+      <i class="fa fa-arrow-up fa-fw"></i>To the top</a>
+    <div class="section">
+      <a href="#" class="fa fa-facebook-official fa-3x fa-fw"></a>
+      <a href="#" class="fa fa-linkedin fa-3x"></a>
+      <a href="#" class="fa fa-instagram fa-3x"></a>
+    </div>
+  </footer>
+
+</body>
+
+</html>
