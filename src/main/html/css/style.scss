@@ -29,26 +29,14 @@ html {
     overflow-x: hidden;
 }
 
-.bannerMain,
-.bannerSkills,
-.bannerContact,
-.bannerPortfolio {
+.bannerMain {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.bannerMain {
     background-image: url('../img/banner.jpg');
     min-height: 100%;
-    box-shadow: 0px 5px 8px $themeColorDarkGrey,
-}
-
-.banners {
-    min-height: 400px;
-    box-shadow: 0px 5px 8px $themeColorDarkGrey, 0px -3px 6px $themeColorMint;
-    display: relative;
+    box-shadow: 0px 5px 8px $themeColorDarkGrey;
 }
 
 .bannerContainer {
@@ -131,7 +119,7 @@ html {
     -ms-transform: translate(-50%, -50%)
 }
 
-.profilePhoto {
+.homeImg {
     width: 300px;
     height: 300px;
     margin: 0 auto;
