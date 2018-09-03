@@ -1,5 +1,6 @@
 package com.infoshareacademy.webapp.mechanics;
 
+import com.infoshareacademy.ReadData;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 @ApplicationScoped
-public class DataReader {
+public class DataReader extends ReadData {
 
     private final JSONParser jsonParser = new JSONParser();
     private JSONArray jsonArray;
@@ -32,5 +33,7 @@ public class DataReader {
     private JSONArray JsonArrayParse(InputStreamReader jsonFile) throws IOException, ParseException {
         return (JSONArray) jsonParser.parse(jsonFile);
     }
+
+
 
 }
