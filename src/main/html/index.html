@@ -21,22 +21,48 @@
       <a class="navbarButton dropDownBars" href="javascript:void(0);" onclick="toggleMenu()" title="Toggle Navigation Menu">
         <i class="fa fa-bars"></i>
       </a>
-      <a href="#contentTab" class="navbarButton ">HOME</a>
-      <a href="#contentTab" class="navbarButton hideMenuOnMobile">
-        <i class="fa fa-map"></i> TRASY<i class="fa fa-caret-down"></i></a>
-      <a href="#contentTab" class="navbarButton hideMenuOnMobile">
-        <i class="fa fa-map-pin"></i> ATRAKCJE<i class="fa fa-caret-down"></i></a>
-      <a href="#contentTab" class="navbarButton hideMenuOnMobile">
+
+      <a class="navbarButton navbar-brand hideMenuOnMobile" href="#">
+          <img src="img/logo.png" width="30" height="30" alt="">
+        </a>
+
+      <a href="#contentTab" class="navbarButton singleNavbarButton" onclick="$('#main-body').load( 'content/main.html' );">HOME</a>
+
+      <div class="navbarButton hideMenuOnMobile dropdown">
+          <div class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown">
+            <i class="fa fa-map"></i> TRASY
+          </div>
+          <div class="dropdown-menu" >
+            <a href="#contentTab" class="dropdown-item" onclick="$('#main-body').load( 'content/routes.html' );">Dostępne trasy</a>
+            <div class="dropdown-divider"></div>
+            <a href="#contentTab" class="dropdown-item">Moje trasy</a>
+            <a href="#contentTab" class="dropdown-item">Dodaj nową</a>
+          </div>
+      </div>
+
+      <div class="navbarButton hideMenuOnMobile dropdown">
+        <div class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown">
+          <i class="fa fa-map"></i> ATRAKCJE
+        </div>
+        <div class="dropdown-menu" >
+          <a href="#contentTab" class="dropdown-item" href="#">Lista atrakcji</a>
+          <div class="dropdown-divider"></div>
+          <a href="#contentTab" class="dropdown-item" href="#">Moje ulubione</a>
+          <a href="#contentTab" class="dropdown-item" href="#">Dodaj nową</a>
+        </div>
+    </div>
+
+      <a href="#contentTab" class="navbarButton hideMenuOnMobile singleNavbarButton">
         <i class="fa fa-question-circle"></i> POMOC</a>
-      <a href="#contentTab" class="navbarButton hideMenuOnMobile">
+      <a href="#" class="navbarButton hideMenuOnMobile navbarRight singleNavbarButton">
         <i class="fa fa-user"></i> LOGOWANIE</a>
     </div>
 
     <!-- Navbar on small screens -->
     <div id="navDemo" class="bg-light">
       <a href="#contentTab" class="navbarButton" onclick="toggleMenu()">HOME</a>
-      <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map"></i> TRASY<i class="fa fa-caret-down"></i></a>
-      <a href="#attractions" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map-pin"></i> ATRAKCJE<i class="fa fa-caret-down"></i></a>
+      <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map"></i> TRASY</a>
+      <a href="#attractions" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map-pin"></i> ATRAKCJE</a>
       <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-question-circle"></i> POMOC</a>
       <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-user"></i> LOGOWANIE</a>
     </div>
@@ -55,38 +81,8 @@
 <span id="contentTab"></span>
 
   <!-- Welcome section -->
-  <div class="sectionContent container sectionDesc" id="home">
-    <h3 class="center">Home</h3>
-    <p class="center">
-      <em>Witaj!</em>
-    </p>
-    <p>
-      Consequat tempor ut aliqua veniam. Consectetur duis quis deserunt commodo sit aliqua velit non ut duis qui sunt Lorem do.
-      Et reprehenderit velit nulla qui quis et pariatur nostrud. Qui sint irure Lorem velit reprehenderit fugiat anim aliqua
-      laboris deserunt et do mollit dolor. Culpa elit reprehenderit sunt ipsum sit consectetur proident nisi cillum ipsum
-      velit qui sunt esse. Proident consectetur ut reprehenderit dolore. Ullamco veniam do aliqua enim sunt.
-    </p>
-    <div class="row">
-      <div class="col-12 col-sm-12 col-md-6 center">
-        <h4>
-          <b>TITLE2</b>
-        </h4>
-        <br>
-        <div class="homeImg">
-          <img src="img/logo.png" class="profilePhoto" alt="App logo">
-        </div>
-      </div>
-
-      <!-- Private info -->
-      <div class="privSection col-12 col-sm-12 col-md-6">
-        <p>
-          Ea minim duis incididunt consequat sunt et anim et Lorem nisi occaecat. Aliqua in occaecat excepteur et dolore adipisicing
-          culpa nisi minim. Sit deserunt commodo do labore sit fugiat laborum et exercitation duis mollit. Minim sint ut
-          aute duis. Labore ad est ex sit.
-        </p>
-      </div>
-    </div>
-  </div>
+  <section class="row bg-light" id="main-body" role="main">
+  </section>
 
   <!-- Footer -->
   <footer class="footer center">
@@ -100,5 +96,10 @@
   </footer>
 
 </body>
-
 </html>
+
+<script>
+	$(document).ready( function () {
+		$('#main-body').load( 'content/home.html' );
+	});
+</script>

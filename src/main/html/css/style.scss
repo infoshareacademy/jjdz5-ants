@@ -71,11 +71,13 @@ html {
     top: 0;
     background-color: $themeColorDarkBlue;
     box-shadow: 0px 2px 5px $themeColorDarkGrey;
-    color: white !important;
+    color: white !important; 
+
 }
 
-.hideOverflow {
-    overflow: hidden
+.subMenu{
+    z-index: 3;
+    overflow: visible !important;
 }
 
 .showElement {
@@ -101,10 +103,18 @@ html {
     color: white;
 }
 
+.singleNavbarButton {
+    margin: 8px;
+}
+
 .navbarButton:hover {
     background-color: $themeColorLightBlue;
     color: $themeColorDarkBlue;
     opacity: 0.8;
+}
+
+.navbarRight {
+    float: right;
 }
 
 #navDemo {
@@ -231,7 +241,7 @@ img.hover-shadow {
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 780px) {
     .dropDownBars {
         display: block !important;
     }
