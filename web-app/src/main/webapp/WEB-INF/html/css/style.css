@@ -1,0 +1,270 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body,
+html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+.bannerMain {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../img/banner.jpg");
+  min-height: 100%;
+  box-shadow: 0px 5px 8px #393d3d;
+}
+
+.bannerContainer {
+  position: relative;
+}
+
+.bannerText {
+  font-size: 45px !important;
+  letter-spacing: 5px;
+  color: #95d4cb;
+  text-shadow: 2px 2px #393d3d;
+}
+
+.logoText {
+  font-size: 28px;
+  background-color: #0c3d53;
+  color: #95d4cb;
+  padding: 25px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.logoText img {
+  max-width: 200px;
+}
+
+/* Navbar */
+.topMenu {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  top: 0;
+  background-color: #0c3d53;
+  box-shadow: 0px 2px 5px #393d3d;
+  color: white !important;
+}
+
+.subMenu {
+  z-index: 3;
+  overflow: visible !important;
+}
+
+.showElement {
+  display: block !important;
+}
+
+.hideElement {
+  display: none !important;
+}
+
+.dropDownBars {
+  float: right !important;
+  display: none !important;
+}
+
+.navbarButton {
+  padding: 8px 16px;
+  float: left;
+  width: auto;
+  border: none;
+  display: block;
+  outline: 0;
+  color: white;
+}
+
+.singleNavbarButton {
+  margin: 8px;
+}
+
+.navbarButton:hover {
+  background-color: #d3e2e9;
+  color: #0c3d53;
+  opacity: 0.8;
+}
+
+.navbarRight {
+  float: right;
+}
+
+#navDemo {
+  display: none;
+}
+
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.homeImg {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.homeImg img {
+  -webkit-filter: grayscale(85%);
+  /* Safari 6.0 - 9.0 */
+  filter: grayscale(85%);
+  box-shadow: 5px 5px 8px #393d3d;
+}
+
+.homeImg img:hover {
+  -webkit-filter: 0%;
+  filter: none;
+  box-shadow: 5px 5px 8px #393d3d;
+}
+
+.privSection {
+  padding: 10px;
+  padding-top: 40px;
+}
+
+.section {
+  padding: 10px;
+}
+
+.section span {
+  font-size: 24px;
+}
+
+.sectionContent {
+  max-width: 980px;
+  margin: auto;
+}
+
+.sectionDesc {
+  padding-top: 64px;
+  padding-bottom: 64px;
+  color: #393d3d;
+}
+
+.sectionDesc h4 {
+  padding: 12px 24px;
+}
+
+.contactSection {
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.hiddenGallery {
+  display: none;
+}
+
+.hiddenSkills {
+  display: none;
+}
+
+.center {
+  text-align: center !important;
+}
+
+/* Number text */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Caption text */
+.caption-container {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}
+
+img.demo {
+  max-height: 200px;
+  max-width: 282px;
+  opacity: 0.6;
+  padding: 20px;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+img.hover-shadow {
+  transition: 0.3s;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+  .bannerMain,
+  .bannerSkills,
+  .bannerContact,
+  .bannerPortfolio {
+    background-attachment: scroll;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .dropDownBars {
+    display: block !important;
+  }
+  .navbarButton {
+    float: none;
+  }
+  .hideMenuOnMobile {
+    display: none !important;
+  }
+}
+
+.inputField {
+  padding: 8px;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.footer {
+  background-color: #0c3d53;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.footer a.fa {
+  color: #f1f1f1;
+}
+
+.footer a:hover {
+  color: #95d4cb;
+}
+
+.footerButton {
+  background-color: #f1f1f1;
+  color: #393d3d;
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  vertical-align: middle;
+}
