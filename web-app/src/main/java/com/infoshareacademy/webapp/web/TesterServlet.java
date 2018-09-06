@@ -1,8 +1,10 @@
 package com.infoshareacademy.webapp.web;
 
+import com.infoshareacademy.webapp.Configuration;
+import com.infoshareacademy.webapp.mechanics.AccessJson;
 import com.infoshareacademy.webapp.mechanics.PlacePullFromJson;
-import com.infoshareacademy.webapp.model.PlaceAdditional;
-import com.infoshareacademy.webapp.model.PlaceMain;
+import com.infoshareacademy.webapp.model.Place;
+import com.infoshareacademy.webapp.repository.PlacesRepository;
 import org.json.simple.parser.ParseException;
 
 import javax.inject.Inject;
@@ -17,14 +19,19 @@ import java.io.*;
 public class TesterServlet extends HttpServlet {
 
     @Inject
-    private PlacePullFromJson placePullFromJson;
+    private PlacesRepository placesRepository;
 
+    @Inject
+    private AccessJson accessJson;
+
+    @Inject
+    private PlacePullFromJson placePullFromJson = new PlacePullFromJson();
 
     @Override
     public void init() throws ServletException {
         try {
-            placePullFromJson.placesJsonLoader(getServletContext());
-            System.out.println("Repository successfully loaded.");
+            accessJson.setJsonArray(Configuration.PLACES_JSON_FILEPATH, getServletContext());
+            placesRepository.addPlacesToRepository(accessJson.getJsonArray());
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -33,14 +40,8 @@ public class TesterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletConfiguration.setDefaultContentType(resp);
-        placePullFromJson.setPullIndex(9);
-        PlaceMain placeMain;
-        PlaceAdditional placeAdditional;
-        placeMain = placePullFromJson.getPlaceMain();
-        placeAdditional = placePullFromJson.getPlaceAdditional();
 
-        resp.getWriter().println(placeMain);
-        resp.getWriter().println(placeAdditional);
+        resp.getWriter().println(placesRepository.getPlacesRepository());
         resp.getWriter().println("<br><br>");
 
     }

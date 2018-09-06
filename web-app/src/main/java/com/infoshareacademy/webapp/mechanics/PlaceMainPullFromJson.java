@@ -6,9 +6,14 @@ import com.infoshareacademy.webapp.model.PlaceConstants;
 import com.infoshareacademy.webapp.model.PlaceMain;
 import org.json.simple.JSONArray;
 
-public class PlaceMainPullFromJson {
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
-    AccessJson accessJson = new AccessJson();
+@ApplicationScoped
+public class PlaceMainPullFromJson{
+
+    @Inject
+    private AccessJson accessJson;
 
     private JSONArray placesArray;
     private Integer pullIndex;
@@ -16,12 +21,15 @@ public class PlaceMainPullFromJson {
     private Boolean namePulledCorrectly;
     private Boolean descriptionPulledCorrectly;
 
-    protected PlaceMainPullFromJson(JSONArray placesArray, Integer pullIndex){
+    public void setPlacesArray(JSONArray placesArray) {
         this.placesArray = placesArray;
+    }
+
+    public void setPullIndex(Integer pullIndex) {
         this.pullIndex = pullIndex;
     }
 
-    protected PlaceMain preparePlaceMain() {
+    public PlaceMain preparePlaceMain() {
         PlaceMain placeMain = new PlaceMain(pullIdFromJsonArray(), pullTypeFromJsonArray(), pullNameFromJsonArray(), pullDescriptionFromJsonArray());
         if (isPlaceMainPulledCorrectly()) {
             return placeMain;
@@ -34,7 +42,7 @@ public class PlaceMainPullFromJson {
         try {
             idPulledCorrectly = true;
             return Math.toIntExact((Long) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_ID));
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | NullPointerException e) {
             e.printStackTrace();
             idPulledCorrectly = false;
         }
@@ -58,7 +66,7 @@ public class PlaceMainPullFromJson {
         try {
             namePulledCorrectly = true;
             return (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_NAME);
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | NullPointerException e) {
             e.printStackTrace();
             namePulledCorrectly = false;
 
@@ -70,7 +78,7 @@ public class PlaceMainPullFromJson {
         try {
             descriptionPulledCorrectly = true;
             return (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_DESCRIPTION);
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | NullPointerException e) {
             e.printStackTrace();
             descriptionPulledCorrectly = false;
 

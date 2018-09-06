@@ -15,6 +15,8 @@ public class PlaceConstants {
     public static final String PLACE_PRICES = "Price list";
     public static final String PLACE_RATINGS = "ratings";
 
+    public static final String PLACE_STREET = "street";
+
 //  Others
 
     public static final String NO_DATA = "Brak danych";

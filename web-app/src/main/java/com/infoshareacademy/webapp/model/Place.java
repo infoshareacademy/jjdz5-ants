@@ -4,18 +4,18 @@ public class Place {
 
     private final PlaceMain placeMain;
     private final PlaceAdditional placeAdditional;
-    private final PlaceLocation location;
+    private final PlaceLocation placeLocation;
 
     public Place() {
         this.placeMain = new PlaceMain();
         this.placeAdditional = new PlaceAdditional();
-        this.location = new PlaceLocation();
+        this.placeLocation = new PlaceLocation();
     }
 
     public Place(PlaceMain placeMain, PlaceAdditional placeAdditional, PlaceLocation location) {
         this.placeMain = placeMain;
         this.placeAdditional = placeAdditional;
-        this.location = location;
+        this.placeLocation = location;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class Place {
         return "Place{" +
                 "\nplaceMain=" + placeMain +
                 ",\nplaceAdditional=" + placeAdditional +
-                ",\nlocation=" + location +
+                ",\nplaceLocation=" + placeLocation +
                 '}';
     }
 }

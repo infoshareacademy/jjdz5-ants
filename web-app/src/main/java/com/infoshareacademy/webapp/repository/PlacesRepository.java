@@ -1,24 +1,33 @@
 package com.infoshareacademy.webapp.repository;
 
+import com.infoshareacademy.webapp.mechanics.PlacePullFromJson;
 import com.infoshareacademy.webapp.model.Place;
+import org.json.simple.JSONArray;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
 public class PlacesRepository {
 
-    private final List<Place> places;
+    @Inject
+    private PlacePullFromJson placePullFromJson;
 
-    public PlacesRepository() {
-        final List<Place> places = new ArrayList<>();
-        places.add(new Place());
-        this.places = places;
+    private List<Place> places = new ArrayList<>();
+
+    public void addPlacesToRepository(JSONArray placesArray) {
+        placePullFromJson.setPlacesArray(placesArray);
+        for (Object place : placesArray) {
+            placePullFromJson.setPullIndex(placesArray.indexOf(place));
+            places.add(placePullFromJson.getCompletePlace());
+        }
     }
 
-    public List<Place> getPlaces() {
+    public List<Place> getPlacesRepository() {
         return places;
     }
+
 
 }

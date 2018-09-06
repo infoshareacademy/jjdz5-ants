@@ -31,7 +31,6 @@ public class PlacesViewerServlet extends HttpServlet {
         ServletConfiguration.setDefaultContentType(resp);
 
         Map<String, List> dataModule = new HashMap();
-        dataModule.put("places", placesRepository.getPlaces());
 
         templateProvider.print(getServletContext(),TEMPLATE_NAME, dataModule, resp);
     }
