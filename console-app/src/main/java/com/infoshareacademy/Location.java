@@ -9,11 +9,17 @@ public class Location{
     private TextFormat txt = new TextFormat();
     private JSONArray array = new ArraysAccess().getCorrectPlacesArray();
 
+    public static final String APARTMENT = "Apartment";
+    private static final Integer EMPTY_APARTMENT_NUMBER = 0;
+
 //  PRINTING INFO
 
     public void printAdress(int index){
         String apartment = "";
-        if (getApartmentNumber(index) != null) { apartment = ("/" + getApartmentNumber(index)); }
+        Integer apartmentNumber = getApartmentNumber(index);
+        if (!isWithoutApartmentNumber(apartmentNumber)) {
+            apartment = ("/" + apartmentNumber);
+        }
         txt.separator();
         System.out.println("Adres:");
         System.out.println("Ul. " + txt.capitalize(getStreet(index)) + " " + getBuildingNumber(index) + apartment);
@@ -46,8 +52,12 @@ public class Location{
     }
 
     public Integer getApartmentNumber(int index) {
-        try { return Integer.valueOf(reader.getJSONObject(array,index).get("Apartment").toString()); }
-        catch (NumberFormatException e) { return null; }
+        try {
+            return Integer.valueOf(reader.getJSONObject(array,index).get(APARTMENT).toString());
+        }
+        catch (NumberFormatException e) {
+            return EMPTY_APARTMENT_NUMBER;
+        }
     }
 
 //  GPS COORDINATES.
@@ -56,6 +66,12 @@ public class Location{
         JSONObject object = reader.getSubJSONObject(array,index,"GPS coordinates");
         try { return Double.valueOf(object.get(coordinate).toString()); }
         catch (NumberFormatException e) { return 0.0; }
+    }
+
+//  OTHER
+
+    private boolean isWithoutApartmentNumber (Integer apartmentNumber) {
+            return apartmentNumber == EMPTY_APARTMENT_NUMBER;
     }
 
 }
