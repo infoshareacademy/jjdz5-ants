@@ -74,7 +74,24 @@ public class AccessJson {
             }
             return keyValueMap;
         } catch (NumberFormatException e) {
-            System.out.println("NumberFormatException");
+            System.out.println("||ERROR: NumberFormatException in pullJsonIntegerCollection ||");
+        }
+        return null;
+    }
+
+    public Map<String, Double> pullJsonDoubleCollection(JSONObject jsonCollectionName) {
+        String keyValueSplitSign = "=";
+        Map keyValueMap = new TreeMap<>();
+        try {
+            for (Object object : jsonCollectionName.entrySet()) {
+                String[] keyValueSplit = object.toString().split(keyValueSplitSign);
+                String key = keyValueSplit[0];
+                Double value = Double.valueOf(keyValueSplit[1]);
+                keyValueMap.put(key, value);
+            }
+            return keyValueMap;
+        } catch (NumberFormatException e) {
+            System.out.println("||ERROR: NumberFormatException in pullJsonDoubleCollection ||");
         }
         return null;
     }

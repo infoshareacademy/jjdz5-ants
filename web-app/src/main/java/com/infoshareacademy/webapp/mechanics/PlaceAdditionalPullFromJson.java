@@ -1,7 +1,6 @@
 package com.infoshareacademy.webapp.mechanics;
 
 import com.infoshareacademy.webapp.model.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -50,9 +49,9 @@ public class PlaceAdditionalPullFromJson {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("||PLACE INDEX: " + pullIndex + " ERROR: New error, identify and add annotation ||");
+            System.out.println(getError("New error, identify and add annotation (PullAdditionalPullFromJson : 53 line)"));
         }
-        System.out.println("||PLACE INDEX: " + pullIndex + " ERROR: Cannot identify " + weekDay.name() + ", broken entry in json ||");
+        System.out.println(getError("Cannot identify WEEKDAY: \"" + weekDay.name() + "\", possible broken entry"));
         return PlaceConstants.NO_DATA;
     }
 
@@ -72,15 +71,14 @@ public class PlaceAdditionalPullFromJson {
             Double specificPriceType = Double.parseDouble(accessJson.findSpecificValueInCollection(pulledPrices, priceType.name()).toString());
             return specificPriceType;
         } catch (NumberFormatException e) {
-            System.out.println("||PLACE INDEX: " + pullIndex + " ERROR: NumberFormatException in PRICE_TYPE: " + priceType.name() + " ||");
+            System.out.println(getError("(NumberFormat) in PRICE TYPE: \"" + priceType.name() + "\""));
         } catch (NullPointerException e) {
-            System.out.println("||PLACE INDEX: " + pullIndex + " ERROR: NullPointerException in PRICE_TYPE: " + priceType.name() + " ||");
+            System.out.println(getError("(NullPointer) in PRICE TYPE: \"" + priceType.name() + "\""));
         }
         return noData;
     }
 
     private Map<String, Integer> pullRatingsFromJsonArray() {
-        Map<String, Integer> defaultRatings;
         try {
             JSONObject ratingsCollection = accessJson.getSubJsonObject(placesArray, pullIndex, PlaceConstants.PLACE_RATINGS);
             Map<String, Integer> pulledRatings = accessJson.pullJsonIntegerCollection(ratingsCollection);
@@ -88,13 +86,13 @@ public class PlaceAdditionalPullFromJson {
                 return pulledRatings;
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("||PLACE INDEX: " + pullIndex + " ERROR: IndexOutOfBoundsException in ratings ||");
+            System.out.println(getError("(IndexOutOfBounds) Ratings collection is probably empty"));
         } catch (NullPointerException e) {
-            System.out.println("||PLACE INDEX: " + pullIndex + " ERROR: NullPointerException in ratings ||");
+            System.out.println(getError("(NullPointer) Ratings collection is probably empty"));
         }
-        System.out.println("||PLACE INDEX: " + pullIndex + " ERROR: ratings collection in json is empty/broken, setting default values ||");
-        PlaceAdditional placeAdditional = new PlaceAdditional();
-        defaultRatings = placeAdditional.getDefaultRatings();
+        System.out.println(getInfo("Ratings collection is probably empty/broken, setting default values"));
+        Map<String, Integer> defaultRatings;
+        defaultRatings = PlaceAdditional.getDefaultRatings();
         return defaultRatings;
     }
 
@@ -108,6 +106,14 @@ public class PlaceAdditionalPullFromJson {
         } catch (NullPointerException e) {
             return false;
         }
+    }
+
+    private String getError(String error) {
+        return "||PLACE INDEX: " + pullIndex + " ERROR: " + error + " ||";
+    }
+
+    private String getInfo(String info) {
+        return "||PLACE INDEX: " + pullIndex + " INFO: " + info + " ||";
     }
 
 }

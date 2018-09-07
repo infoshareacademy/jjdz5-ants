@@ -1,6 +1,6 @@
 package com.infoshareacademy.webapp.model;
 
-public enum CoordinateType {
+public enum CoordinateTypes {
 
     LATITUDE,
     LONGITUDE;

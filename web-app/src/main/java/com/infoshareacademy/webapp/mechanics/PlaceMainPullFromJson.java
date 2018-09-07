@@ -17,7 +17,6 @@ public class PlaceMainPullFromJson{
 
     private JSONArray placesArray;
     private Integer pullIndex;
-    private Boolean idPulledCorrectly;
     private Boolean namePulledCorrectly;
     private Boolean descriptionPulledCorrectly;
 
@@ -30,22 +29,25 @@ public class PlaceMainPullFromJson{
     }
 
     public PlaceMain preparePlaceMain() {
-        PlaceMain placeMain = new PlaceMain(pullIdFromJsonArray(), pullTypeFromJsonArray(), pullNameFromJsonArray(), pullDescriptionFromJsonArray());
+        PlaceMain placeMain= new PlaceMain(pullNameFromJsonArray(),
+                pullTypeFromJsonArray(),
+                pullDescriptionFromJsonArray());
         if (isPlaceMainPulledCorrectly()) {
             return placeMain;
         }
-        System.out.println("ERROR - ID #" + pullIndex + " place is not correct. Check JSON file: \"" + Configuration.PLACES_JSON_FILEPATH + "\" ;");
-        return new PlaceMain();
+        System.out.println(getError("PlaceMain major values are not correct. Check JSON file: \"" + Configuration.PLACES_JSON_FILEPATH + "\""));
+        placeMain = new PlaceMain();
+        return placeMain;
     }
 
-    private Integer pullIdFromJsonArray() {
+    private String pullNameFromJsonArray() {
         try {
-            idPulledCorrectly = true;
-            return Math.toIntExact((Long) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_ID));
+            namePulledCorrectly = true;
+            return (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_NAME);
         } catch (ClassCastException | NullPointerException e) {
             e.printStackTrace();
-            idPulledCorrectly = false;
         }
+        namePulledCorrectly = false;
         return null;
     }
 
@@ -62,36 +64,27 @@ public class PlaceMainPullFromJson{
         return PlaceOfInterestType.WRONG_TYPE;
     }
 
-    private String pullNameFromJsonArray() {
-        try {
-            namePulledCorrectly = true;
-            return (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_NAME);
-        } catch (ClassCastException | NullPointerException e) {
-            e.printStackTrace();
-            namePulledCorrectly = false;
-
-        }
-        return null;
-    }
-
     private String pullDescriptionFromJsonArray() {
         try {
             descriptionPulledCorrectly = true;
             return (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_DESCRIPTION);
         } catch (ClassCastException | NullPointerException e) {
             e.printStackTrace();
-            descriptionPulledCorrectly = false;
-
         }
+        descriptionPulledCorrectly = false;
         return null;
     }
 
     private Boolean isPlaceMainPulledCorrectly() {
         Boolean placeMainPulledCorrectly = false;
-        if (idPulledCorrectly && namePulledCorrectly && descriptionPulledCorrectly) {
+        if (namePulledCorrectly && descriptionPulledCorrectly) {
             placeMainPulledCorrectly = true;
         }
         return placeMainPulledCorrectly;
+    }
+
+    private String getError(String error) {
+        return "||PLACE INDEX: " + pullIndex + " ERROR: " + error + " ||";
     }
 
 }

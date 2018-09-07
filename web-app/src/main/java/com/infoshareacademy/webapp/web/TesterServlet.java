@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
 
 @WebServlet("/tester")
 public class TesterServlet extends HttpServlet {
@@ -41,8 +42,11 @@ public class TesterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletConfiguration.setDefaultContentType(resp);
 
-        resp.getWriter().println(placesRepository.getPlacesRepository());
-        resp.getWriter().println("<br><br>");
+        List<Place> placesRepo = placesRepository.getPlacesRepository();
+        for (Place place : placesRepo) {
+            resp.getWriter().println(place);
+            resp.getWriter().println("<br><br>");
+        }
 
     }
 

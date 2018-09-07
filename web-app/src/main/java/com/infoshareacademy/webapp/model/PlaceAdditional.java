@@ -8,9 +8,11 @@ public class PlaceAdditional {
     private final Map<PriceTypes, Double> prices;
     private final Map<String, Integer> ratings;
 
+    private Boolean isDefault;
+
     private Map<WeekDays, String> defaultOpeningHours = new TreeMap<>();
     private Map<PriceTypes, Double> defaultPrices = new TreeMap<>();
-    private Map<String, Integer> defaultRatings = new HashMap<>();
+    private static Map<String, Integer> defaultRatings = new HashMap<>();
 
 
     public PlaceAdditional() {
@@ -20,12 +22,14 @@ public class PlaceAdditional {
         this.openingHours = defaultOpeningHours;
         this.prices = defaultPrices;
         this.ratings = defaultRatings;
+        this.isDefault = true;
     }
 
     public PlaceAdditional(Map<WeekDays, String> openingHours, Map<PriceTypes, Double> prices, Map<String, Integer> ratings) {
         this.openingHours = openingHours;
         this.prices = prices;
         this.ratings = ratings;
+        this.isDefault = false;
     }
 
     private void setDefaultOpeningHours() {
@@ -45,10 +49,19 @@ public class PlaceAdditional {
         defaultPrices.put(PriceTypes.REDUCED_FOR_PENSIONERS, forFree);
     }
 
-    private void setDefaultRatings() {
+    private static void setDefaultRatings() {
         Integer defaultRating = 5;
         String defaultUser = "Użytkownik";
         defaultRatings.put(defaultUser, defaultRating);
+    }
+
+    public static Map<String, Integer> getDefaultRatings() {
+        setDefaultRatings();
+        return defaultRatings;
+    }
+
+    public Boolean getDefaultStatus() {
+        return isDefault;
     }
 
     @Override
@@ -58,19 +71,5 @@ public class PlaceAdditional {
                 ", prices=" + prices +
                 ", ratings=" + ratings +
                 '}';
-    }
-
-    public Map<WeekDays, String> getDefaultOpeningHours() {
-        setDefaultOpeningHours();
-        return defaultOpeningHours;
-    }
-
-    public Map<PriceTypes, Double> getDefaultPrices() {
-        setDefaultPrices();
-        return defaultPrices;
-    }
-
-    public Map<String, Integer> getDefaultRatings() {
-        return defaultRatings;
     }
 }

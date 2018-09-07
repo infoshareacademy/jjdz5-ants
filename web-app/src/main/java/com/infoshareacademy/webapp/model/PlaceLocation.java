@@ -1,23 +1,25 @@
 package com.infoshareacademy.webapp.model;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class PlaceLocation {
 
     private final String street;
     private final String city;
-    private final String buildingLetter;
     private final Integer buildingNumber;
+    private final String buildingLetter;
     private final Integer apartmentNumber;
-    private final Map<CoordinateType, Double> gpsCoordinates;
+    private final Map<CoordinateTypes, Double> gpsCoordinates;
+
+    private Boolean isDefault;
 
     private String defaultStreet = "Domyślna";
     private String defaultCity = "Domyślne";
-    private String defaultBuildingLetter = "";
     private Integer defaultBuildingNumber = 1;
+    private String defaultBuildingLetter = "";
     private Integer defaultApartmentNumber = 0;
-    private Map<CoordinateType, Double> defaultGpsCoordinates = new HashMap<>();
+    private Map<CoordinateTypes, Double> defaultGpsCoordinates = new TreeMap<>();
 
     public PlaceLocation() {
         setDefaultGpsCoordinates();
@@ -27,23 +29,29 @@ public class PlaceLocation {
         this.buildingNumber = defaultBuildingNumber;
         this.apartmentNumber = defaultApartmentNumber;
         this.gpsCoordinates = defaultGpsCoordinates;
+        this.isDefault = true;
     }
 
-    public PlaceLocation(String street, String city, String buildingLetter, Integer buildingNumber,
-                         Integer apartmentNumber, Map<CoordinateType, Double> gpsCoordinates) {
+    public PlaceLocation(String street, String city, Integer buildingNumber, String buildingLetter,
+                         Integer apartmentNumber, Map<CoordinateTypes, Double> gpsCoordinates) {
         this.street = street;
         this.city = city;
-        this.buildingLetter = buildingLetter;
         this.buildingNumber = buildingNumber;
+        this.buildingLetter = buildingLetter;
         this.apartmentNumber = apartmentNumber;
         this.gpsCoordinates = gpsCoordinates;
+        this.isDefault = false;
     }
 
     private void setDefaultGpsCoordinates() {
         Double defaultLatitude = 54.351768;
         Double defaultLongitude = 18.643310;
-        defaultGpsCoordinates.put(CoordinateType.LATITUDE, defaultLatitude);
-        defaultGpsCoordinates.put(CoordinateType.LONGITUDE, defaultLongitude);
+        defaultGpsCoordinates.put(CoordinateTypes.LATITUDE, defaultLatitude);
+        defaultGpsCoordinates.put(CoordinateTypes.LONGITUDE, defaultLongitude);
+    }
+
+    public Boolean getDefaultStatus() {
+        return isDefault;
     }
 
     @Override

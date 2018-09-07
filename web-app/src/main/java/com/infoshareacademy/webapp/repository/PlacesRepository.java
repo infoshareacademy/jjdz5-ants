@@ -19,10 +19,17 @@ public class PlacesRepository {
 
     public void addPlacesToRepository(JSONArray placesArray) {
         placePullFromJson.setPlacesArray(placesArray);
-        for (Object place : placesArray) {
-            placePullFromJson.setPullIndex(placesArray.indexOf(place));
-            places.add(placePullFromJson.getCompletePlace());
+        for (Object entry : placesArray) {
+            placePullFromJson.setPullIndex(placesArray.indexOf(entry));
+            Place place = placePullFromJson.getCompletePlace();
+            if (isPlaceNotDefault(place)){
+                places.add(place);
+            }
         }
+    }
+
+    private Boolean isPlaceNotDefault(Place place){
+        return !place.getDefaultStatus();
     }
 
     public List<Place> getPlacesRepository() {
