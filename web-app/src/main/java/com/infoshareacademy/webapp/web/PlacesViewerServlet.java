@@ -1,8 +1,12 @@
 package com.infoshareacademy.webapp.web;
 
 import com.infoshareacademy.PlaceOfInterest;
+import com.infoshareacademy.webapp.Configuration;
 import com.infoshareacademy.webapp.freemarker.TemplateProvider;
+import com.infoshareacademy.webapp.mechanics.AccessJson;
+import com.infoshareacademy.webapp.model.Place;
 import com.infoshareacademy.webapp.repository.PlacesRepository;
+import org.json.simple.parser.ParseException;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -19,18 +23,35 @@ import java.util.Map;
 public class PlacesViewerServlet extends HttpServlet {
 
     private static final String TEMPLATE_NAME = "places-viewer";
+    private final String PLACES_KEY = "places";
 
     @Inject
     private TemplateProvider templateProvider;
 
     @Inject
+    AccessJson accessJson;
+
+    @Inject
     private PlacesRepository placesRepository;
+
+    @Override
+    public void init() throws ServletException {
+        try {
+            accessJson.setJsonArray(Configuration.PLACES_JSON_FILEPATH, getServletContext());
+            placesRepository.addPlacesToRepository(accessJson.getJsonArray());
+            System.out.println("||PLACES REPOSITORY loaded successfully");
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletConfiguration.setDefaultContentType(resp);
 
         Map<String, List> dataModule = new HashMap();
+        dataModule.put(PLACES_KEY, placesRepository.getPlacesRepository());
+//        resp.getWriter().println(dataModule);
 
         templateProvider.print(getServletContext(),TEMPLATE_NAME, dataModule, resp);
     }

@@ -27,16 +27,8 @@ public class PlacePullFromJson {
         this.placesArray = placesArray;
     }
 
-    public JSONArray getPlacesArray() {
-        return placesArray;
-    }
-
     public void setPullIndex(Integer index) {
         this.pullIndex = index;
-    }
-
-    public Integer getPullIndex() {
-        return pullIndex;
     }
 
     private Place preparePlace(){

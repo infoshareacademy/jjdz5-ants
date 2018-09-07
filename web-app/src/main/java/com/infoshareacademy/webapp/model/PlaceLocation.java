@@ -50,6 +50,30 @@ public class PlaceLocation {
         defaultGpsCoordinates.put(CoordinateTypes.LONGITUDE, defaultLongitude);
     }
 
+    public String getStreet() {
+        return street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public Integer getBuildingNumber() {
+        return buildingNumber;
+    }
+
+    public String getBuildingLetter() {
+        return buildingLetter;
+    }
+
+    public Integer getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public Map<CoordinateTypes, Double> getGpsCoordinates() {
+        return gpsCoordinates;
+    }
+
     public Boolean getDefaultStatus() {
         return isDefault;
     }

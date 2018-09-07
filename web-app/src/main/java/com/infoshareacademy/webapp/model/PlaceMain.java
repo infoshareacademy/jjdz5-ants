@@ -32,8 +32,8 @@ public class PlaceMain {
         return name;
     }
 
-    public Enum<PlaceOfInterestType> getType() {
-        return type;
+    public String getType() {
+        return type.toString();
     }
 
     public String getDescription() {

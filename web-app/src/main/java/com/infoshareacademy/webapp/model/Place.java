@@ -27,6 +27,22 @@ public class Place {
         this.isDefault = false;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public PlaceMain getPlaceMain() {
+        return placeMain;
+    }
+
+    public PlaceAdditional getPlaceAdditional() {
+        return placeAdditional;
+    }
+
+    public PlaceLocation getPlaceLocation() {
+        return placeLocation;
+    }
+
     public Boolean getDefaultStatus() {
         return isDefault;
     }
