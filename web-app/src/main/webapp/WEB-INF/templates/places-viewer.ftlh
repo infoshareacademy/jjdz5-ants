@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <#include "head-stylesheets-scripts.ftlh">
 </head>
-<body>
+<body class="bg-light">
 
 <!-- Navbar menu -->
 <#include "navbar.ftlh">
@@ -92,7 +92,7 @@
                             <h5 class="alert alert-dark text-muted text-center">${p.placeMain.type}</h5><hr>
                             <h4>Średnia ocena: ${p.placeAdditional.averageRating?string("0.00")} &#9733;</h4>
                             <h4>Ilość ocen: ${p.placeAdditional.ratingsAmount}</h4><hr>
-                            <div class="card bg-light mb">
+                            <div class="card bg-light">
                                 <div class="card-header">
                                     <h5 class="text-muted" style="margin-bottom: 0">Adres</h5>
                                 </div>
@@ -112,13 +112,49 @@
                             <hr>
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="card bg-light"
+                                    <div class="card bg-light">
+                                        <div class="card-header">
+                                            <h5 class="text-muted" style="margin-bottom: 0">Ceny</h5>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <#list p.placeAdditional.prices as priceType, priceValue>
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col-7">
+                                                            <span class="text-muted float-left">${priceType}</span>
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <#assign price = priceValue>
+                                                            <span class="text-muted float-right">${price?string("0.00")} PLN</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </#list>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="col-6">
-                                    bbb
+                                    <div class="card bg-light">
+                                        <div class="card-header">
+                                            <h5 class="text-muted" style="margin-bottom: 0">Godziny otwarcia</h5>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <#list p.placeAdditional.openingHours as hoursDay, hoursValue>
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col-7">
+                                                            <span class="text-muted float-left">${hoursDay}</span>
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <span class="text-muted float-right">${hoursValue}</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </#list>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-6 separator-left">
                             <h3>${p.placeMain.description}</h3>
@@ -126,11 +162,10 @@
                     </div>
                 </div>
                 </#list>
+                <hr>
             </div>
         </div>
-
     </div>
-
 </div>
 
 <script src="js/jquery.paginate.js"></script>

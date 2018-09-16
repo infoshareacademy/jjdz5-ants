@@ -8,9 +8,9 @@ public enum PriceTypes {
 
     @Override
     public String toString() {
-        final String normal = "normalny";
-        final String reducedForChildren = "ulgowy (dzieci)";
-        final String reducedForPensioners = "ulgowy (emeryci/renciści)";
+        final String normal = "Normalny";
+        final String reducedForChildren = "Ulgowy (dzieci)";
+        final String reducedForPensioners = "Ulgowy (seniorzy)";
         switch (this) {
             case NORMAL:
                 return normal;

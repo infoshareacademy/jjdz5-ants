@@ -10,13 +10,13 @@ public enum WeekDays {
     SATURDAY,
     SUNDAY;
 
-    private final String monday = "poniedziałek";
-    private final String tuesday = "wtorek";
-    private final String wednesday = "środa";
-    private final String thursday = "czwartek";
-    private final String friday = "piątek";
-    private final String saturday = "sobota";
-    private final String sunday = "niedziela";
+    private final String monday = "Poniedziałek";
+    private final String tuesday = "Wtorek";
+    private final String wednesday = "Środa";
+    private final String thursday = "Czwartek";
+    private final String friday = "Piątek";
+    private final String saturday = "Sobota";
+    private final String sunday = "Niedziela";
 
     @Override
     public String toString() {
