@@ -1,0 +1,172 @@
+.alert-primary {
+    color: #fff !important;
+    background-color: #0c3d53 !important;
+}
+
+.bg-theme-darkblue {
+    background-color: #0c3d53 !important;
+}
+
+.container-fluid {
+    height: 100% !important;
+}
+
+.fade {
+    transition: opacity 0.25s ease-in-out !important;
+}
+
+.filter-list-group-item-primary {
+    color: #ffffff !important;
+    background-color: #0c3d53 !important;
+}
+
+.places-form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.places-form-control::-ms-expand {
+    background-color: transparent;
+    border: 0;
+}
+
+.places-form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #0c3d53;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 145, 255, 0.25);
+}
+
+.places-form-control::-webkit-input-placeholder {
+    color: #6c757d;
+    opacity: 1;
+}
+
+.places-form-control::-moz-placeholder {
+    color: #6c757d;
+    opacity: 1;
+}
+
+.places-form-control:-ms-input-placeholder {
+    color: #6c757d;
+    opacity: 1;
+}
+
+.places-form-control::-ms-input-placeholder {
+    color: #6c757d;
+    opacity: 1;
+}
+
+.places-form-control::placeholder {
+    color: #6c757d;
+    opacity: 1;
+}
+
+.places-form-control:disabled, .form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+select.places-form-control:focus::-ms-value {
+    color: #495057;
+    background-color: #fff;
+}
+
+.places-form-control-file,
+.places-form-control-range {
+    display: block;
+    width: 100%;
+}
+
+hr {
+    border-color: #0c3d53;
+    background-color: #0c3d53;
+    color: #0c3d53;
+}
+
+.separator-left {
+    border-left: 1px solid #0c3d53;
+}
+
+.separator-right {
+    border-right: 1px solid #0c3d53;
+}
+
+.text-truncate:hover {
+    overflow: visible;
+    z-index: -1;
+    bottom: 125%;
+    right: 50%;
+    margin-right: -60px;
+    color: white;
+    background-color: black;
+    display: block;
+}
+
+.list-group-item {
+    padding: 0.5rem 0.5rem !important;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.list-group-item.active {
+    background-color: #0c3d53 !important;
+    border-color: #0c3d53 !important;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

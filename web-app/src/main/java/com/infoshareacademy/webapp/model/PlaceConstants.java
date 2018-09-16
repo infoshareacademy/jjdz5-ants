@@ -19,7 +19,7 @@ public class PlaceConstants {
     public static final String PLACE_CITY = "City";
     public static final String PLACE_BUILDING_NUMBER = "Building number";
     public static final String PLACE_BUILDING_LETTER = "buildingLetter";
-    public static final String PLACE_APARTMENT_NUMBER = "buildingLetter";
+    public static final String PLACE_APARTMENT_NUMBER = "apartmentNumber";
     public static final String PLACE_GPS_COORDINATES = "GPS coordinates";
 
 //  Others

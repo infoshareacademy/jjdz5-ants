@@ -4,7 +4,6 @@
     <title>APP_NAME</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/placesStylesheet.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -59,79 +58,48 @@
             <i class="fa fa-user"></i> LOGOWANIE</a>
     </div>
 </div>
-
-<div class="container-fluid bg-light">
-
-<div class="row mt-5 pt-4">
-
-    <!--Submenu-->
-    <div class="col-3 pl-4 pt-3 pb-5">
-        <div class="list-group text-center pb-2" id="list-tab" role="tablist">
-            <a class="list-group-item filter-list-group-item-primary">Filtrowanie</a>
-            <div class="accordion" id="filterMenu">
-                <div class="card">
-                    <div class="card-header" id="filterTypeHeading" data-toggle="collapse" data-target="#filterTypeMenu" aria-expanded="true" aria-controls="filterTypeMenu">
-                        <span>
-                            Typ atrakcji
-                        </span>
+<#--<div class="row">-->
+<section class="row bg-light" id="main-body" role="main">
+    <#--<div class="sectionContent container sectionDesc" id="home">-->
+        <div class="col-4 pt-5 mt-5"></div>
+        <div class="col-8 pt-5 mt-5">
+        <div id="accordion">
+            <div id="paginate">
+            <#list places as p>
+                    <#if p?is_odd_item>
+                        <#assign cardStyle="text-white bg-secondary mb-3">
+                    <#else>
+                        <#assign cardStyle="bg-light mb-3">
+                    </#if>
+                <div class="card mx-1">
+                    <div class="card-header ${cardStyle}" id="heading${p.id}" data-toggle="collapse" data-target="#collapse${p.id}" aria-expanded="true" aria-controls="collapse${p.id}">
+                        <#--<h5 class="mb-5">-->
+                            <#--<button class="btn btn-link" data-toggle="collapse" data-target="#collapse${p.id}" aria-expanded="true" aria-controls="collapse${p.id}">-->
+                                <h2 class="text-center">${p.placeMain.name}</h2>
+                            <#--</button>-->
+                        <#--</h5>-->
                     </div>
-
-                    <div id="filterTypeMenu" class="collapse" aria-labelledby="filterTypeHeading" data-parent="#filterMenu">
+                    <div id="collapse${p.id}" class="collapse" aria-labelledby="heading${p.id}" data-parent="#accordion">
                         <div class="card-body">
-                            <p>Wkrótce zostanie dodana możliwość filtrowania typu atrakcji.</p>
+                            <p>#ID:     ${p.id}</p>
+                            <p>Typ:     ${p.placeMain.type}</p>
+                            <p>Opis:    ${p.placeMain.description}</p>
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header" id="filterLocationHeading" data-toggle="collapse" data-target="#filterLocationMenu" aria-expanded="true" aria-controls="filterLocationMenu">
-                        <span>
-                            Lokalizacja
-                        </span>
-                    </div>
-
-                    <div id="filterLocationMenu" class="collapse" aria-labelledby="filterLocationHeading" data-parent="#filterMenu">
-                        <div class="card-body">
-                            <p>Wkrótce zostanie dodana możliwość filtrowania lokalizacji atrakcji.</p>
-                        </div>
-                    </div>
-                </div>
+            </#list>
             </div>
         </div>
-        <hr>
-        <div class="pt-2 pb-4">
-            <input class="places-form-control" type="text" placeholder="Podaj szukaną nazwę" aria-label="Search">
         </div>
+    <#--</div>-->
+</section>
+<#--</div>-->
 
-        <div class="list-group" id="places-list" role="tablist">
-            <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">
-                Home
-            </a>
-        </div>
-    </div>
-
-    <!--Content-->
-    <div class="col-9 pr-4 pt-3 pb-5 separator-left">
-        <div class="tab-content" id="nav-placesContent">
-            <div class="tab-pane show active" role="tabpanel">
-                <div class="alert alert-primary">
-                    <h1 class="text-center">Proszę wybrać atrakcję turystyczną</h1>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="list-supremacy" role="tabpanel" aria-labelledby="list-supremacy-list">
-                Supremacy
-            </div>
-        </div>
-    </div>
-
-</div>
-
-</div>
-
+<script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery.paginate.js"></script>
 <script>
-    $('#places-list').paginate({
-        perPage: 10,
-        autoScroll: false
+    $('#paginate').paginate({
+        perPage: 10
     })
 </script>
 

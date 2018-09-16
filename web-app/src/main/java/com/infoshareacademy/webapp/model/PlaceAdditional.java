@@ -1,5 +1,6 @@
 package com.infoshareacademy.webapp.model;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class PlaceAdditional {
@@ -7,6 +8,8 @@ public class PlaceAdditional {
     private final Map<WeekDays, String> openingHours;
     private final Map<PriceTypes, Double> prices;
     private final Map<String, Integer> ratings;
+    private final Integer ratingsAmount;
+    private final BigDecimal averageRating;
 
     private Boolean isDefault;
 
@@ -22,13 +25,18 @@ public class PlaceAdditional {
         this.openingHours = defaultOpeningHours;
         this.prices = defaultPrices;
         this.ratings = defaultRatings;
+        this.ratingsAmount = defaultRatings.size();
+        this.averageRating = countAverageRating(defaultRatings);
         this.isDefault = true;
     }
 
-    public PlaceAdditional(Map<WeekDays, String> openingHours, Map<PriceTypes, Double> prices, Map<String, Integer> ratings) {
+    public PlaceAdditional(Map<WeekDays, String> openingHours, Map<PriceTypes, Double> prices,
+                           Map<String, Integer> ratings) {
         this.openingHours = openingHours;
         this.prices = prices;
         this.ratings = ratings;
+        this.ratingsAmount = ratings.size();
+        this.averageRating = countAverageRating(ratings);
         this.isDefault = false;
     }
 
@@ -60,8 +68,43 @@ public class PlaceAdditional {
         return defaultRatings;
     }
 
+    public Map<WeekDays, String> getOpeningHours() {
+        return openingHours;
+    }
+
+    public Map<PriceTypes, Double> getPrices() {
+        return prices;
+    }
+
+    public Map<String, Integer> getRatings() {
+        return ratings;
+    }
+
+    public Integer getRatingsAmount() {
+        return ratingsAmount;
+    }
+
+    public BigDecimal getAverageRating() {
+        return averageRating;
+    }
+
     public Boolean getDefaultStatus() {
         return isDefault;
+    }
+
+    private BigDecimal countAverageRating(Map<String, Integer> ratings) {
+        BigDecimal sumOfRatings = new BigDecimal(countSumOfRatings(ratings.values()));
+        BigDecimal ratingsAmount = new BigDecimal(ratings.size());
+        BigDecimal averageRating = sumOfRatings.divide(ratingsAmount, 2, BigDecimal.ROUND_HALF_UP);
+        return averageRating;
+    }
+
+    private Integer countSumOfRatings(Collection<Integer> ratings){
+        Integer sumOfRatings = 0;
+        for (Integer rating : ratings) {
+            sumOfRatings += rating;
+        }
+        return sumOfRatings;
     }
 
     @Override
@@ -70,6 +113,9 @@ public class PlaceAdditional {
                 "openingHours=" + openingHours +
                 ", prices=" + prices +
                 ", ratings=" + ratings +
+                ", ratingsAmount=" + ratingsAmount +
+                ", averageRating=" + averageRating +
+                ", isDefault=" + isDefault +
                 '}';
     }
 }

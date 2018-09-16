@@ -7,7 +7,7 @@
          version="3.1">
 
   <welcome-file-list>
-    <welcome-file>/hello</welcome-file>
+    <welcome-file>/index</welcome-file>
   </welcome-file-list>
 
   <display-name>JJDZ5-ants WebApp</display-name>

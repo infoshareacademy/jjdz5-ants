@@ -1,63 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>APP_NAME</title>
     <meta charset="UTF-8">
-    <title>Atrakcje turystyczne</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <#include "head-stylesheets-scripts.ftlh">
 </head>
 <body>
 
-<h3>Liczba atrakcji: ${places?size}</h3>
+<!-- Navbar menu -->
+<#include "navbar.ftlh">
 
-<#--<h3>${1.places.placeMain.name}</h3>-->
+<div class="container-fluid bg-light">
 
-<table class="table">
-    <tr class="thead-dark">
-        <th>#</th>
-        <th>Nazwa</th>
-        <th>Typ</th>
-    </tr>
+    <div class="row mt-5 pt-4">
 
-  <#list places as p>
-      <#if p?index % 2 == 0>
-          <#assign color="#dcdcdc">
-      <#else>
-          <#assign color="ffffff">
-      </#if>
-    <tr bgcolor="${color}">
-        <td>${p.id}</td>
-        <td>${p.placeMain.name}</td>
-        <td>${p.placeMain.type}</td>
-        <#--<td><#list p.placeLocation.gpsCoordinates?values as v> ${v} </#list></td>-->
-    </tr>
-  </#list>
-</table>
-<br><br>
+        <!--Submenu-->
+        <div class="col-3 pl-4 pt-3 pb-5">
+            <div class="list-group text-center pb-2" id="list-tab" role="tablist">
+                <a class="list-group-item filter-list-group-item-primary">Filtrowanie</a>
+                <div class="accordion" id="filterMenu">
+                    <div class="card">
+                        <div class="card-header" id="filterTypeHeading" data-toggle="collapse" data-target="#filterTypeMenu" aria-expanded="true" aria-controls="filterTypeMenu">
+                        <span>
+                            Typ atrakcji
+                        </span>
+                        </div>
 
-<div id="accordion">
-    <#list places as p>
-        <div class="card">
-            <div class="card-header" id="heading${p.id}">
-                <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${p.id}" aria-expanded="true" aria-controls="collapse${p.id}">
-                        ${p.placeMain.name}
-                    </button>
-                </h5>
-            </div>
-            <div id="collapse${p.id}" class="collapse show" aria-labelledby="heading${p.id}" data-parent="#accordion">
-                <div class="card-body">
-                    <p>#ID:     ${p.id}</p>
-                    <p>Typ:     ${p.placeMain.type}</p>
-                    <p>Opis:    ${p.placeMain.description}</p>
+                        <div id="filterTypeMenu" class="collapse" aria-labelledby="filterTypeHeading" data-parent="#filterMenu">
+                            <div class="card-body">
+                                <p>Wkrótce zostanie dodana możliwość filtrowania typu atrakcji.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="filterLocationHeading" data-toggle="collapse" data-target="#filterLocationMenu" aria-expanded="true" aria-controls="filterLocationMenu">
+                        <span>
+                            Lokalizacja
+                        </span>
+                        </div>
+
+                        <div id="filterLocationMenu" class="collapse" aria-labelledby="filterLocationHeading" data-parent="#filterMenu">
+                            <div class="card-body">
+                                <p>Wkrótce zostanie dodana możliwość filtrowania lokalizacji atrakcji.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <hr>
+            <div class="pt-2 pb-4">
+                <input class="places-form-control" type="text" placeholder="Podaj szukaną nazwę" aria-label="Search">
+            </div>
+
+            <div class="list-group" id="places-list" role="tablist">
+                <#list places as p>
+                <a class="list-group-item list-group-item-action" id="list-${p.id}-list" data-toggle="list" href="#list-${p.id}" role="tab" aria-controls="${p.id}">
+                    <div class="row">
+                        <div class="col-8">
+                    <p class="d-inline-block float-left">
+                        ${p.placeMain.name}
+                    </p>
+                        </div>
+                        <div class="col-4 align-middle">
+                    <span class="float-right">
+                        ${p.placeAdditional.averageRating?string("0.00")} &#9733;
+                    </span>
+                        </div>
+                    </div>
+                </a>
+                </#list>
+            </div>
         </div>
-    </#list>
+
+        <!--Content-->
+        <div class="col-9 pr-4 pt-3 pb-5 separator-left">
+            <div class="tab-content" id="nav-placesContent">
+                <div class="tab-pane show active" role="tabpanel">
+                    <div class="alert alert-primary">
+                        <h1 class="text-center">Proszę wybrać atrakcję turystyczną</h1>
+                    </div>
+                </div>
+                <#list places as p>
+                <div class="tab-pane fade" id="list-${p.id}" role="tabpanel" aria-labelledby="list-${p.id}-list">
+                    <div class="alert alert-primary">
+                        <h1 class="text-center">${p.placeMain.name}</h1>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5 class="alert alert-dark text-muted text-center">${p.placeMain.type}</h5><hr>
+                            <h4>Średnia ocena: ${p.placeAdditional.averageRating?string("0.00")} &#9733;</h4>
+                            <h4>Ilość ocen: ${p.placeAdditional.ratingsAmount}</h4><hr>
+                            <div class="card bg-light mb">
+                                <div class="card-header">
+                                    <h5 class="text-muted" style="margin-bottom: 0">Adres</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="text-muted">
+                                        ${p.placeLocation.street}
+                                        <#if p.placeLocation.buildingNumber != 0>
+                                            ${p.placeLocation.buildingNumber}<#if p.placeLocation.buildingLetter != "">${p.placeLocation.buildingLetter}</#if>
+                                            <#if p.placeLocation.apartmentNumber != 0>/ ${p.placeLocation.apartmentNumber}</#if>
+                                        </#if>
+                                    </h5>
+                                    <h5 class="text-muted">
+                                        ${p.placeLocation.city}
+                                    </h5>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card bg-light"
+                                </div>
+                                <div class="col-6">
+                                    bbb
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-6 separator-left">
+                            <h3>${p.placeMain.description}</h3>
+                        </div>
+                    </div>
+                </div>
+                </#list>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="js/bootstrap.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="js/jquery.paginate.js"></script>
+<script>
+    $('#places-list').paginate({
+        perPage: 10,
+        autoScroll: false
+    })
+</script>
 
 </body>
 </html>
