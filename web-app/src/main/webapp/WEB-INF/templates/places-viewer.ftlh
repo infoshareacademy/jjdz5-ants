@@ -125,7 +125,13 @@
                                                         </div>
                                                         <div class="col-5">
                                                             <#assign price = priceValue>
-                                                            <span class="text-muted float-right">${price?string("0.00")} PLN</span>
+                                                            <span class="text-muted float-right">
+                                                                <#if price <= 0>
+                                                                    Bezpłatnie
+                                                                    <#else>
+                                                                    ${price?string("0.00")} PLN
+                                                                </#if>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </li>
