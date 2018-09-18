@@ -18,17 +18,20 @@ public class PlaceAdditionalPullFromJson {
     private JSONArray placesArray;
     private Integer pullIndex;
 
-    public void setPlacesArray(JSONArray placesArray) {
+    void setPlacesArray(JSONArray placesArray) {
         this.placesArray = placesArray;
     }
 
-    public void setPullIndex(Integer pullIndex) {
+    void setPullIndex(Integer pullIndex) {
         this.pullIndex = pullIndex;
     }
 
-    protected PlaceAdditional preparePlaceAdditional() {
-        PlaceAdditional placeAdditional = new PlaceAdditional(pullOpeningHoursFromJsonArray(), pullPricesFromJsonArray(), pullRatingsFromJsonArray());
-        return  placeAdditional;
+    PlaceAdditional preparePlaceAdditional() {
+        return new PlaceAdditional(
+                pullOpeningHoursFromJsonArray(),
+                pullPricesFromJsonArray(),
+                pullRatingsFromJsonArray()
+        );
     }
 
     private Map<WeekDays, String> pullOpeningHoursFromJsonArray() {

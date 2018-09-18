@@ -16,7 +16,7 @@ import java.util.TreeMap;
 public class PlaceLocationPullFromJson {
 
     @Inject
-    AccessJson accessJson;
+    private AccessJson accessJson;
 
     private JSONArray placesArray;
     private Integer pullIndex;
@@ -25,15 +25,15 @@ public class PlaceLocationPullFromJson {
     private Boolean buildingNumberPulledCorrectly;
     private Boolean gpsCoordinatesPulledCorrectly;
 
-    public void setPlacesArray(JSONArray placesArray) {
+    void setPlacesArray(JSONArray placesArray) {
         this.placesArray = placesArray;
     }
 
-    public void setPullIndex(Integer pullIndex) {
+    void setPullIndex(Integer pullIndex) {
         this.pullIndex = pullIndex;
     }
 
-    public PlaceLocation preparePlaceLocation() {
+    PlaceLocation preparePlaceLocation() {
         PlaceLocation placeLocation = new PlaceLocation(pullStreetFromJsonArray(),
                 pullCityFromJsonArray(),
                 pullBuildingNumberFromJsonArray(),

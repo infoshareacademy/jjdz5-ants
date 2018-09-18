@@ -1,10 +1,8 @@
-package com.infoshareacademy.webapp.web;
+package com.infoshareacademy.webapp.servlets;
 
-import com.infoshareacademy.PlaceOfInterest;
 import com.infoshareacademy.webapp.Configuration;
 import com.infoshareacademy.webapp.freemarker.TemplateProvider;
 import com.infoshareacademy.webapp.mechanics.AccessJson;
-import com.infoshareacademy.webapp.model.Place;
 import com.infoshareacademy.webapp.repository.PlacesRepository;
 import org.json.simple.parser.ParseException;
 
@@ -23,13 +21,13 @@ import java.util.Map;
 public class PlacesViewerServlet extends HttpServlet {
 
     private static final String TEMPLATE_NAME = "places-viewer";
-    private final String PLACES_KEY = "places";
+    private static final String PLACES_KEY = "places";
 
     @Inject
     private TemplateProvider templateProvider;
 
     @Inject
-    AccessJson accessJson;
+    private AccessJson accessJson;
 
     @Inject
     private PlacesRepository placesRepository;

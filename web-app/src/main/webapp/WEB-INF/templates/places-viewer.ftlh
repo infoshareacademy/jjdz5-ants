@@ -17,42 +17,8 @@
 
         <!--Submenu-->
         <div class="col-3 pl-4 pt-3 pb-5">
-            <div class="list-group text-center pb-2" id="list-tab" role="tablist">
-                <a class="list-group-item filter-list-group-item-primary">Filtrowanie</a>
-                <div class="accordion" id="filterMenu">
-                    <div class="card">
-                        <div class="card-header" id="filterTypeHeading" data-toggle="collapse" data-target="#filterTypeMenu" aria-expanded="true" aria-controls="filterTypeMenu">
-                        <span>
-                            Typ atrakcji
-                        </span>
-                        </div>
 
-                        <div id="filterTypeMenu" class="collapse" aria-labelledby="filterTypeHeading" data-parent="#filterMenu">
-                            <div class="card-body">
-                                <p>Wkrótce zostanie dodana możliwość filtrowania typu atrakcji.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" id="filterLocationHeading" data-toggle="collapse" data-target="#filterLocationMenu" aria-expanded="true" aria-controls="filterLocationMenu">
-                        <span>
-                            Lokalizacja
-                        </span>
-                        </div>
-
-                        <div id="filterLocationMenu" class="collapse" aria-labelledby="filterLocationHeading" data-parent="#filterMenu">
-                            <div class="card-body">
-                                <p>Wkrótce zostanie dodana możliwość filtrowania lokalizacji atrakcji.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="pt-2 pb-4">
-                <input class="places-form-control" type="text" placeholder="Podaj szukaną nazwę" aria-label="Search">
-            </div>
-
+            <#--Places List-->
             <div class="list-group" id="places-list" role="tablist">
                 <#list places as p>
                 <a class="list-group-item list-group-item-action" id="list-${p.id}-list" data-toggle="list" href="#list-${p.id}" role="tab" aria-controls="${p.id}">
@@ -173,6 +139,15 @@
         </div>
     </div>
 </div>
+
+<!-- Footer -->
+<footer class="footer center">
+    <div class="section">
+        <a href="#" class="fa fa-facebook-official fa-3x fa-fw"></a>
+        <a href="#" class="fa fa-linkedin fa-3x"></a>
+        <a href="#" class="fa fa-instagram fa-3x"></a>
+    </div>
+</footer>
 
 <script src="js/jquery.paginate.js"></script>
 <script>

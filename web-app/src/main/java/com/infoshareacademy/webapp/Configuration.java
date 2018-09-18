@@ -1,12 +1,8 @@
 package com.infoshareacademy.webapp;
 
-import javax.enterprise.context.ApplicationScoped;
-
-@ApplicationScoped
 public class Configuration {
 
     public static final String PLACES_JSON_FILEPATH = "WEB-INF/resources/places.json";
     public static final String ROUTES_JSON_FILEPATH = "WEB-INF/resources/routes.json";
 
-    public static final String TEST_JSON_FILEPATH = "test.json";
 }

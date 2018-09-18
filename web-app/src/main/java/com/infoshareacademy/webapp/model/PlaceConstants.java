@@ -2,8 +2,6 @@ package com.infoshareacademy.webapp.model;
 
 public class PlaceConstants {
 
-    //TODO - need to clean up values in json, for example: all to small case and without unnecessary whitespaces.
-
 //  Json Values
 
     public static final String PLACE_ID = "id";
@@ -25,7 +23,5 @@ public class PlaceConstants {
 //  Others
 
     public static final String NO_DATA = "Brak danych";
-    public static final String PLACE_ALWAYS_OPEN = "Otwarte przez cały czas.";
-    public static final String PLACE_CLOSED = "Zamknięte";
 
 }

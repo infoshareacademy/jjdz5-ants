@@ -12,7 +12,7 @@ public class PlacePullFromJson {
     private Boolean isIdPulledIncorrectly;
 
     @Inject
-    AccessJson accessJson;
+    private AccessJson accessJson;
 
     @Inject
     private PlaceMainPullFromJson placeMainPullFromJson;

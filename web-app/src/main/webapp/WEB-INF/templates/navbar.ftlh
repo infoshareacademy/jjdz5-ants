@@ -8,7 +8,7 @@
             <img src="img/logo.png" width="30" height="30" alt="">
         </a>
 
-        <a href="#contentTab" class="navbarButton singleNavbarButton" onclick="$('#main-body').load( 'content/main.html' );">HOME</a>
+        <a href="index" class="navbarButton singleNavbarButton">HOME</a>
 
         <div class="navbarButton hideMenuOnMobile dropdown">
             <div class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown">
@@ -27,10 +27,10 @@
                 <i class="fa fa-map"></i> ATRAKCJE
             </div>
             <div class="dropdown-menu" >
-                <a href="places-viewer" class="dropdown-item" href="#">Lista atrakcji</a>
+                <a href="places-viewer" class="dropdown-item">Lista atrakcji</a>
                 <div class="dropdown-divider"></div>
-                <a href="#contentTab" class="dropdown-item" href="#">Moje ulubione</a>
-                <a href="#contentTab" class="dropdown-item" href="#">Dodaj nową</a>
+                <a href="#contentTab" class="dropdown-item">Moje ulubione</a>
+                <a href="#contentTab" class="dropdown-item">Dodaj nową</a>
             </div>
         </div>
 

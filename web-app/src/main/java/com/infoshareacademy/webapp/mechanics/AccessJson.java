@@ -18,8 +18,6 @@ public class AccessJson {
     private final JSONParser jsonParser = new JSONParser();
     private JSONArray jsonArray;
 
-    //TODO - need to make simple default array, just in case! We don't want to have null here.
-
     private InputStreamReader JsonResourceAsStreamReader(String FILEPATH, ServletContext servletContext) {
         return new InputStreamReader(servletContext.getResourceAsStream(FILEPATH));
     }
@@ -36,21 +34,21 @@ public class AccessJson {
         return jsonArray;
     }
 
-    public JSONObject pullJsonObject(JSONArray array, Integer index) {
+    JSONObject pullJsonObject(JSONArray array, Integer index) {
         return (JSONObject) array.get(index);
     }
 
-    public JSONArray getSubJsonArray(JSONArray array, Integer index, String subValue) {
+    JSONArray getSubJsonArray(JSONArray array, Integer index, String subValue) {
         JSONObject object = (JSONObject) array.get(index);
         return (JSONArray) object.get(subValue);
     }
 
-    public JSONObject getSubJsonObject(JSONArray array, int index, String subValue) {
+    JSONObject getSubJsonObject(JSONArray array, int index, String subValue) {
         JSONArray subArray = getSubJsonArray(array, index, subValue);
         return (JSONObject) subArray.get(0);
     }
 
-    public Map pullJsonStringCollection(JSONObject jsonCollectionName) {
+    Map pullJsonStringCollection(JSONObject jsonCollectionName) {
         String keyValueSplitSign = "=";
         Map keyValueMap = new TreeMap<>();
         for (Object object : jsonCollectionName.entrySet()) {
@@ -62,7 +60,7 @@ public class AccessJson {
         return keyValueMap;
     }
 
-    public Map<String, Integer> pullJsonIntegerCollection(JSONObject jsonCollectionName) {
+    Map<String, Integer> pullJsonIntegerCollection(JSONObject jsonCollectionName) {
         String keyValueSplitSign = "=";
         Map keyValueMap = new TreeMap<>();
         try {
@@ -79,24 +77,7 @@ public class AccessJson {
         return null;
     }
 
-    public Map<String, Double> pullJsonDoubleCollection(JSONObject jsonCollectionName) {
-        String keyValueSplitSign = "=";
-        Map keyValueMap = new TreeMap<>();
-        try {
-            for (Object object : jsonCollectionName.entrySet()) {
-                String[] keyValueSplit = object.toString().split(keyValueSplitSign);
-                String key = keyValueSplit[0];
-                Double value = Double.valueOf(keyValueSplit[1]);
-                keyValueMap.put(key, value);
-            }
-            return keyValueMap;
-        } catch (NumberFormatException e) {
-            System.out.println("||ERROR: NumberFormatException in pullJsonDoubleCollection ||");
-        }
-        return null;
-    }
-
-    public Object findSpecificValueInCollection(Map pulledCollection, String requestedKey) {
+    Object findSpecificValueInCollection(Map pulledCollection, String requestedKey) {
         for (Object entry : pulledCollection.keySet()) {
             if (requestedKey.equalsIgnoreCase(entry.toString())){
                 return pulledCollection.get(entry);

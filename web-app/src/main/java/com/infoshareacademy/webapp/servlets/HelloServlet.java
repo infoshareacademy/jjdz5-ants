@@ -1,4 +1,4 @@
-package com.infoshareacademy.webapp.web;
+package com.infoshareacademy.webapp.servlets;
 
 import com.infoshareacademy.webapp.freemarker.TemplateProvider;
 
@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
-@WebServlet("/index")
-public class IndexServlet extends HttpServlet {
+@WebServlet("/hello")
+public class HelloServlet extends HttpServlet {
 
-    private static final String INDEX_TEMPLATE_NAME = "index";
+    private static final String HELLO = "Hello Servlet!";
+    private static final String HELLO_TEMPLATE_NAME = "hello";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -23,7 +25,10 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletConfiguration.setDefaultContentType(resp);
 
-        templateProvider.print(getServletContext(), INDEX_TEMPLATE_NAME, new HashMap(), resp);
+        Map<String, String> dataModule = new HashMap<>();
+        dataModule.put("text", HELLO);
+
+        templateProvider.print(getServletContext(), HELLO_TEMPLATE_NAME, dataModule, resp);
 
     }
 }
