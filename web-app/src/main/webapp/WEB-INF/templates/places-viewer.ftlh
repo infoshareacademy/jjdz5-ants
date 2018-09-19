@@ -19,7 +19,7 @@
         <div class="col-3 pl-4 pt-3 pb-5">
 
             <#--Search by name-->
-            <form autocomplete="off" action="/places-viewer" method="get">
+            <form autocomplete="off" action="/web-app/places-viewer" method="get">
                 <div class="pt-2 autocomplete">
                     <input id="nameInput" class="form-control" type="text" name="placeName" placeholder="Nazwa atrakcji">
                 </div>
@@ -51,13 +51,21 @@
         <!--Content-->
         <div class="col-9 pr-4 pt-3 pb-5 separator-left">
             <div class="tab-content" id="nav-placesContent">
+                <#list placeSelectionId as psid>
+                <#if psid == 0>
                 <div class="tab-pane show active" role="tabpanel">
                     <div class="alert alert-primary">
                         <h1 class="text-center">Proszę wybrać atrakcję turystyczną</h1>
                     </div>
                 </div>
+                </#if>
                 <#list places as p>
-                <div class="tab-pane fade" id="list-${p.id}" role="tabpanel" aria-labelledby="list-${p.id}-list">
+                <#if psid == p.id>
+                    <#assign activeStatus = " show active">
+                <#else>
+                    <#assign activeStatus = "">
+                </#if>
+                <div class="tab-pane fade${activeStatus}" id="list-${p.id}" role="tabpanel" aria-labelledby="list-${p.id}-list">
                     <div class="alert alert-primary">
                         <h1 class="text-center">${p.placeMain.name}</h1>
                     </div>
@@ -144,6 +152,7 @@
                 </div>
                 </#list>
                 <hr>
+                </#list>
             </div>
         </div>
     </div>

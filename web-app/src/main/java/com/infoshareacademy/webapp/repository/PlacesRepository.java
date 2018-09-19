@@ -36,5 +36,12 @@ public class PlacesRepository {
         return places;
     }
 
+    public Integer getPlaceIdByName(String name) {
+        Place selectedPlace = places.stream().filter(
+                place -> name.equalsIgnoreCase(place.getPlaceMain().getName())
+        ).findAny().orElse(new Place());
+        return selectedPlace.getId();
+    }
+
 
 }
