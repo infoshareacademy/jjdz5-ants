@@ -20,20 +20,20 @@ public class PlaceLocationPullFromJson {
 
     private JSONArray placesArray;
     private Integer pullIndex;
-    private Boolean streetPulledCorrectly;
-    private Boolean cityPulledCorrectly;
-    private Boolean buildingNumberPulledCorrectly;
-    private Boolean gpsCoordinatesPulledCorrectly;
+    private Boolean streetPulledCorrectly = false;
+    private Boolean cityPulledCorrectly = false;
+    private Boolean buildingNumberPulledCorrectly = false;
+    private Boolean gpsCoordinatesPulledCorrectly = false;
 
-    void setPlacesArray(JSONArray placesArray) {
+    public void setPlacesArray(JSONArray placesArray) {
         this.placesArray = placesArray;
     }
 
-    void setPullIndex(Integer pullIndex) {
+    public void setPullIndex(Integer pullIndex) {
         this.pullIndex = pullIndex;
     }
 
-    PlaceLocation preparePlaceLocation() {
+    public PlaceLocation preparePlaceLocation() {
         PlaceLocation placeLocation = new PlaceLocation(pullStreetFromJsonArray(),
                 pullCityFromJsonArray(),
                 pullBuildingNumberFromJsonArray(),
@@ -44,45 +44,40 @@ public class PlaceLocationPullFromJson {
             return placeLocation;
         }
         System.out.println(getError("Place Location Major Values are not correct. Check JSON file: \"" + Configuration.PLACES_JSON_FILEPATH + "\""));
-        placeLocation = new PlaceLocation();
-        return placeLocation;
+        return new PlaceLocation();
     }
 
     private String pullStreetFromJsonArray() {
         try {
-            Integer minSize = 3;
             String street = (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_STREET);
-            if (isStringMinSizeSuitable(street, minSize)) {
+            if (isStringMinSizeSuitable(street, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
                 streetPulledCorrectly = true;
                 return street;
             } else {
-                System.out.println(getError("Street String is too short (min. 3 characters)"));
+                System.out.println(getError("Street String is too short (min. " + PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
             }
         } catch (ClassCastException e) {
             System.out.println(getError("(ClassCast) Street is not a String"));
         } catch (NullPointerException e) {
             System.out.println(getError("(NullPointer) Street is a null"));
         }
-        streetPulledCorrectly = false;
         return null;
     }
 
     private String pullCityFromJsonArray() {
         try {
-            Integer minSize = 3;
             String city = (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_CITY);
-            if (isStringMinSizeSuitable(city, minSize)) {
+            if (isStringMinSizeSuitable(city, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
                 cityPulledCorrectly = true;
                 return city;
             } else {
-                System.out.println(getError("City String is too short (min. 3 characters)"));
+                System.out.println(getError("City String is too short (min. " + PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
             }
         } catch (ClassCastException e) {
             System.out.println(getError("(ClassCast) City is not a String"));
         } catch (NullPointerException e) {
             System.out.println(getError("(NullPointer) City is a null"));
         }
-        cityPulledCorrectly = false;
         return null;
     }
 
@@ -95,15 +90,13 @@ public class PlaceLocationPullFromJson {
         } catch (NullPointerException e) {
             System.out.println(getError("(NullPointer) Building number is a null"));
         }
-        buildingNumberPulledCorrectly = false;
         return null;
     }
 
     private String pullBuildingLetterFromJsonArray() {
-        String emptyBuildingNumber = "";
         try {
             String pulledBuildingLetter = accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_BUILDING_LETTER).toString();
-            if (isStringNotNumeric(pulledBuildingLetter) && isStringMaxSizeSuitable(pulledBuildingLetter, 1)){
+            if (isStringNotNumeric(pulledBuildingLetter) && isStringMaxSizeSuitable(pulledBuildingLetter, PlaceConstants.SINGLE_LETTER_SIZE)) {
                 return pulledBuildingLetter;
             } else {
                 System.out.println(getError("Building number is not a single letter"));
@@ -113,11 +106,10 @@ public class PlaceLocationPullFromJson {
         } catch (NullPointerException e) {
             System.out.println(getInfo("(NullPointer) Building number is null, setting empty value"));
         }
-        return emptyBuildingNumber;
+        return PlaceConstants.EMPTY_BUILDING_LETTER;
     }
 
     private Integer pullApartmentNumberFromJsonArray() {
-        Integer emptyApartmentNumber = 0;
         try {
             return Integer.valueOf(accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_APARTMENT_NUMBER).toString());
         } catch (ClassCastException e) {
@@ -125,7 +117,7 @@ public class PlaceLocationPullFromJson {
         } catch (NullPointerException e){
             System.out.println(getInfo("(NullPointer) Apartment number is null, setting empty value"));
         }
-        return emptyApartmentNumber;
+        return PlaceConstants.EMPTY_APARTMENT_NUMBER;
     }
 
     private Map<CoordinateTypes, Double> pullGpsCoordinatesFromJsonArray() {
@@ -148,7 +140,6 @@ public class PlaceLocationPullFromJson {
         } catch (NullPointerException e) {
             System.out.println(getError("(NullPointer) NullPointerException in COORDINATE_TYPE: " + coordinateType.name()));
         }
-        gpsCoordinatesPulledCorrectly = false;
         return null;
     }
 
@@ -170,11 +161,8 @@ public class PlaceLocationPullFromJson {
     }
 
     private Boolean isPlaceLocationPulledCorrectly() {
-        Boolean placeLocationPulledCorrectly = false;
-        if (streetPulledCorrectly && cityPulledCorrectly && buildingNumberPulledCorrectly && gpsCoordinatesPulledCorrectly) {
-            placeLocationPulledCorrectly = true;
-        }
-        return placeLocationPulledCorrectly;
+        return streetPulledCorrectly && cityPulledCorrectly &&
+               buildingNumberPulledCorrectly && gpsCoordinatesPulledCorrectly;
     }
 
     private String getError(String error) {

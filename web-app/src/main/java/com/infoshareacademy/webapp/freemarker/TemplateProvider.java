@@ -17,7 +17,7 @@ public class TemplateProvider {
     private static final String TEMPLATE_DIRECTORY_PATH = "WEB-INF/templates";
     private static final String TEMPLATE_EXTENSION = ".ftlh";
 
-    private static Template getTemplate(ServletContext servletContext, String templateName)
+    private Template getTemplate(ServletContext servletContext, String templateName)
             throws IOException {
         final Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
         cfg.setDefaultEncoding("UTF-8");

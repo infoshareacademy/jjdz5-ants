@@ -44,8 +44,8 @@ public class PlaceLocation {
     }
 
     private void setDefaultGpsCoordinates() {
-        Double defaultLatitude = 54.351768;
-        Double defaultLongitude = 18.643310;
+        Double defaultLatitude = PlaceConstants.NO_DATA_NUMERIC;
+        Double defaultLongitude = PlaceConstants.NO_DATA_NUMERIC;
         defaultGpsCoordinates.put(CoordinateTypes.LATITUDE, defaultLatitude);
         defaultGpsCoordinates.put(CoordinateTypes.LONGITUDE, defaultLongitude);
     }

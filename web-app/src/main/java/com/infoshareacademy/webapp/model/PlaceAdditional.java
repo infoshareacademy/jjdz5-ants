@@ -41,13 +41,13 @@ public class PlaceAdditional {
     }
 
     private void setDefaultOpeningHours() {
-        defaultOpeningHours.put(WeekDays.MONDAY, PlaceConstants.NO_DATA);
-        defaultOpeningHours.put(WeekDays.TUESDAY, PlaceConstants.NO_DATA);
-        defaultOpeningHours.put(WeekDays.WEDNESDAY, PlaceConstants.NO_DATA);
-        defaultOpeningHours.put(WeekDays.THURSDAY, PlaceConstants.NO_DATA);
-        defaultOpeningHours.put(WeekDays.FRIDAY, PlaceConstants.NO_DATA);
-        defaultOpeningHours.put(WeekDays.SATURDAY, PlaceConstants.NO_DATA);
-        defaultOpeningHours.put(WeekDays.SUNDAY, PlaceConstants.NO_DATA);
+        defaultOpeningHours.put(WeekDays.MONDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(WeekDays.TUESDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(WeekDays.WEDNESDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(WeekDays.THURSDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(WeekDays.FRIDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(WeekDays.SATURDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(WeekDays.SUNDAY, PlaceConstants.NO_DATA_TEXT);
     }
 
     private void setDefaultPrices() {
@@ -93,18 +93,14 @@ public class PlaceAdditional {
     }
 
     private BigDecimal countAverageRating(Map<String, Integer> ratings) {
-        BigDecimal sumOfRatings = new BigDecimal(countSumOfRatings(ratings.values()));
+        BigDecimal sumOfRatings = new BigDecimal(countSumOfRatings(ratings));
         BigDecimal ratingsAmount = new BigDecimal(ratings.size());
         BigDecimal averageRating = sumOfRatings.divide(ratingsAmount, 2, BigDecimal.ROUND_HALF_UP);
         return averageRating;
     }
 
-    private Integer countSumOfRatings(Collection<Integer> ratings){
-        Integer sumOfRatings = 0;
-        for (Integer rating : ratings) {
-            sumOfRatings += rating;
-        }
-        return sumOfRatings;
+    private Integer countSumOfRatings(Map<String, Integer> ratings){
+        return ratings.values().stream().mapToInt(rating -> rating.intValue()).sum();
     }
 
     @Override

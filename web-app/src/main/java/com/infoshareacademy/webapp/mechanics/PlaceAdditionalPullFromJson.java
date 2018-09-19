@@ -18,15 +18,15 @@ public class PlaceAdditionalPullFromJson {
     private JSONArray placesArray;
     private Integer pullIndex;
 
-    void setPlacesArray(JSONArray placesArray) {
+    public void setPlacesArray(JSONArray placesArray) {
         this.placesArray = placesArray;
     }
 
-    void setPullIndex(Integer pullIndex) {
+    public void setPullIndex(Integer pullIndex) {
         this.pullIndex = pullIndex;
     }
 
-    PlaceAdditional preparePlaceAdditional() {
+    public PlaceAdditional preparePlaceAdditional() {
         return new PlaceAdditional(
                 pullOpeningHoursFromJsonArray(),
                 pullPricesFromJsonArray(),
@@ -46,8 +46,8 @@ public class PlaceAdditionalPullFromJson {
         JSONObject openingHoursCollection = accessJson.getSubJsonObject(placesArray, pullIndex, PlaceConstants.PLACE_OPENING_HOURS);
         try {
             Map pulledOpeningHours = accessJson.pullJsonStringCollection(openingHoursCollection);
-            String specificDayHours = (String) accessJson.findSpecificValueInCollection(pulledOpeningHours, weekDay.name());
-            if (isStringNotNull(specificDayHours)) {
+            String specificDayHours = accessJson.findSpecificValueInCollection(pulledOpeningHours, weekDay.name());
+            if (isNotNull(specificDayHours)) {
                 return specificDayHours;
             }
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class PlaceAdditionalPullFromJson {
             System.out.println(getError("New error, identify and add annotation (PullAdditionalPullFromJson : 53 line)"));
         }
         System.out.println(getError("Cannot identify WEEKDAY: \"" + weekDay.name() + "\", possible broken entry"));
-        return PlaceConstants.NO_DATA;
+        return PlaceConstants.NO_DATA_TEXT;
     }
 
     private Map<PriceTypes, Double> pullPricesFromJsonArray() {
@@ -68,11 +68,10 @@ public class PlaceAdditionalPullFromJson {
 
     private Double pullSpecificPriceType(PriceTypes priceType) {
         JSONObject pricesCollection = accessJson.getSubJsonObject(placesArray, pullIndex, PlaceConstants.PLACE_PRICES);
-        Double noData = -1.0;
+        Double noData = PlaceConstants.NO_DATA_NUMERIC;
         try {
             Map pulledPrices = accessJson.pullJsonStringCollection(pricesCollection);
-            Double specificPriceType = Double.parseDouble(accessJson.findSpecificValueInCollection(pulledPrices, priceType.name()).toString());
-            return specificPriceType;
+            return Double.valueOf(accessJson.findSpecificValueInCollection(pulledPrices, priceType.name()));
         } catch (NumberFormatException e) {
             System.out.println(getError("(NumberFormat) in PRICE TYPE: \"" + priceType.name() + "\""));
         } catch (NullPointerException e) {
@@ -99,13 +98,13 @@ public class PlaceAdditionalPullFromJson {
         return defaultRatings;
     }
 
-    private Boolean isStringNotNull(String string) {
+    private Boolean isNotNull(String string) {
         return string != null;
     }
 
     private Boolean isPulledCollectionNotEmpty(Map pulledCollection) {
         try {
-            return pulledCollection.size() > 0;
+            return pulledCollection.size() > PlaceConstants.EMPTY_COLLECTION;
         } catch (NullPointerException e) {
             return false;
         }

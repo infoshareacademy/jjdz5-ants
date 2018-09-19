@@ -18,37 +18,37 @@ public class AccessJson {
     private final JSONParser jsonParser = new JSONParser();
     private JSONArray jsonArray;
 
-    private InputStreamReader JsonResourceAsStreamReader(String FILEPATH, ServletContext servletContext) {
+    private InputStreamReader jsonResourceAsStreamReader(String FILEPATH, ServletContext servletContext) {
         return new InputStreamReader(servletContext.getResourceAsStream(FILEPATH));
     }
 
-    private JSONArray JsonArrayParse(InputStreamReader jsonFile) throws IOException, ParseException {
+    private JSONArray jsonArrayParse(InputStreamReader jsonFile) throws IOException, ParseException {
         return (JSONArray) jsonParser.parse(jsonFile);
     }
 
     public void setJsonArray(String FILEPATH, ServletContext servletContext) throws IOException, ParseException {
-        jsonArray = JsonArrayParse(JsonResourceAsStreamReader(FILEPATH, servletContext));
+        jsonArray = jsonArrayParse(jsonResourceAsStreamReader(FILEPATH, servletContext));
     }
 
     public JSONArray getJsonArray() {
         return jsonArray;
     }
 
-    JSONObject pullJsonObject(JSONArray array, Integer index) {
+    public JSONObject pullJsonObject(JSONArray array, Integer index) {
         return (JSONObject) array.get(index);
     }
 
-    JSONArray getSubJsonArray(JSONArray array, Integer index, String subValue) {
+    public JSONArray getSubJsonArray(JSONArray array, Integer index, String subValue) {
         JSONObject object = (JSONObject) array.get(index);
         return (JSONArray) object.get(subValue);
     }
 
-    JSONObject getSubJsonObject(JSONArray array, int index, String subValue) {
+    public JSONObject getSubJsonObject(JSONArray array, int index, String subValue) {
         JSONArray subArray = getSubJsonArray(array, index, subValue);
         return (JSONObject) subArray.get(0);
     }
 
-    Map pullJsonStringCollection(JSONObject jsonCollectionName) {
+    public Map pullJsonStringCollection(JSONObject jsonCollectionName) {
         String keyValueSplitSign = "=";
         Map keyValueMap = new TreeMap<>();
         for (Object object : jsonCollectionName.entrySet()) {
@@ -60,7 +60,7 @@ public class AccessJson {
         return keyValueMap;
     }
 
-    Map<String, Integer> pullJsonIntegerCollection(JSONObject jsonCollectionName) {
+    public Map<String, Integer> pullJsonIntegerCollection(JSONObject jsonCollectionName) {
         String keyValueSplitSign = "=";
         Map keyValueMap = new TreeMap<>();
         try {
@@ -77,11 +77,9 @@ public class AccessJson {
         return null;
     }
 
-    Object findSpecificValueInCollection(Map pulledCollection, String requestedKey) {
-        for (Object entry : pulledCollection.keySet()) {
-            if (requestedKey.equalsIgnoreCase(entry.toString())){
-                return pulledCollection.get(entry);
-            }
+    public <T> T findSpecificValueInCollection(Map pulledCollection, String requestedKey) {
+        if (pulledCollection.keySet().contains(requestedKey)) {
+            return (T) pulledCollection.get(requestedKey);
         }
         return null;
     }
