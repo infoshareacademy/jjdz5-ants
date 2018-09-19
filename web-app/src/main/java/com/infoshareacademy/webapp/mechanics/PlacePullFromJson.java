@@ -9,7 +9,7 @@ public class PlacePullFromJson {
 
     private JSONArray placesArray;
     private Integer pullIndex;
-    private Boolean isIdPulledIncorrectly;
+    private Boolean isIdPulledIncorrectly = false;
 
     @Inject
     private AccessJson accessJson;
@@ -42,8 +42,7 @@ public class PlacePullFromJson {
         Place completePlace = new Place(pullIdFromJsonArray(), placeMain, placeAdditional, placeLocation);
 
         if (isIdPulledIncorrectly || arePlacesDefault(placeMain, placeAdditional, placeLocation)) {
-            completePlace = new Place();
-            return completePlace;
+            return new Place();
         }
         System.out.println(getInfo("Place successfully pulled!"));
         return completePlace;
@@ -75,7 +74,6 @@ public class PlacePullFromJson {
         } catch (NullPointerException e) {
             System.out.println(getError("(NullPointer) ID is a null"));
         }
-        isIdPulledIncorrectly = true;
         return null;
     }
 
