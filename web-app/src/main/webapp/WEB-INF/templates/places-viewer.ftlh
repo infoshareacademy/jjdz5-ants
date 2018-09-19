@@ -18,8 +18,17 @@
         <!--Submenu-->
         <div class="col-3 pl-4 pt-3 pb-5">
 
+            <#--Search by name-->
+            <form autocomplete="off" action="/places-viewer" method="get">
+                <div class="pt-2 autocomplete">
+                    <input id="nameInput" class="form-control" type="text" name="placeName" placeholder="Nazwa atrakcji">
+                </div>
+                <button type="submit" class="pt-2 btn btn-primary">Wyszukaj</button>
+            </form>
+            <hr>
+
             <#--Places List-->
-            <div class="list-group" id="places-list" role="tablist">
+            <div class="pt-4 list-group" id="places-list" role="tablist">
                 <#list places as p>
                 <a class="list-group-item list-group-item-action" id="list-${p.id}-list" data-toggle="list" href="#list-${p.id}" role="tab" aria-controls="${p.id}">
                     <div class="row">
@@ -155,6 +164,13 @@
         perPage: 10,
         autoScroll: false
     })
+</script>
+
+<script src="js/autocomplete.js"></script>
+<script>
+    var countries = [<#list places as p>"${p.placeMain.name}"<#if p?is_last><#else>,</#if></#list>];
+
+    autocomplete(document.getElementById("nameInput"), countries);
 </script>
 
 </body>
