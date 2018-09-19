@@ -17,8 +17,8 @@ public class PlaceMainPullFromJson{
 
     private JSONArray placesArray;
     private Integer pullIndex;
-    private Boolean namePulledCorrectly;
-    private Boolean descriptionPulledCorrectly;
+    private Boolean namePulledCorrectly = false;
+    private Boolean descriptionPulledCorrectly = false;
 
     void setPlacesArray(JSONArray placesArray) {
         this.placesArray = placesArray;
@@ -36,8 +36,7 @@ public class PlaceMainPullFromJson{
             return placeMain;
         }
         System.out.println(getError("PlaceMain major values are not correct. Check JSON file: \"" + Configuration.PLACES_JSON_FILEPATH + "\""));
-        placeMain = new PlaceMain();
-        return placeMain;
+        return new PlaceMain();
     }
 
     private String pullNameFromJsonArray() {
@@ -47,7 +46,6 @@ public class PlaceMainPullFromJson{
         } catch (ClassCastException | NullPointerException e) {
             e.printStackTrace();
         }
-        namePulledCorrectly = false;
         return null;
     }
 
@@ -71,16 +69,11 @@ public class PlaceMainPullFromJson{
         } catch (ClassCastException | NullPointerException e) {
             e.printStackTrace();
         }
-        descriptionPulledCorrectly = false;
         return null;
     }
 
     private Boolean isPlaceMainPulledCorrectly() {
-        Boolean placeMainPulledCorrectly = false;
-        if (namePulledCorrectly && descriptionPulledCorrectly) {
-            placeMainPulledCorrectly = true;
-        }
-        return placeMainPulledCorrectly;
+        return namePulledCorrectly && descriptionPulledCorrectly;
     }
 
     private String getError(String error) {
