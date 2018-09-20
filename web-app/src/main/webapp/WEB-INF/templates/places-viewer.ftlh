@@ -19,31 +19,35 @@
         <div class="col-3 pl-4 pt-3 pb-5">
 
             <#--Search by name-->
-            <form autocomplete="off" action="/web-app/places-viewer" method="get">
-                <div class="pt-2 autocomplete">
-                    <input id="nameInput" class="form-control" type="text" name="placeName" placeholder="Nazwa atrakcji">
-                </div>
-                <button type="submit" class="pt-2 btn btn-primary">Wyszukaj</button>
-            </form>
+            <div class="pt-2">
+                <form autocomplete="off" action="/web-app/places-viewer" method="get">
+                    <div class="autocomplete">
+                        <input id="nameInput" class="form-control" type="text" name="pName" placeholder="Nazwa atrakcji">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="background-color: #0c3d53">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
             <hr>
 
             <#--Places List-->
             <div class="pt-4 list-group" id="places-list" role="tablist">
                 <#list places as p>
-                <a class="list-group-item list-group-item-action" id="list-${p.id}-list" data-toggle="list" href="#list-${p.id}" role="tab" aria-controls="${p.id}">
-                    <div class="row">
-                        <div class="col-8">
-                    <p class="d-inline-block float-left">
-                        ${p.placeMain.name}
-                    </p>
+                    <a class="list-group-item list-group-item-action" id="list-${p.id}-list" data-toggle="list" href="#list-${p.id}" role="tab" aria-controls="${p.id}">
+                        <div class="row">
+                            <div class="col-8">
+                                <p class="d-inline-block float-left">
+                                    ${p.placeMain.name}
+                                </p>
+                            </div>
+                            <div class="col-4 align-middle">
+                                <span class="float-right">
+                                    ${p.placeAdditional.averageRating?string("0.00")} <i class="fa fa-star"></i>
+                                </span>
+                            </div>
                         </div>
-                        <div class="col-4 align-middle">
-                    <span class="float-right">
-                        ${p.placeAdditional.averageRating?string("0.00")} &#9733;
-                    </span>
-                        </div>
-                    </div>
-                </a>
+                    </a>
                 </#list>
             </div>
         </div>
@@ -52,13 +56,23 @@
         <div class="col-9 pr-4 pt-3 pb-5 separator-left">
             <div class="tab-content" id="nav-placesContent">
                 <#list placeSelectionId as psid>
-                <#if psid == 0>
-                <div class="tab-pane show active" role="tabpanel">
-                    <div class="alert alert-primary">
-                        <h1 class="text-center">Proszę wybrać atrakcję turystyczną</h1>
-                    </div>
-                </div>
-                </#if>
+                    <#if psid == 0>
+                        <div class="tab-pane show active" role="tabpanel">
+                            <div class="alert alert-primary">
+                                <h1 class="text-center">Proszę wybrać atrakcję turystyczną</h1>
+                            </div>
+                            <#if placeNameParameter?has_content>
+                                <#list placeNameParameter as pnp>
+                                <#if pnp?length &gt; 0>
+                                    <div class="alert alert-secondary">
+                                        <h5>Niestety, brak atrakcji o poszukiwanej nazwie: <strong>"${pnp}"</strong>.</h5>
+                                        <h5>Prosimy spróbować ponownie.</h5>
+                                    </div>
+                                </#if>
+                                </#list>
+                            </#if>
+                        </div>
+                    </#if>
                 <#list places as p>
                 <#if psid == p.id>
                     <#assign activeStatus = " show active">
@@ -73,7 +87,7 @@
                     <div class="row">
                         <div class="col-6">
                             <h5 class="alert alert-dark text-muted text-center">${p.placeMain.type}</h5><hr>
-                            <h4>Średnia ocena: ${p.placeAdditional.averageRating?string("0.00")} &#9733;</h4>
+                            <h4>Średnia ocena: ${p.placeAdditional.averageRating?string("0.00")} <i class="fa fa-star"></i> </h4>
                             <h4>Ilość ocen: ${p.placeAdditional.ratingsAmount}</h4><hr>
                             <div class="card bg-light">
                                 <div class="card-header">
