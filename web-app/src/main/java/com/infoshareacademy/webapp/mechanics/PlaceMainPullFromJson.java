@@ -20,15 +20,15 @@ public class PlaceMainPullFromJson{
     private Boolean namePulledCorrectly = false;
     private Boolean descriptionPulledCorrectly = false;
 
-    void setPlacesArray(JSONArray placesArray) {
+    public void setPlacesArray(JSONArray placesArray) {
         this.placesArray = placesArray;
     }
 
-    void setPullIndex(Integer pullIndex) {
+    public void setPullIndex(Integer pullIndex) {
         this.pullIndex = pullIndex;
     }
 
-    PlaceMain preparePlaceMain() {
+    public PlaceMain preparePlaceMain() {
         PlaceMain placeMain= new PlaceMain(pullNameFromJsonArray(),
                 pullTypeFromJsonArray(),
                 pullDescriptionFromJsonArray());
