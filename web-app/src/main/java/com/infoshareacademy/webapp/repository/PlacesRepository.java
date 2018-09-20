@@ -4,12 +4,12 @@ import com.infoshareacademy.webapp.mechanics.PlacePullFromJson;
 import com.infoshareacademy.webapp.model.Place;
 import org.json.simple.JSONArray;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApplicationScoped
+@RequestScoped
 public class PlacesRepository {
 
     @Inject

@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="css/placesStylesheet.css">
+    <link rel="stylesheet" href="css/placesStylesheet.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>

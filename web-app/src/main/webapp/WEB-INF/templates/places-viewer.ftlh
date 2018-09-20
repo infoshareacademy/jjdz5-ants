@@ -11,15 +11,16 @@
 <!-- Navbar menu -->
 <#include "navbar.ftlh">
 
-<div class="container-fluid bg-light">
+<div class="container-fluid mb-5 bg-light">
 
     <div class="row mt-5 pt-4">
 
         <!--Submenu-->
         <div class="col-3 pl-4 pt-3 pb-5">
 
-            <#--Search by name-->
             <div class="pt-2">
+
+                <#--Search by name-->
                 <form autocomplete="off" action="/web-app/places-viewer" method="get">
                     <div class="autocomplete">
                         <input id="nameInput" class="form-control" type="text" name="pName" placeholder="Nazwa atrakcji">
@@ -28,10 +29,57 @@
                         <i class="fa fa-search"></i>
                     </button>
                 </form>
+                <br>
+
+                <#--Filter by type-->
+                <form class="form-inline" action="/web-app/places-viewer" method="get">
+                    <label class="my-1 mr-2" for="inlineTypeSelector">Wyświetlany typ atrakcji</label>
+                    <div class="align-self-end ml-auto">
+                        <select class="custom-select my-1 mr-sm-2" id="inlineTypeSelector" name="pType">
+                            <#if pType??>
+                                <#assign ptp = pType?first>
+                            </#if>
+                            <option value="">Wszystkie</option>
+                            <#list placesTypes as pt>
+                                <option value="${pt}">
+                                    ${pt}
+                                </option>
+                            </#list>
+                        </select>
+                    </div>
+
+                    <#--Filter by minimal average rating-->
+                    <label class="my-1 mr-2" for="inlineTypeSelector">Minimalna średnia ocena atrakcji</label>
+                    <div class="align-self-end ml-auto">
+                        <select class="custom-select my-1 mr-sm-2" id="inlineTypeSelector" name="pMinRate">
+                        <option value="">Wszystkie</option>
+                        <#list [1, 2, 3, 4, 5] as rate>
+                            <option value="${rate}" style="text-align: right">
+                                ${rate} &#9733;
+                            </option>
+                        </#list>
+                        </select>
+                    </div>
+
+                    <#--Submit button-->
+                    <div class="align-self-center mx-auto mt-1">
+                        <button type="submit" class="btn btn-primary" style="background-color: #0c3d53">
+                            Filtruj <i class="fa fa-filter"></i>
+                        </button>
+                    </div>
+
+                </form>
+
             </div>
             <hr>
 
             <#--Places List-->
+            <#if places?size == 0>
+                <div class="alert alert-secondary">
+                    <h5>Niestety, brak atrakcji o podanych kryteriach.</h5>
+                    <h5>Prosimy spróbować ponownie.</h5>
+                </div>
+            </#if>
             <div class="pt-4 list-group" id="places-list" role="tablist">
                 <#list places as p>
                     <a class="list-group-item list-group-item-action" id="list-${p.id}-list" data-toggle="list" href="#list-${p.id}" role="tab" aria-controls="${p.id}">
@@ -55,14 +103,14 @@
         <!--Content-->
         <div class="col-9 pr-4 pt-3 pb-5 separator-left">
             <div class="tab-content" id="nav-placesContent">
-                <#list placeSelectionId as psid>
+                <#list placeIdByNameSelection as psid>
                     <#if psid == 0>
                         <div class="tab-pane show active" role="tabpanel">
                             <div class="alert alert-primary">
                                 <h1 class="text-center">Proszę wybrać atrakcję turystyczną</h1>
                             </div>
-                            <#if placeNameParameter?has_content>
-                                <#list placeNameParameter as pnp>
+                            <#if pName?has_content>
+                                <#list pName as pnp>
                                 <#if pnp?length &gt; 0>
                                     <div class="alert alert-secondary">
                                         <h5>Niestety, brak atrakcji o poszukiwanej nazwie: <strong>"${pnp}"</strong>.</h5>
@@ -173,7 +221,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="footer center">
+<footer class="footer-always-bottom center">
     <div class="section">
         <a href="#" class="fa fa-facebook-official fa-3x fa-fw"></a>
         <a href="#" class="fa fa-linkedin fa-3x"></a>
@@ -181,19 +229,21 @@
     </div>
 </footer>
 
-<script src="js/jquery.paginate.js"></script>
-<script>
-    $('#places-list').paginate({
-        perPage: 10,
-        autoScroll: false
-    })
-</script>
+<#if places?size &gt; 10>
+    <script src="js/jquery.paginate.js"></script>
+    <script>
+        $('#places-list').paginate({
+            perPage: 10,
+            autoScroll: true
+        })
+    </script>
+</#if>
 
 <script src="js/autocomplete.js"></script>
 <script>
-    var countries = [<#list places as p>"${p.placeMain.name}"<#if p?is_last><#else>,</#if></#list>];
+    var placesNames = [<#list placesNames as p>"${p}"<#if p?is_last><#else>,</#if></#list>];
 
-    autocomplete(document.getElementById("nameInput"), countries);
+    autocomplete(document.getElementById("nameInput"), placesNames);
 </script>
 
 </body>
