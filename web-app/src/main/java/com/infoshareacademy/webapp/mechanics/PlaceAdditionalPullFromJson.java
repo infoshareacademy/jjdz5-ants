@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Map;
 import java.util.TreeMap;
+import java.time.DayOfWeek;
 
 @ApplicationScoped
 public class PlaceAdditionalPullFromJson {
@@ -34,15 +35,15 @@ public class PlaceAdditionalPullFromJson {
         );
     }
 
-    private Map<WeekDays, String> pullOpeningHoursFromJsonArray() {
-        Map<WeekDays, String> openingHours = new TreeMap<>();
-        for (WeekDays weekDay : WeekDays.values()){
+    private Map<DayOfWeek, String> pullOpeningHoursFromJsonArray() {
+        Map<DayOfWeek, String> openingHours = new TreeMap<>();
+        for (DayOfWeek weekDay : DayOfWeek.values()){
             openingHours.put(weekDay, pullSpecificDayHours(weekDay));
         }
         return openingHours;
     }
 
-    private String pullSpecificDayHours(WeekDays weekDay) {
+    private String pullSpecificDayHours(DayOfWeek weekDay) {
         JSONObject openingHoursCollection = accessJson.getSubJsonObject(placesArray, pullIndex, PlaceConstants.PLACE_OPENING_HOURS);
         try {
             Map pulledOpeningHours = accessJson.pullJsonStringCollection(openingHoursCollection);
