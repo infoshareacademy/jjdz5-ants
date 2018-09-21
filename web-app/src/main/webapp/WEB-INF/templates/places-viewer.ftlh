@@ -112,10 +112,27 @@
                                         </div>
                                         <ul class="list-group list-group-flush">
                                             <#list p.placeAdditional.openingHours as hoursDay, hoursValue>
+                                                <#if hoursDay == "MONDAY">
+                                                    <#assign hday = "Poniedziałek">
+                                                <#elseif hoursDay == "TUESDAY">
+                                                    <#assign hday = "Wtorek">
+                                                <#elseif hoursDay == "WEDNESDAY">
+                                                    <#assign hday = "Środa">
+                                                <#elseif hoursDay == "THURSDAY">
+                                                    <#assign hday = "Czwartek">
+                                                <#elseif hoursDay == "FRIDAY">
+                                                    <#assign hday = "Piątek">
+                                                <#elseif hoursDay == "SATURDAY">
+                                                    <#assign hday = "Sobota">
+                                                <#elseif hoursDay == "SUNDAY">
+                                                    <#assign hday = "Niedziela">
+                                                <#else>
+                                                    <#assign hday = hoursDay>
+                                                </#if>
                                                 <li class="list-group-item">
                                                     <div class="row">
                                                         <div class="col-7">
-                                                            <span class="text-muted float-left">${hoursDay}</span>
+                                                            <span class="text-muted float-left">${hday}</span>
                                                         </div>
                                                         <div class="col-5">
                                                             <span class="text-muted float-right">${hoursValue}</span>
