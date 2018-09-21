@@ -1,11 +1,12 @@
 package com.infoshareacademy.webapp.model;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.util.*;
 
 public class PlaceAdditional {
 
-    private final Map<WeekDays, String> openingHours;
+    private final Map<DayOfWeek, String> openingHours;
     private final Map<PriceTypes, Double> prices;
     private final Map<String, Integer> ratings;
     private final Integer ratingsAmount;
@@ -13,7 +14,7 @@ public class PlaceAdditional {
 
     private Boolean isDefault;
 
-    private Map<WeekDays, String> defaultOpeningHours = new TreeMap<>();
+    private Map<DayOfWeek, String> defaultOpeningHours = new TreeMap<>();
     private Map<PriceTypes, Double> defaultPrices = new TreeMap<>();
     private static Map<String, Integer> defaultRatings = new HashMap<>();
 
@@ -30,7 +31,7 @@ public class PlaceAdditional {
         this.isDefault = true;
     }
 
-    public PlaceAdditional(Map<WeekDays, String> openingHours, Map<PriceTypes, Double> prices,
+    public PlaceAdditional(Map<DayOfWeek, String> openingHours, Map<PriceTypes, Double> prices,
                            Map<String, Integer> ratings) {
         this.openingHours = openingHours;
         this.prices = prices;
@@ -41,13 +42,13 @@ public class PlaceAdditional {
     }
 
     private void setDefaultOpeningHours() {
-        defaultOpeningHours.put(WeekDays.MONDAY, PlaceConstants.NO_DATA_TEXT);
-        defaultOpeningHours.put(WeekDays.TUESDAY, PlaceConstants.NO_DATA_TEXT);
-        defaultOpeningHours.put(WeekDays.WEDNESDAY, PlaceConstants.NO_DATA_TEXT);
-        defaultOpeningHours.put(WeekDays.THURSDAY, PlaceConstants.NO_DATA_TEXT);
-        defaultOpeningHours.put(WeekDays.FRIDAY, PlaceConstants.NO_DATA_TEXT);
-        defaultOpeningHours.put(WeekDays.SATURDAY, PlaceConstants.NO_DATA_TEXT);
-        defaultOpeningHours.put(WeekDays.SUNDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(DayOfWeek.MONDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(DayOfWeek.TUESDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(DayOfWeek.WEDNESDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(DayOfWeek.THURSDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(DayOfWeek.FRIDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(DayOfWeek.SATURDAY, PlaceConstants.NO_DATA_TEXT);
+        defaultOpeningHours.put(DayOfWeek.SUNDAY, PlaceConstants.NO_DATA_TEXT);
     }
 
     private void setDefaultPrices() {
@@ -68,7 +69,7 @@ public class PlaceAdditional {
         return defaultRatings;
     }
 
-    public Map<WeekDays, String> getOpeningHours() {
+    public Map<DayOfWeek, String> getOpeningHours() {
         return openingHours;
     }
 
