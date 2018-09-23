@@ -40,8 +40,21 @@
                                 <#assign ptp = pType?first>
                             </#if>
                             <option value="">Wszystkie</option>
-                            <#list placesTypes as pt>
-                                <option value="${pt}">
+                            <#list placesTypes as placeType>
+                                <#if placeType == "CASTLE">
+                                    <#assign pt = "Zamek">
+                                <#elseif placeType == "CHURCH">
+                                    <#assign pt = "Kościół">
+                                <#elseif placeType == "MUSEUM">
+                                    <#assign pt = "Muzeum">
+                                <#elseif placeType == "PARK">
+                                    <#assign pt = "Park">
+                                <#elseif placeType == "MONUMENT">
+                                    <#assign pt = "Pomnik">
+                                <#elseif placeType == "WRONG_TYPE">
+                                    <#assign pt = "Inny">
+                                </#if>
+                                <option value="${placeType}">
                                     ${pt}
                                 </option>
                             </#list>
@@ -134,7 +147,20 @@
                     <hr>
                     <div class="row">
                         <div class="col-6">
-                            <h5 class="alert alert-dark text-muted text-center">${p.placeMain.type}</h5><hr>
+                            <#if p.placeMain.type == "CASTLE">
+                                <#assign type = "Zamek">
+                            <#elseif p.placeMain.type == "CHURCH">
+                                <#assign type = "Kościół">
+                            <#elseif p.placeMain.type == "MUSEUM">
+                                <#assign type = "Muzeum">
+                            <#elseif p.placeMain.type == "PARK">
+                                <#assign type = "Park">
+                            <#elseif p.placeMain.type == "MONUMENT">
+                                <#assign type = "Pomnik">
+                            <#elseif p.placeMain.type == "WRONG_TYPE">
+                                <#assign type = "Inny">
+                            </#if>
+                            <h5 class="alert alert-dark text-muted text-center">${type}</h5><hr>
                             <h4>Średnia ocena: ${p.placeAdditional.averageRating?string("0.00")} <i class="fa fa-star"></i> </h4>
                             <h4>Ilość ocen: ${p.placeAdditional.ratingsAmount}</h4><hr>
                             <div class="card bg-light">
