@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Map;
 import java.util.TreeMap;
+import java.time.DayOfWeek;
 
 @ApplicationScoped
 public class PlaceAdditionalPullFromJson {
@@ -34,27 +35,31 @@ public class PlaceAdditionalPullFromJson {
         );
     }
 
-    private Map<WeekDays, String> pullOpeningHoursFromJsonArray() {
-        Map<WeekDays, String> openingHours = new TreeMap<>();
-        for (WeekDays weekDay : WeekDays.values()){
+    private Map<DayOfWeek, String> pullOpeningHoursFromJsonArray() {
+        Map<DayOfWeek, String> openingHours = new TreeMap<>();
+        for (DayOfWeek weekDay : DayOfWeek.values()){
             openingHours.put(weekDay, pullSpecificDayHours(weekDay));
         }
         return openingHours;
     }
 
-    private String pullSpecificDayHours(WeekDays weekDay) {
-        JSONObject openingHoursCollection = accessJson.getSubJsonObject(placesArray, pullIndex, PlaceConstants.PLACE_OPENING_HOURS);
+    private String pullSpecificDayHours(DayOfWeek weekDay) {
+        JSONObject openingHoursCollection = accessJson.getSubJsonObject(placesArray, pullIndex,
+                PlaceConstants.PLACE_OPENING_HOURS);
         try {
             Map pulledOpeningHours = accessJson.pullJsonStringCollection(openingHoursCollection);
-            String specificDayHours = accessJson.findSpecificValueInCollection(pulledOpeningHours, weekDay.name());
+            String specificDayHours = accessJson.findSpecificValueInCollection(pulledOpeningHours,
+                    weekDay.name());
             if (isNotNull(specificDayHours)) {
                 return specificDayHours;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(getError("New error, identify and add annotation (PullAdditionalPullFromJson : 53 line)"));
+            System.out.println(getError(
+                    "New error, identify and add annotation (PullAdditionalPullFromJson : 53 line)"));
         }
-        System.out.println(getError("Cannot identify WEEKDAY: \"" + weekDay.name() + "\", possible broken entry"));
+        System.out.println(getError(
+                "Cannot identify WEEKDAY: \"" + weekDay.name() + "\", possible broken entry"));
         return PlaceConstants.NO_DATA_TEXT;
     }
 
@@ -67,11 +72,13 @@ public class PlaceAdditionalPullFromJson {
     }
 
     private Double pullSpecificPriceType(PriceTypes priceType) {
-        JSONObject pricesCollection = accessJson.getSubJsonObject(placesArray, pullIndex, PlaceConstants.PLACE_PRICES);
+        JSONObject pricesCollection = accessJson.getSubJsonObject(placesArray, pullIndex,
+                PlaceConstants.PLACE_PRICES);
         Double noData = PlaceConstants.NO_DATA_NUMERIC;
         try {
             Map pulledPrices = accessJson.pullJsonStringCollection(pricesCollection);
-            return Double.valueOf(accessJson.findSpecificValueInCollection(pulledPrices, priceType.name()));
+            return Double.valueOf(accessJson.findSpecificValueInCollection(
+                    pulledPrices, priceType.name()));
         } catch (NumberFormatException e) {
             System.out.println(getError("(NumberFormat) in PRICE TYPE: \"" + priceType.name() + "\""));
         } catch (NullPointerException e) {
@@ -82,7 +89,8 @@ public class PlaceAdditionalPullFromJson {
 
     private Map<String, Integer> pullRatingsFromJsonArray() {
         try {
-            JSONObject ratingsCollection = accessJson.getSubJsonObject(placesArray, pullIndex, PlaceConstants.PLACE_RATINGS);
+            JSONObject ratingsCollection = accessJson.getSubJsonObject(placesArray, pullIndex,
+                    PlaceConstants.PLACE_RATINGS);
             Map<String, Integer> pulledRatings = accessJson.pullJsonIntegerCollection(ratingsCollection);
             if (isPulledCollectionNotEmpty(pulledRatings)) {
                 return pulledRatings;
@@ -92,7 +100,8 @@ public class PlaceAdditionalPullFromJson {
         } catch (NullPointerException e) {
             System.out.println(getError("(NullPointer) Ratings collection is probably empty"));
         }
-        System.out.println(getInfo("Ratings collection is probably empty/broken, setting default values"));
+        System.out.println(getInfo(
+                "Ratings collection is probably empty/broken, setting default values"));
         Map<String, Integer> defaultRatings;
         defaultRatings = PlaceAdditional.getDefaultRatings();
         return defaultRatings;
