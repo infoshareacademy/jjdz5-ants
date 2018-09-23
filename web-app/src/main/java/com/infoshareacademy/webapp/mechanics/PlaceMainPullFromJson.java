@@ -10,21 +10,19 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class PlaceMainPullFromJson{
+public class PlaceMainPullFromJson {
 
     @Inject
     private AccessJson accessJson;
 
     private JSONArray placesArray;
     private Integer pullIndex;
-    private Boolean namePulledCorrectly = false;
-    private Boolean descriptionPulledCorrectly = false;
 
-    void setPlacesArray(JSONArray placesArray) {
+    public void setPlacesArray(JSONArray placesArray) {
         this.placesArray = placesArray;
     }
 
-    void setPullIndex(Integer pullIndex) {
+    public void setPullIndex(Integer pullIndex) {
         this.pullIndex = pullIndex;
     }
 
@@ -32,28 +30,35 @@ public class PlaceMainPullFromJson{
         PlaceMain placeMain= new PlaceMain(pullNameFromJsonArray(),
                 pullTypeFromJsonArray(),
                 pullDescriptionFromJsonArray());
-        if (isPlaceMainPulledCorrectly()) {
-            return placeMain;
+        if (isAnyMajorParameterNull(placeMain)) {
+            System.out.println(getError(
+                    "PlaceMain major values are not correct. Check JSON file: \"" +
+                    Configuration.PLACES_JSON_FILEPATH + "\"")
+            );
+            return new PlaceMain();
         }
-        System.out.println(getError("PlaceMain major values are not correct. Check JSON file: \"" + Configuration.PLACES_JSON_FILEPATH + "\""));
-        return new PlaceMain();
+        return placeMain;
     }
 
     private String pullNameFromJsonArray() {
         try {
-            namePulledCorrectly = true;
-            return (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_NAME);
+            String name = (String) accessJson.pullJsonObject(placesArray, pullIndex)
+                    .get(PlaceConstants.PLACE_NAME);
+            if (isStringMinSizeSuitable(name, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)){
+                return name;
+            }
         } catch (ClassCastException | NullPointerException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private Enum pullTypeFromJsonArray() {
-        return checkType(accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_TYPE).toString());
+    private PlaceOfInterestType pullTypeFromJsonArray() {
+        return checkType(accessJson.pullJsonObject(placesArray, pullIndex)
+                .get(PlaceConstants.PLACE_TYPE).toString());
     }
 
-    private Enum checkType(String type) {
+    private PlaceOfInterestType checkType(String type) {
         for (PlaceOfInterestType placeOfInterestType : PlaceOfInterestType.values()){
             if (type.equalsIgnoreCase(placeOfInterestType.name())){
                 return placeOfInterestType;
@@ -64,16 +69,24 @@ public class PlaceMainPullFromJson{
 
     private String pullDescriptionFromJsonArray() {
         try {
-            descriptionPulledCorrectly = true;
-            return (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_DESCRIPTION);
+            String description =  (String) accessJson.pullJsonObject(placesArray, pullIndex)
+                    .get(PlaceConstants.PLACE_DESCRIPTION);
+            if (isStringMinSizeSuitable(description, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
+                return description;
+            }
         } catch (ClassCastException | NullPointerException e) {
             e.printStackTrace();
         }
-        return null;
+        return pullNameFromJsonArray();
     }
 
-    private Boolean isPlaceMainPulledCorrectly() {
-        return namePulledCorrectly && descriptionPulledCorrectly;
+    private Boolean isStringMinSizeSuitable(String stringToAnalyze, Integer minSize) {
+        return stringToAnalyze.length() >= minSize;
+    }
+
+    private Boolean isAnyMajorParameterNull(PlaceMain placeMain) {
+        return placeMain.getName() == null ||
+               placeMain.getDescription() == null;
     }
 
     private String getError(String error) {

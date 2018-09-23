@@ -9,7 +9,6 @@ public class PlacePullFromJson {
 
     private JSONArray placesArray;
     private Integer pullIndex;
-    private Boolean isIdPulledIncorrectly = false;
 
     @Inject
     private AccessJson accessJson;
@@ -36,16 +35,20 @@ public class PlacePullFromJson {
         setPlaceAdditionalPullFromJsonValues();
         setPlaceLocationPullFromJsonValues();
 
-        PlaceMain placeMain = placeMainPullFromJson.preparePlaceMain();
-        PlaceAdditional placeAdditional = placeAdditionalPullFromJson.preparePlaceAdditional();
-        PlaceLocation placeLocation = placeLocationPullFromJson.preparePlaceLocation();
-        Place completePlace = new Place(pullIdFromJsonArray(), placeMain, placeAdditional, placeLocation);
+        try {
+            PlaceMain placeMain = placeMainPullFromJson.preparePlaceMain();
+            PlaceAdditional placeAdditional = placeAdditionalPullFromJson.preparePlaceAdditional();
+            PlaceLocation placeLocation = placeLocationPullFromJson.preparePlaceLocation();
+            Place completePlace = new Place(pullIdFromJsonArray(), placeMain, placeAdditional, placeLocation);
 
-        if (isIdPulledIncorrectly || arePlacesDefault(placeMain, placeAdditional, placeLocation)) {
+            if (isIdNull(completePlace) || arePlacesDefault(placeMain, placeAdditional, placeLocation)) {
+                return new Place();
+            }
+            System.out.println(getInfo("Place successfully pulled!"));
+            return completePlace;
+        } catch (NumberFormatException e) {
             return new Place();
         }
-        System.out.println(getInfo("Place successfully pulled!"));
-        return completePlace;
     }
 
     private void setPlaceMainPullFromJsonValues() {
@@ -67,14 +70,19 @@ public class PlacePullFromJson {
 
     private Integer pullIdFromJsonArray() {
         try {
-            isIdPulledIncorrectly = false;
             return Math.toIntExact((Long) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_ID));
         } catch (ClassCastException e) {
             System.out.println(getError("(ClassCast) Cannot resolve ID, it's probably not numeric"));
         } catch (NullPointerException e) {
             System.out.println(getError("(NullPointer) ID is a null"));
+        } catch (NumberFormatException e) {
+            System.out.println(getError("(NumberFormat) Cannot resolve ID, it's probably not numeric"));
         }
         return null;
+    }
+
+    private Boolean isIdNull(Place place) {
+        return place.getId() == null;
     }
 
     private Boolean arePlacesDefault(PlaceMain placeMain, PlaceAdditional placeAdditional, PlaceLocation placeLocation) {

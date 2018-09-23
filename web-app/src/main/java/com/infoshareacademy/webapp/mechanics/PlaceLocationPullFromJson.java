@@ -1,6 +1,5 @@
 package com.infoshareacademy.webapp.mechanics;
 
-import com.infoshareacademy.webapp.Configuration;
 import com.infoshareacademy.webapp.model.CoordinateTypes;
 import com.infoshareacademy.webapp.model.PlaceConstants;
 import com.infoshareacademy.webapp.model.PlaceLocation;
@@ -20,10 +19,6 @@ public class PlaceLocationPullFromJson {
 
     private JSONArray placesArray;
     private Integer pullIndex;
-    private Boolean streetPulledCorrectly = false;
-    private Boolean cityPulledCorrectly = false;
-    private Boolean buildingNumberPulledCorrectly = false;
-    private Boolean gpsCoordinatesPulledCorrectly = false;
 
     public void setPlacesArray(JSONArray placesArray) {
         this.placesArray = placesArray;
@@ -34,24 +29,23 @@ public class PlaceLocationPullFromJson {
     }
 
     public PlaceLocation preparePlaceLocation() {
-        PlaceLocation placeLocation = new PlaceLocation(pullStreetFromJsonArray(),
-                pullCityFromJsonArray(),
-                pullBuildingNumberFromJsonArray(),
-                pullBuildingLetterFromJsonArray(),
-                pullApartmentNumberFromJsonArray(),
-                pullGpsCoordinatesFromJsonArray());
-        if (isPlaceLocationPulledCorrectly()) {
+            PlaceLocation placeLocation = new PlaceLocation(pullStreetFromJsonArray(),
+                    pullCityFromJsonArray(),
+                    pullBuildingNumberFromJsonArray(),
+                    pullBuildingLetterFromJsonArray(),
+                    pullApartmentNumberFromJsonArray(),
+                    pullGpsCoordinatesFromJsonArray()
+            );
+            if (isAnyParameterNull(placeLocation)) {
+                return new PlaceLocation();
+            }
             return placeLocation;
-        }
-        System.out.println(getError("Place Location Major Values are not correct. Check JSON file: \"" + Configuration.PLACES_JSON_FILEPATH + "\""));
-        return new PlaceLocation();
     }
 
     private String pullStreetFromJsonArray() {
         try {
             String street = (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_STREET);
             if (isStringMinSizeSuitable(street, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
-                streetPulledCorrectly = true;
                 return street;
             } else {
                 System.out.println(getError("Street String is too short (min. " + PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
@@ -68,7 +62,6 @@ public class PlaceLocationPullFromJson {
         try {
             String city = (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_CITY);
             if (isStringMinSizeSuitable(city, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
-                cityPulledCorrectly = true;
                 return city;
             } else {
                 System.out.println(getError("City String is too short (min. " + PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
@@ -83,7 +76,6 @@ public class PlaceLocationPullFromJson {
 
     private Integer pullBuildingNumberFromJsonArray() {
         try {
-            buildingNumberPulledCorrectly = true;
             return Integer.parseInt(accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_BUILDING_NUMBER).toString());
         } catch (NumberFormatException e) {
             System.out.println(getError("(NumberFormat) Building number is not numeric"));
@@ -131,7 +123,6 @@ public class PlaceLocationPullFromJson {
     private Double pullSpecificGpsCoordinateType(CoordinateTypes coordinateType) {
         JSONObject gpsCoordinatesCollection = accessJson.getSubJsonObject(placesArray, pullIndex, PlaceConstants.PLACE_GPS_COORDINATES);
         try {
-            gpsCoordinatesPulledCorrectly = true;
             Map pulledGpsCoordinates = accessJson.pullJsonStringCollection(gpsCoordinatesCollection);
             Double specificGpsCoordinateType = Double.parseDouble(accessJson.findSpecificValueInCollection(pulledGpsCoordinates, coordinateType.name()).toString());
             return specificGpsCoordinateType;
@@ -160,9 +151,11 @@ public class PlaceLocationPullFromJson {
         return stringToAnalyze.length() <= maxSize;
     }
 
-    private Boolean isPlaceLocationPulledCorrectly() {
-        return streetPulledCorrectly && cityPulledCorrectly &&
-               buildingNumberPulledCorrectly && gpsCoordinatesPulledCorrectly;
+    private Boolean isAnyParameterNull(PlaceLocation placeLocation) {
+        return placeLocation.getStreet() == null ||
+               placeLocation.getCity() ==  null ||
+               placeLocation.getBuildingNumber() == null ||
+               placeLocation.getGpsCoordinates() == null;
     }
 
     private String getError(String error) {
