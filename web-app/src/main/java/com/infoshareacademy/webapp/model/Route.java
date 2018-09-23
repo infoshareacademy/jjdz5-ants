@@ -35,9 +35,14 @@ public class Route {
         this.places = places;
         this.placesQuantity = places.size();
         this.distances = distances;
-        //TODO overall distance counter
-        this.overallDistance = 0.0;
+        this.overallDistance = overallDistanceCounter(distances);
         this.isDefault = false;
+    }
+
+    private Double overallDistanceCounter(List<Double> distances) {
+        return distances.stream()
+                .mapToDouble(distance -> distance.doubleValue())
+                .sum();
     }
 
     public Integer getId() {
@@ -64,7 +69,7 @@ public class Route {
         return overallDistance;
     }
 
-    public Boolean getDefault() {
+    public Boolean getDefaultStatus() {
         return isDefault;
     }
 

@@ -25,7 +25,17 @@ public class PlacesRepository {
 
     private List<Place> places = new ArrayList<>();
 
-    public void addPlacesToRepository(JSONArray placesArray) {
+    public void fillPlacesRepository(ServletContext servletContext) {
+        try {
+            accessJson.setJsonArray(Configuration.PLACES_JSON_FILEPATH, servletContext);
+            addPlacesToRepository(accessJson.getJsonArray());
+            System.out.println("||PLACES REPOSITORY loaded successfully");
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addPlacesToRepository(JSONArray placesArray) {
         placePullFromJson.setPlacesArray(placesArray);
         for (Object entry : placesArray) {
             placePullFromJson.setPullIndex(placesArray.indexOf(entry));
@@ -38,16 +48,6 @@ public class PlacesRepository {
                     places.add(place);
                 }
             }
-        }
-    }
-
-    public void fillPlacesRepository(ServletContext servletContext) {
-        try {
-            accessJson.setJsonArray(Configuration.PLACES_JSON_FILEPATH, servletContext);
-            addPlacesToRepository(accessJson.getJsonArray());
-            System.out.println("||PLACES REPOSITORY loaded successfully");
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
         }
     }
 
