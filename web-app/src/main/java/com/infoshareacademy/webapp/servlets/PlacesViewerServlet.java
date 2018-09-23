@@ -44,7 +44,7 @@ public class PlacesViewerServlet extends HttpServlet {
         Map<String, String[]> parameters = req.getParameterMap();
 
         dataModule.setDataModuleMap(dataModuleMap);
-        dataModule.setPlaces(places);
+        dataModule.setOperatingRepository(places);
         dataModule.setParameters(parameters);
 
         dataModule.fillDataModuleWithRequiredValues();

@@ -37,20 +37,21 @@ public class PlacesViewerDataModule implements DataModule {
     public void filterDataModule() {
         filtering.setDataModuleMap(dataModuleMap);
         filtering.setParameters(parameters);
-        filtering.setPlaces(places);
+        filtering.setOperatingRepository(places);
         filtering.fillDataModuleWithPlaceNameFilter();
         filtering.checkAndApplyFilteringByTypeIfCalled();
         filtering.checkAndApplyFilteringByMinimalRatingIfCalled();
         dataModuleMap = filtering.getDataModuleMap();
     }
 
-    public void setPlaces(List<Place> places) {
-        this.places = places;
-    }
-
     @Override
     public <V> void setDataModuleMap(Map<String, V> dataModuleMap) {
         this.dataModuleMap = (Map<String, List>) dataModuleMap;
+    }
+
+    @Override
+    public <T> void setOperatingRepository(T repository) {
+        this.places = (List<Place>) repository;
     }
 
     @Override

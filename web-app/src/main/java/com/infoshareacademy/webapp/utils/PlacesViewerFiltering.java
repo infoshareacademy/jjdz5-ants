@@ -37,12 +37,13 @@ public class PlacesViewerFiltering implements Filtering {
     }
 
     @Override
-    public void setParameters(Map<String, String[]> parameters) {
-        this.parameters = parameters;
+    public <T> void setOperatingRepository(T repository) {
+        this.places = (List<Place>) repository;
     }
 
-    public void setPlaces(List<Place> places) {
-        this.places = places;
+    @Override
+    public void setParameters(Map<String, String[]> parameters) {
+        this.parameters = parameters;
     }
 
     @Override
