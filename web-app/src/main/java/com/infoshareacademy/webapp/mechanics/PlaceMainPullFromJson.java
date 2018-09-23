@@ -29,12 +29,12 @@ public class PlaceMainPullFromJson {
     PlaceMain preparePlaceMain() {
         PlaceMain placeMain= new PlaceMain(pullNameFromJsonArray(),
                 pullTypeFromJsonArray(),
-                pullDescriptionFromJsonArray());
+                pullDescriptionFromJsonArray()
+        );
         if (isAnyMajorParameterNull(placeMain)) {
             System.out.println(getError(
                     "PlaceMain major values are not correct. Check JSON file: \"" +
-                    Configuration.PLACES_JSON_FILEPATH + "\"")
-            );
+                    Configuration.PLACES_JSON_FILEPATH + "\""));
             return new PlaceMain();
         }
         return placeMain;
@@ -46,9 +46,14 @@ public class PlaceMainPullFromJson {
                     .get(PlaceConstants.PLACE_NAME);
             if (isStringMinSizeSuitable(name, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)){
                 return name;
+            } else {
+                System.out.println(getError("Name String is too short (min. " +
+                        PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
             }
-        } catch (ClassCastException | NullPointerException e) {
-            e.printStackTrace();
+        } catch (ClassCastException e) {
+            System.out.println(getError("(ClassCast) Name is not a String"));
+        } catch (NullPointerException e) {
+            System.out.println(getError("(NullPointer) Name is a null"));
         }
         return null;
     }
@@ -73,9 +78,14 @@ public class PlaceMainPullFromJson {
                     .get(PlaceConstants.PLACE_DESCRIPTION);
             if (isStringMinSizeSuitable(description, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
                 return description;
+            } else {
+                System.out.println(getError("Description String is too short (min. " +
+                        PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
             }
-        } catch (ClassCastException | NullPointerException e) {
-            e.printStackTrace();
+        } catch (ClassCastException e) {
+            System.out.println(getError("(ClassCast) Description is not a String"));
+        } catch (NullPointerException e) {
+            System.out.println(getError("(NullPointer) Description is a null"));
         }
         return pullNameFromJsonArray();
     }

@@ -35,20 +35,17 @@ public class PlacePullFromJson {
         setPlaceAdditionalPullFromJsonValues();
         setPlaceLocationPullFromJsonValues();
 
-        try {
-            PlaceMain placeMain = placeMainPullFromJson.preparePlaceMain();
-            PlaceAdditional placeAdditional = placeAdditionalPullFromJson.preparePlaceAdditional();
-            PlaceLocation placeLocation = placeLocationPullFromJson.preparePlaceLocation();
-            Place completePlace = new Place(pullIdFromJsonArray(), placeMain, placeAdditional, placeLocation);
+        PlaceMain placeMain = placeMainPullFromJson.preparePlaceMain();
+        PlaceAdditional placeAdditional = placeAdditionalPullFromJson.preparePlaceAdditional();
+        PlaceLocation placeLocation = placeLocationPullFromJson.preparePlaceLocation();
+        Place completePlace = new Place(pullIdFromJsonArray(), placeMain, placeAdditional, placeLocation);
 
-            if (isIdNull(completePlace) || arePlacesDefault(placeMain, placeAdditional, placeLocation)) {
-                return new Place();
-            }
-            System.out.println(getInfo("Place successfully pulled!"));
-            return completePlace;
-        } catch (NumberFormatException e) {
+        if (isIdNull(completePlace) || arePlacesDefault(placeMain, placeAdditional, placeLocation)) {
+            System.out.println(getError("Failed to load one of major place elements"));
             return new Place();
         }
+        System.out.println(getInfo("Place successfully pulled!"));
+        return completePlace;
     }
 
     private void setPlaceMainPullFromJsonValues() {
@@ -70,7 +67,8 @@ public class PlacePullFromJson {
 
     private Integer pullIdFromJsonArray() {
         try {
-            return Math.toIntExact((Long) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_ID));
+            return Math.toIntExact((Long) accessJson.pullJsonObject(placesArray, pullIndex)
+                    .get(PlaceConstants.PLACE_ID));
         } catch (ClassCastException e) {
             System.out.println(getError("(ClassCast) Cannot resolve ID, it's probably not numeric"));
         } catch (NullPointerException e) {
@@ -85,8 +83,10 @@ public class PlacePullFromJson {
         return place.getId() == null;
     }
 
-    private Boolean arePlacesDefault(PlaceMain placeMain, PlaceAdditional placeAdditional, PlaceLocation placeLocation) {
-        return placeMain.getDefaultStatus() || placeAdditional.getDefaultStatus() || placeLocation.getDefaultStatus();
+    private Boolean arePlacesDefault(PlaceMain placeMain, PlaceAdditional placeAdditional,
+                                     PlaceLocation placeLocation) {
+        return placeMain.getDefaultStatus() || placeAdditional.getDefaultStatus() ||
+               placeLocation.getDefaultStatus();
     }
 
     private String getError(String error) {

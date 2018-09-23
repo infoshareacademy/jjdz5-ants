@@ -1,5 +1,6 @@
 package com.infoshareacademy.webapp.mechanics;
 
+import com.infoshareacademy.webapp.Configuration;
 import com.infoshareacademy.webapp.model.CoordinateTypes;
 import com.infoshareacademy.webapp.model.PlaceConstants;
 import com.infoshareacademy.webapp.model.PlaceLocation;
@@ -36,7 +37,10 @@ public class PlaceLocationPullFromJson {
                     pullApartmentNumberFromJsonArray(),
                     pullGpsCoordinatesFromJsonArray()
             );
-            if (isAnyParameterNull(placeLocation)) {
+            if (isAnyMajorParameterNull(placeLocation)) {
+                System.out.println(getError(
+                        "PlaceLocation major values are not correct. Check JSON file: \"" +
+                        Configuration.PLACES_JSON_FILEPATH + "\""));
                 return new PlaceLocation();
             }
             return placeLocation;
@@ -44,11 +48,13 @@ public class PlaceLocationPullFromJson {
 
     private String pullStreetFromJsonArray() {
         try {
-            String street = (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_STREET);
+            String street = (String) accessJson.pullJsonObject(placesArray, pullIndex)
+                    .get(PlaceConstants.PLACE_STREET);
             if (isStringMinSizeSuitable(street, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
                 return street;
             } else {
-                System.out.println(getError("Street String is too short (min. " + PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
+                System.out.println(getError("Street String is too short (min. " +
+                        PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
             }
         } catch (ClassCastException e) {
             System.out.println(getError("(ClassCast) Street is not a String"));
@@ -60,11 +66,13 @@ public class PlaceLocationPullFromJson {
 
     private String pullCityFromJsonArray() {
         try {
-            String city = (String) accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_CITY);
+            String city = (String) accessJson.pullJsonObject(placesArray, pullIndex)
+                    .get(PlaceConstants.PLACE_CITY);
             if (isStringMinSizeSuitable(city, PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
                 return city;
             } else {
-                System.out.println(getError("City String is too short (min. " + PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
+                System.out.println(getError("City String is too short (min. " +
+                        PlaceConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
             }
         } catch (ClassCastException e) {
             System.out.println(getError("(ClassCast) City is not a String"));
@@ -76,7 +84,8 @@ public class PlaceLocationPullFromJson {
 
     private Integer pullBuildingNumberFromJsonArray() {
         try {
-            return Integer.parseInt(accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_BUILDING_NUMBER).toString());
+            return Integer.parseInt(accessJson.pullJsonObject(placesArray, pullIndex)
+                    .get(PlaceConstants.PLACE_BUILDING_NUMBER).toString());
         } catch (NumberFormatException e) {
             System.out.println(getError("(NumberFormat) Building number is not numeric"));
         } catch (NullPointerException e) {
@@ -87,8 +96,10 @@ public class PlaceLocationPullFromJson {
 
     private String pullBuildingLetterFromJsonArray() {
         try {
-            String pulledBuildingLetter = accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_BUILDING_LETTER).toString();
-            if (isStringNotNumeric(pulledBuildingLetter) && isStringMaxSizeSuitable(pulledBuildingLetter, PlaceConstants.SINGLE_LETTER_SIZE)) {
+            String pulledBuildingLetter = accessJson.pullJsonObject(placesArray, pullIndex)
+                    .get(PlaceConstants.PLACE_BUILDING_LETTER).toString();
+            if (isStringNotNumeric(pulledBuildingLetter) &&
+                isStringMaxSizeSuitable(pulledBuildingLetter, PlaceConstants.SINGLE_LETTER_SIZE)) {
                 return pulledBuildingLetter;
             } else {
                 System.out.println(getError("Building number is not a single letter"));
@@ -103,11 +114,14 @@ public class PlaceLocationPullFromJson {
 
     private Integer pullApartmentNumberFromJsonArray() {
         try {
-            return Integer.valueOf(accessJson.pullJsonObject(placesArray, pullIndex).get(PlaceConstants.PLACE_APARTMENT_NUMBER).toString());
+            return Integer.valueOf(accessJson.pullJsonObject(placesArray, pullIndex)
+                    .get(PlaceConstants.PLACE_APARTMENT_NUMBER).toString());
         } catch (ClassCastException e) {
             System.out.println(getError("(ClassCast) Apartment number is not numeric"));
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println(getInfo("(NullPointer) Apartment number is null, setting empty value"));
+        } catch (NumberFormatException e) {
+            System.out.println(getError("(NumberFormat) Apartment number is not numeric"));
         }
         return PlaceConstants.EMPTY_APARTMENT_NUMBER;
     }
@@ -121,15 +135,21 @@ public class PlaceLocationPullFromJson {
     }
 
     private Double pullSpecificGpsCoordinateType(CoordinateTypes coordinateType) {
-        JSONObject gpsCoordinatesCollection = accessJson.getSubJsonObject(placesArray, pullIndex, PlaceConstants.PLACE_GPS_COORDINATES);
+        JSONObject gpsCoordinatesCollection = accessJson.getSubJsonObject(placesArray, pullIndex,
+                PlaceConstants.PLACE_GPS_COORDINATES);
         try {
             Map pulledGpsCoordinates = accessJson.pullJsonStringCollection(gpsCoordinatesCollection);
-            Double specificGpsCoordinateType = Double.parseDouble(accessJson.findSpecificValueInCollection(pulledGpsCoordinates, coordinateType.name()).toString());
-            return specificGpsCoordinateType;
+            return Double.parseDouble(accessJson.findSpecificValueInCollection(pulledGpsCoordinates,
+                    coordinateType.name()).toString());
         } catch (NumberFormatException e) {
-            System.out.println(getError("(NumberFormat) NumberFormatException in COORDINATE_TYPE: " + coordinateType.name()));
+            System.out.println(getError("(NumberFormat) NumberFormatException in COORDINATE_TYPE: " +
+                    coordinateType.name()));
         } catch (NullPointerException e) {
-            System.out.println(getError("(NullPointer) NullPointerException in COORDINATE_TYPE: " + coordinateType.name()));
+            System.out.println(getError("(NullPointer) NullPointerException in COORDINATE_TYPE: " +
+                    coordinateType.name()));
+        } catch (ClassCastException e) {
+            System.out.println(getError("(ClassCast) NumberFormatException in COORDINATE_TYPE: " +
+                    coordinateType.name()));
         }
         return null;
     }
@@ -151,7 +171,7 @@ public class PlaceLocationPullFromJson {
         return stringToAnalyze.length() <= maxSize;
     }
 
-    private Boolean isAnyParameterNull(PlaceLocation placeLocation) {
+    private Boolean isAnyMajorParameterNull(PlaceLocation placeLocation) {
         return placeLocation.getStreet() == null ||
                placeLocation.getCity() ==  null ||
                placeLocation.getBuildingNumber() == null ||
