@@ -1,4 +1,17 @@
 [
-  {"distancesList":[0.6976931629699495,8.5523069939292,0.8270854223778219,5.662795781423045],"placesList":[7,3,4,6,5],"id":0,"overallDistance":15.739881360700018,"placesQuantity":5,"routeName":"Gdańska Trasa Testowa"},
-  {"distancesList":[8098.162166262225,1560.843074012386],"placesList":[1,2,0],"id":1,"overallDistance":9659.005240274611,"placesQuantity":3,"routeName":"Trasa Zagraniczna"}
+  {
+    "distances":[0.6976931629699495,8.5523069939292,0.8270854223778219,5.662795781423045],
+    "places":[7,3,4,6,5],"id":1,
+    "name":"Gdańska Trasa Testowa",
+    "description":"Gdańska trasa testowa, stworzona na potrzeby prezentacji."},
+  {
+    "distances":[8098.162166262225,1560.843074012386],
+    "places":[1,2,0],"id":2,
+    "name":"Trasa Zagraniczna",
+    "description":"Trasa zagraniczna, stworzona na potrzeby prezentacji."},
+  {
+    "distances":[0,1,2],
+    "places":[1,1,2],"id":3,
+    "name":"Testówka",
+    "description":"Trasa testowa, stworzona na potrzeby prezentacji."}
 ]

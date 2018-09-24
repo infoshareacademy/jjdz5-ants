@@ -1,14 +1,15 @@
 .footer-always-bottom.center {
-    position: static !important;
+    position: fixed !important;
+    bottom: 0;
     width: 100%;
     background-color: #0c3d53;
 }
 
-.footer-always-bottom a.fa {
+.footer-always-bottom i.fab {
     color: #f1f1f1;
 }
 
-.footer-always-bottom a:hover {
+.footer-always-bottom i:hover {
     color: #95d4cb;
 }
 

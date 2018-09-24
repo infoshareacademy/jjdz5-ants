@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>APP_NAME</title>
+    <title>Tam i tu - Atrakcje</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <#include "head-stylesheets-scripts.ftlh">
@@ -13,7 +13,7 @@
 
 <div class="container-fluid mb-5 bg-light">
 
-    <div class="row mt-5 pt-4">
+    <div class="row mt-5 pt-4 mb-5">
 
         <!--Submenu-->
         <div class="col-3 pl-4 pt-3 pb-5">
@@ -261,16 +261,12 @@
             </div>
         </div>
     </div>
-</div>
+<#--</div>-->
 
 <!-- Footer -->
-<footer class="footer-always-bottom center">
-    <div class="section">
-        <a href="#" class="fa fa-facebook-official fa-3x fa-fw"></a>
-        <a href="#" class="fa fa-linkedin fa-3x"></a>
-        <a href="#" class="fa fa-instagram fa-3x"></a>
-    </div>
-</footer>
+<#include "footer.ftlh">
+
+</div>
 
 <#if places?size &gt; 10>
     <script src="js/jquery.paginate.js"></script>

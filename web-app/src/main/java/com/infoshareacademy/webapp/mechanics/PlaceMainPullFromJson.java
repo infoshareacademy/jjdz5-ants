@@ -91,7 +91,7 @@ public class PlaceMainPullFromJson {
     }
 
     private Boolean isStringMinSizeSuitable(String stringToAnalyze, Integer minSize) {
-        return stringToAnalyze.length() >= minSize;
+        return stringToAnalyze.trim().length() >= minSize;
     }
 
     private Boolean isAnyMajorParameterNull(PlaceMain placeMain) {

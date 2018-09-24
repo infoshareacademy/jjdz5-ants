@@ -33,7 +33,7 @@
             <i class="fa fa-map"></i> TRASY
           </div>
           <div class="dropdown-menu" >
-            <a href="#contentTab" class="dropdown-item" onclick="$('#main-body').load( 'content/routes.html' );">Dostępne trasy</a>
+            <a href="routes-viewer" class="dropdown-item">Dostępne trasy</a>
             <div class="dropdown-divider"></div>
             <a href="#contentTab" class="dropdown-item">Moje trasy</a>
             <a href="#contentTab" class="dropdown-item">Dodaj nową</a>

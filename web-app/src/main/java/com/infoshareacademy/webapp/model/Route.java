@@ -7,6 +7,7 @@ public class Route {
 
     private final Integer id;
     private final String name;
+    private final String description;
     private final List<Integer> places;
     private final Integer placesQuantity;
     private final List<Double> distances;
@@ -15,6 +16,7 @@ public class Route {
 
     private final Integer defaultId = 0;
     private final String defaultName = "Trasa turystyczna";
+    private final String defaultDescription = "Opis trasy turystycznej";
     private final List<Integer> defaultPlaces = new ArrayList<>();
     private final List<Double> defaultDistances = new ArrayList<>();
     private final Double defaultOverallDistance = 0.0;
@@ -22,6 +24,7 @@ public class Route {
     public Route() {
         this.id = defaultId;
         this.name = defaultName;
+        this.description = defaultDescription;
         this.places = defaultPlaces;
         this.placesQuantity = defaultPlaces.size();
         this.distances = defaultDistances;
@@ -29,20 +32,34 @@ public class Route {
         this.isDefault = true;
     }
 
-    public Route(Integer id, String name, List<Integer> places, List<Double> distances) {
+    public Route(Integer id, String name, String description, List<Integer> places,
+                 List<Double> distances) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.places = places;
-        this.placesQuantity = places.size();
+        this.placesQuantity = placesQuantityCounter(places);
         this.distances = distances;
         this.overallDistance = overallDistanceCounter(distances);
         this.isDefault = false;
     }
 
+    private Integer placesQuantityCounter(List<Integer> places) {
+        try {
+            return places.size();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     private Double overallDistanceCounter(List<Double> distances) {
-        return distances.stream()
-                .mapToDouble(distance -> distance.doubleValue())
-                .sum();
+        try {
+            return distances.stream()
+                    .mapToDouble(distance -> distance.doubleValue())
+                    .sum();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public Integer getId() {
@@ -51,6 +68,10 @@ public class Route {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public List<Integer> getPlaces() {

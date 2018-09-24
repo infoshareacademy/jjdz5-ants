@@ -51,10 +51,15 @@ public class PlacesViewerFiltering implements Filtering {
         return ServletParameters.isParameterPresent(parameters, parameter);
     }
 
+    @Override
+    public String getValueFromParameter(String parameter) {
+        return ServletParameters.getOnlyFirstValueOfParameter(parameters.get(parameter));
+    }
+
     public void fillDataModuleWithPlaceNameFilter() {
         preparePlaceNameSelectionLists();
         if (isFilteredBy(PLACE_NAME_PARAMETER)) {
-            addSelectedPlaceToLists(getPlaceNameFromParameter());
+            addSelectedPlaceToLists(getValueFromParameter(PLACE_NAME_PARAMETER));
         } else {
             addDefaultSelectionToList();
         }
@@ -88,11 +93,6 @@ public class PlacesViewerFiltering implements Filtering {
                 putPlaceTypeParameterToDataModule(type);
             }
         }
-    }
-
-    @Override
-    public String getValueFromParameter(String parameter) {
-        return ServletParameters.getOnlyFirstValueOfParameter(parameters.get(parameter));
     }
 
     private Boolean isTypeCorrect(String type) {

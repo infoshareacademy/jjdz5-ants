@@ -42,7 +42,7 @@ public class RoutesRepository {
             Route route = routePullFromJson.prepareRoute();
             if (isIdAlreadyInRepository(route)) {
                 System.out.println("||ERROR: #ID" + route.getId() +
-                        " is already in repository. Place will not be loaded.||");
+                        " is already in repository. Route will not be loaded.||");
             } else {
                 if (isRouteNotDefault(route)) {
                     routes.add(route);
@@ -62,4 +62,12 @@ public class RoutesRepository {
     public List<Route> getRoutesRepository() {
         return routes;
     }
+
+    public Integer getRouteIdByName(String name) {
+        Route selectedRoute = routes.stream().filter(
+                route -> name.equalsIgnoreCase(route.getName())
+        ).findAny().orElse(new Route());
+        return selectedRoute.getId();
+    }
+
 }
