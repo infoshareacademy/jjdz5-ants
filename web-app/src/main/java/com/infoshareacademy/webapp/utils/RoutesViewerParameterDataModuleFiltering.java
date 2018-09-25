@@ -5,7 +5,6 @@ import com.infoshareacademy.webapp.repository.RoutesRepository;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
