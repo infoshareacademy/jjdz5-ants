@@ -1,8 +1,8 @@
-package com.infoshareacademy.webapp.servlets;
+package com.infoshareacademy.webapp.utils;
 
 import java.util.Map;
 
-public class ServletParameters {
+public class ParametersOperatingService {
 
     private static final Integer FIRST_INDEX = 0;
 
