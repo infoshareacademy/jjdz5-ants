@@ -70,5 +70,11 @@ public class PlacesRepository {
         return selectedPlace.getId();
     }
 
+    public Place getPlaceById(Integer id) {
+        return places.stream().filter(
+                place -> id.equals(place.getId())
+        ).findAny().orElse(new Place());
+    }
+
 
 }

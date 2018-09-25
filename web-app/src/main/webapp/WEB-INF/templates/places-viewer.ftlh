@@ -251,7 +251,24 @@
                             </div>
                         </div>
                         <div class="col-6 separator-left">
-                            <h3>${p.placeMain.description}</h3>
+                            <#if rName?has_content>
+                                <#list rName as rnp>
+                                    <#--<#if rnp?length &gt; 0>-->
+                                    <#assign rnpLink = rnp>
+                                        <div class="row" style="padding-left: 15px; padding-right: 15px">
+                                            <a href="/web-app/routes-viewer?rName=${rnpLink?replace(" ", "+")}">
+                                                <button class="btn btn-primary" style="background-color: #0c3d53;">
+                                                    <i class="fas fa-undo"></i><span>  Powrót do trasy turystycznej "${rnp}"</span>
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <hr>
+                                    <#--</#if>-->
+                                </#list>
+                            </#if>
+                            <div class="row" style="padding-left: 15px; padding-right: 15px">
+                                <h3>${p.placeMain.description}</h3>
+                            </div>
                         </div>
                     </div>
                 </div>

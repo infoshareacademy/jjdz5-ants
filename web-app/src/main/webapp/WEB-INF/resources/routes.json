@@ -5,13 +5,13 @@
     "name":"Gdańska Trasa Testowa",
     "description":"Gdańska trasa testowa, stworzona na potrzeby prezentacji."},
   {
-    "distances":[8098.162166262225,1560.843074012386],
-    "places":[1,2,0],"id":2,
+    "distances":[1560.843074012386],
+    "places":[2,1],"id":2,
     "name":"Trasa Zagraniczna",
     "description":"Trasa zagraniczna, stworzona na potrzeby prezentacji."},
   {
-    "distances":[0,1,2],
-    "places":[1,1,2],"id":3,
-    "name":"Testówka",
-    "description":"Trasa testowa, stworzona na potrzeby prezentacji."}
+    "distances":[0,0,0],
+    "places":[3,3,3],"id":3,
+    "name":"Trasa Szwagrowa",
+    "description":"Potrójne zamówienie!"}
 ]

@@ -1,3 +1,11 @@
+body {
+    background-color: #f8f9fa!important;
+}
+
+.card-header.bg-primary {
+    background-color: #0c3d53 !important;
+}
+
 .footer-always-bottom.center {
     position: fixed !important;
     bottom: 0;

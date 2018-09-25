@@ -13,7 +13,7 @@ import java.util.Map;
 @RequestScoped
 public class PlacesViewerDataModuleOperatingService implements DataModuleOperatingService {
 
-    private static final String PLACES_KEY = "places";
+    public static final String PLACES_KEY = "places";
     private static final String PLACES_NAMES_KEY = "placesNames";
     private static final String PLACES_TYPES_KEY = "placesTypes";
 
@@ -22,9 +22,9 @@ public class PlacesViewerDataModuleOperatingService implements DataModuleOperati
 
     private Map<String, List> dataModuleMap;
     private Map<String, String[]> parameters;
+    private List<Place> places;
     private List<String> placesNames;
     private static List<PlaceOfInterestType> placesTypes;
-    private List<Place> places;
 
     public void fillDataModuleWithRequiredValues() {
         preparePlacesNamesList();
@@ -41,6 +41,7 @@ public class PlacesViewerDataModuleOperatingService implements DataModuleOperati
         filtering.fillDataModuleWithPlaceNameFilter();
         filtering.checkAndApplyFilteringByTypeIfCalled();
         filtering.checkAndApplyFilteringByMinimalRatingIfCalled();
+        filtering.checkAndApplyRedirectionToRouteIfCalled();
         dataModuleMap = filtering.getDataModuleMap();
     }
 

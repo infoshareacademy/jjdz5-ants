@@ -1,9 +1,11 @@
 package com.infoshareacademy.webapp.servlets;
 
 import com.infoshareacademy.webapp.freemarker.TemplateProvider;
+import com.infoshareacademy.webapp.model.Place;
 import com.infoshareacademy.webapp.model.Route;
+import com.infoshareacademy.webapp.repository.PlacesRepository;
 import com.infoshareacademy.webapp.repository.RoutesRepository;
-import com.infoshareacademy.webapp.utils.RoutesViewerDataModule;
+import com.infoshareacademy.webapp.utils.RoutesViewerDataModuleOperatingService;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -28,25 +30,26 @@ public class RoutesViewerServlet extends HttpServlet {
     private RoutesRepository routesRepository;
 
     @Inject
-    private RoutesViewerDataModule dataModule;
+    private PlacesRepository placesRepository;
 
-    private Map<String, List> dataModuleMap;
-
-    @Override
-    public void init() throws ServletException {
-        dataModuleMap = new HashMap<>();
-    }
+    @Inject
+    private RoutesViewerDataModuleOperatingService dataModule;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletConfiguration.setDefaultContentType(resp);
 
+        Map<String, List> dataModuleMap = new HashMap<>();
+
         routesRepository.fillPlacesRepository(getServletContext());
+        placesRepository.fillPlacesRepository(getServletContext());
         List<Route> routes = routesRepository.getRoutesRepository();
+        List<Place> places = placesRepository.getPlacesRepository();
         Map<String, String[]> parameters = req.getParameterMap();
 
         dataModule.setDataModuleMap(dataModuleMap);
         dataModule.setOperatingRepository(routes);
+        dataModule.setPlacesRepository(places);
         dataModule.setParameters(parameters);
 
         dataModule.fillDataModuleWithRequiredValues();
@@ -56,4 +59,5 @@ public class RoutesViewerServlet extends HttpServlet {
         templateProvider.print(getServletContext(), TEMPLATE_NAME, dataModuleMap, resp);
 
     }
+
 }

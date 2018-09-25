@@ -31,6 +31,43 @@
                 </form>
                 <br>
 
+                <form class="form-inline" action="/web-app/routes-viewer" method="get">
+
+                    <#assign qtyRange = routesPlaceQuantityRange?first..routesPlaceQuantityRange?last>
+                    <label class="my-1 mr-2" for="inlineTypeSelector">Minimalna ilość atrakcji</label>
+                    <div class="align-self-end ml-auto">
+                        <select class="custom-select my-1 mr-sm-2" id="inlineTypeSelector" name="rMinQty">
+                            <option value="">Wszystkie</option>
+                            <#list qtyRange as qtyRange>
+                                <option value="${qtyRange}">
+                                    ${qtyRange}
+                                </option>
+                            </#list>
+                        </select>
+                    </div>
+
+                    <label class="my-1 mr-2" for="inlineTypeSelector">Maksymalna ilość atrakcji
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </label>
+                    <div class="align-self-end ml-auto">
+                        <select class="custom-select my-1 mr-sm-2" id="inlineTypeSelector" name="rMaxQty">
+                            <option value="">Wszystkie</option>
+                            <#list qtyRange as qtyRange>
+                                <option value="${qtyRange}">
+                                    ${qtyRange}
+                                </option>
+                            </#list>
+                        </select>
+                    </div>
+
+                    <div class="align-self-center mx-auto mt-1">
+                        <button type="submit" class="btn btn-primary" style="background-color: #0c3d53">
+                            Filtruj <i class="fa fa-filter"></i>
+                        </button>
+                    </div>
+
+                </form>
+
             </div>
             <hr>
 
@@ -94,8 +131,81 @@
                             </div>
                             <hr>
                             <div class="row">
+                                <div class="col-6 text-center">
+                                    <h4>Ilość atrakcji: ${r.placesQuantity}   <i class="fa fa-landmark"></i></h4>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <h4>Ogólny dystans: ${r.overallDistance} km   <i class="fas fa-route"></i></h4>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
                                 <div class="col-6">
-
+                                    <div class="card bg-light mb-3">
+                                        <div class="card-header bg-primary">
+                                            <h4 class="text-center text-white" style="margin-bottom: 0">
+                                                Przebieg trasy
+                                            </h4>
+                                        </div>
+                                        <#assign pIndex = 0>
+                                        <#list r.places as rp>
+                                            <#if rp != 0>
+                                                <#assign pIndex = pIndex + 1>
+                                                <div class="card-body" style="padding: 10px">
+                                                    <#list places as p>
+                                                        <#if rp == p.id>
+                                                            <#assign thisPlaceName = p.placeMain.name>
+                                                        </#if>
+                                                    </#list>
+                                                <h5 class="text-muted">
+                                                    <span class="float-left pt-2">
+                                                    ${pIndex}. ${thisPlaceName}
+                                                    </span>
+                                                    <span class="float-right">
+                                                        <#assign rName = r.name>
+                                                        <a href="/web-app/places-viewer?pName=${thisPlaceName?replace(" ", "+")}&rName=${rName?replace(" ", "+")}">
+                                                            <button class="btn btn-primary" style="background-color: #0c3d53">
+                                                                <i class="fas fa-external-link-alt"></i>
+                                                            </button>
+                                                        </a>
+                                                    </span>
+                                                </h5>
+                                                </div>
+                                                <#if rp?has_next>
+                                                    <hr style="margin: 0">
+                                                    <div class="text-muted text-center" style="padding: 5px; background-color: rgba(0,0,0,.03)">
+                                                        <span class="ml-3 float-left">
+                                                                <i class="fas fa-arrow-alt-circle-down"></i>
+                                                        </span>
+                                                        <span class="float-none">
+                                                            <#list r.distances as rd>
+                                                                <#if rd_index == rp_index>
+                                                                    ${rd} km <i class="fas fa-route"></i>
+                                                                </#if>
+                                                            </#list>
+                                                        </span>
+                                                        <span class="mr-3 float-right">
+                                                                <i class="fas fa-arrow-alt-circle-down"></i>
+                                                        </span>
+                                                    </div>
+                                                    <hr style="margin: 0">
+                                                <#else>
+                                                    <hr style="margin: 0">
+                                                    <div class="text-muted text-center" style="padding: 5px; background-color: rgba(0,0,0,.03)">
+                                                        <span class="ml-3 float-left">
+                                                                <i class="fas fa-check-circle"></i>
+                                                        </span>
+                                                        <span class="float-none">
+                                                            Koniec trasy
+                                                        </span>
+                                                        <span class="mr-3 float-right">
+                                                                <i class="fas fa-check-circle"></i>
+                                                        </span>
+                                                    </div>
+                                                </#if>
+                                            </#if>
+                                        </#list>
+                                    </div>
                                 </div>
                                 <div class="col-6 separator-left">
                                     <h3>${r.description}</h3>
