@@ -2,7 +2,7 @@ package com.infoshareacademy.webapp.utils;
 
 import java.util.Map;
 
-public interface DataModule {
+public interface DataModuleOperatingService {
 
     <V> void setDataModuleMap(Map<String, V> dataModuleMap);
 

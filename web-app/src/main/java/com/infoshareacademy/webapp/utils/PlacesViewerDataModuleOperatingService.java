@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 @RequestScoped
-public class PlacesViewerDataModule implements DataModule {
+public class PlacesViewerDataModuleOperatingService implements DataModuleOperatingService {
 
     private static final String PLACES_KEY = "places";
     private static final String PLACES_NAMES_KEY = "placesNames";
     private static final String PLACES_TYPES_KEY = "placesTypes";
 
     @Inject
-    private PlacesViewerFiltering filtering;
+    private PlacesViewerParameterDataModuleFiltering filtering;
 
     private Map<String, List> dataModuleMap;
     private Map<String, String[]> parameters;
@@ -64,6 +64,15 @@ public class PlacesViewerDataModule implements DataModule {
         dataModuleMap.put(dataKey, (List) dataValue);
     }
 
+    @Override
+    public <V> Map<String, V> getDataModuleMap() {
+        return (Map<String, V>) dataModuleMap;
+    }
+
+    public static List<PlaceOfInterestType> getPlacesTypes() {
+        return placesTypes;
+    }
+
     private void preparePlacesNamesList() {
         placesNames = new ArrayList<>();
         addAllPlacesNamesToList();
@@ -79,15 +88,6 @@ public class PlacesViewerDataModule implements DataModule {
 
     private EnumSet<PlaceOfInterestType> getAllPlaceTypes() {
         return EnumSet.allOf(PlaceOfInterestType.class);
-    }
-
-    @Override
-    public <V> Map<String, V> getDataModuleMap() {
-        return (Map<String, V>) dataModuleMap;
-    }
-
-    public static List<PlaceOfInterestType> getPlacesTypes() {
-        return placesTypes;
     }
 
 }

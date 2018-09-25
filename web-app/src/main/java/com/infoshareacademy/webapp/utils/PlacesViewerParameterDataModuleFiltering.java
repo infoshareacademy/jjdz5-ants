@@ -2,7 +2,6 @@ package com.infoshareacademy.webapp.utils;
 
 import com.infoshareacademy.webapp.model.Place;
 import com.infoshareacademy.webapp.repository.PlacesRepository;
-import com.infoshareacademy.webapp.servlets.ServletParameters;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequestScoped
-public class PlacesViewerFiltering implements Filtering {
+public class PlacesViewerParameterDataModuleFiltering implements ParameterDataModuleFiltering {
 
     private static final String PLACE_ID_BY_NAME_SELECTION_KEY = "placeIdByNameSelection";
     private static final String PLACE_NAME_PARAMETER = "pName";
@@ -48,12 +47,12 @@ public class PlacesViewerFiltering implements Filtering {
 
     @Override
     public Boolean isFilteredBy(String parameter) {
-        return ServletParameters.isParameterPresent(parameters, parameter);
+        return ParametersOperatingService.isParameterPresent(parameters, parameter);
     }
 
     @Override
     public String getValueFromParameter(String parameter) {
-        return ServletParameters.getOnlyFirstValueOfParameter(parameters.get(parameter));
+        return ParametersOperatingService.getOnlyFirstValueOfParameter(parameters.get(parameter));
     }
 
     public void fillDataModuleWithPlaceNameFilter() {
@@ -67,24 +66,6 @@ public class PlacesViewerFiltering implements Filtering {
         putIntoDataModule(PLACE_NAME_PARAMETER, placeNameParameter);
     }
 
-    private void preparePlaceNameSelectionLists() {
-        placeIdByNameSelection = new ArrayList<>();
-        placeNameParameter = new ArrayList<>();
-    }
-
-    private String getPlaceNameFromParameter() {
-        return ServletParameters.getOnlyFirstValueOfParameter(parameters.get(PLACE_NAME_PARAMETER));
-    }
-
-    private void addSelectedPlaceToLists(String placeName) {
-        placeIdByNameSelection.add(placesRepository.getPlaceIdByName(placeName));
-        placeNameParameter.add(placeName);
-    }
-
-    private void addDefaultSelectionToList() {
-        placeIdByNameSelection.add(DEFAULT_NULL_NUMERIC_VALUE);
-    }
-
     public void checkAndApplyFilteringByTypeIfCalled() {
         if (isFilteredBy(PLACE_TYPE_PARAMETER)) {
             String type = getValueFromParameter(PLACE_TYPE_PARAMETER);
@@ -93,17 +74,6 @@ public class PlacesViewerFiltering implements Filtering {
                 putPlaceTypeParameterToDataModule(type);
             }
         }
-    }
-
-    private Boolean isTypeCorrect(String type) {
-        return PlacesViewerDataModule.getPlacesTypes().stream().anyMatch(
-                placeType -> type.equalsIgnoreCase(placeType.toString()));
-    }
-
-    private void putPlaceTypeParameterToDataModule(String type) {
-        List<String> placeTypeParameter = new ArrayList<>();
-        placeTypeParameter.add(type);
-        putIntoDataModule(PLACE_TYPE_PARAMETER, placeTypeParameter);
     }
 
     public void checkAndApplyFilteringByMinimalRatingIfCalled() {
@@ -117,10 +87,50 @@ public class PlacesViewerFiltering implements Filtering {
         }
     }
 
+    @Override
+    public <V> void putIntoDataModule(String dataKey, V dataValue) {
+        dataModuleMap.put(dataKey, (List) dataValue);
+    }
+
+    @Override
+    public <V> Map<String, V> getDataModuleMap() {
+        return (Map<String, V>) dataModuleMap;
+    }
+
+    private void preparePlaceNameSelectionLists() {
+        placeIdByNameSelection = new ArrayList<>();
+        placeNameParameter = new ArrayList<>();
+    }
+
+    private String getPlaceNameFromParameter() {
+        return ParametersOperatingService.getOnlyFirstValueOfParameter(
+                parameters.get(PLACE_NAME_PARAMETER));
+    }
+
+    private void addSelectedPlaceToLists(String placeName) {
+        placeIdByNameSelection.add(placesRepository.getPlaceIdByName(placeName));
+        placeNameParameter.add(placeName);
+    }
+
+    private void addDefaultSelectionToList() {
+        placeIdByNameSelection.add(DEFAULT_NULL_NUMERIC_VALUE);
+    }
+
+    private Boolean isTypeCorrect(String type) {
+        return PlacesViewerDataModuleOperatingService.getPlacesTypes().stream().anyMatch(
+                placeType -> type.equalsIgnoreCase(placeType.toString()));
+    }
+
+    private void putPlaceTypeParameterToDataModule(String type) {
+        List<String> placeTypeParameter = new ArrayList<>();
+        placeTypeParameter.add(type);
+        putIntoDataModule(PLACE_TYPE_PARAMETER, placeTypeParameter);
+    }
+
     private Integer getMinimalRatingFromParameter() {
         Integer rate = DEFAULT_NULL_NUMERIC_VALUE;
         try {
-            rate = Integer.valueOf(ServletParameters.getOnlyFirstValueOfParameter(
+            rate = Integer.valueOf(ParametersOperatingService.getOnlyFirstValueOfParameter(
                     parameters.get(PLACE_MINIMAL_RATE_PARAMETER)));
         } catch (NumberFormatException e) {
             System.out.println("||Unable to read \"pMinValue\" GET parameter");
@@ -130,15 +140,5 @@ public class PlacesViewerFiltering implements Filtering {
 
     private Boolean isMinimalRatingInRange(Integer rate) {
         return rate >= MINIMAL_RATING_VALUE && rate <= MAXIMUM_RATING_VALUE;
-    }
-
-    @Override
-    public <V> void putIntoDataModule(String dataKey, V dataValue) {
-        dataModuleMap.put(dataKey, (List) dataValue);
-    }
-
-    @Override
-    public <V> Map<String, V> getDataModuleMap() {
-        return (Map<String, V>) dataModuleMap;
     }
 }

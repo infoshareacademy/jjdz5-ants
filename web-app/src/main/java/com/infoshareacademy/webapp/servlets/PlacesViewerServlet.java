@@ -3,7 +3,7 @@ package com.infoshareacademy.webapp.servlets;
 import com.infoshareacademy.webapp.freemarker.TemplateProvider;
 import com.infoshareacademy.webapp.model.Place;
 import com.infoshareacademy.webapp.repository.PlacesRepository;
-import com.infoshareacademy.webapp.utils.PlacesViewerDataModule;
+import com.infoshareacademy.webapp.utils.PlacesViewerDataModuleOperatingService;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet("/places-viewer")
 public class PlacesViewerServlet extends HttpServlet {
@@ -26,7 +28,7 @@ public class PlacesViewerServlet extends HttpServlet {
     private PlacesRepository placesRepository;
 
     @Inject
-    private PlacesViewerDataModule dataModule;
+    private PlacesViewerDataModuleOperatingService dataModule;
 
     private Map<String, List> dataModuleMap;
 

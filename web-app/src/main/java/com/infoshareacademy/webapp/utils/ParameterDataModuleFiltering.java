@@ -1,7 +1,7 @@
 package com.infoshareacademy.webapp.utils;
 
 
-public interface Filtering extends DataModule{
+public interface ParameterDataModuleFiltering extends DataModuleOperatingService {
 
     Boolean isFilteredBy(String parameter);
 
