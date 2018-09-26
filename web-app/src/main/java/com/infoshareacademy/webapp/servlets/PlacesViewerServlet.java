@@ -1,10 +1,9 @@
 package com.infoshareacademy.webapp.servlets;
 
-import com.infoshareacademy.webapp.Configuration;
 import com.infoshareacademy.webapp.freemarker.TemplateProvider;
-import com.infoshareacademy.webapp.mechanics.AccessJson;
+import com.infoshareacademy.webapp.model.Place;
 import com.infoshareacademy.webapp.repository.PlacesRepository;
-import org.json.simple.parser.ParseException;
+import com.infoshareacademy.webapp.utils.PlacesViewerDataModuleOperatingService;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,36 +20,40 @@ import java.util.Map;
 public class PlacesViewerServlet extends HttpServlet {
 
     private static final String TEMPLATE_NAME = "places-viewer";
-    private static final String PLACES_KEY = "places";
 
     @Inject
     private TemplateProvider templateProvider;
 
     @Inject
-    private AccessJson accessJson;
+    private PlacesRepository placesRepository;
 
     @Inject
-    private PlacesRepository placesRepository;
+    private PlacesViewerDataModuleOperatingService dataModule;
+
+    private Map<String, List> dataModuleMap;
 
     @Override
     public void init() throws ServletException {
-        try {
-            accessJson.setJsonArray(Configuration.PLACES_JSON_FILEPATH, getServletContext());
-            placesRepository.addPlacesToRepository(accessJson.getJsonArray());
-            System.out.println("||PLACES REPOSITORY loaded successfully");
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
+        dataModuleMap = new HashMap<>();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletConfiguration.setDefaultContentType(resp);
 
-        Map<String, List> dataModule = new HashMap();
-        dataModule.put(PLACES_KEY, placesRepository.getPlacesRepository());
+        placesRepository.fillPlacesRepository(getServletContext());
+        List<Place> places = placesRepository.getPlacesRepository();
+        Map<String, String[]> parameters = req.getParameterMap();
 
-        templateProvider.print(getServletContext(),TEMPLATE_NAME, dataModule, resp);
+        dataModule.setDataModuleMap(dataModuleMap);
+        dataModule.setOperatingRepository(places);
+        dataModule.setParameters(parameters);
+
+        dataModule.fillDataModuleWithRequiredValues();
+        dataModule.filterDataModule();
+        dataModuleMap = dataModule.getDataModuleMap();
+
+        templateProvider.print(getServletContext(),TEMPLATE_NAME, dataModuleMap, resp);
     }
 
 }
