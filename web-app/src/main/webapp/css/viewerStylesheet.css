@@ -61,7 +61,7 @@ hr {
 .autocomplete {
     position: relative !important;
     display: inline-block !important;
-    width: 89%;
+    width: 85%;
 }
 
 #nameInputautocomplete-list.list-group {

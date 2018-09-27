@@ -122,6 +122,9 @@
                             <div class="alert alert-primary">
                                 <h1 class="text-center">Proszę wybrać atrakcję turystyczną</h1>
                             </div>
+                            <div class="mt-5 mb-5">
+                                <hr>
+                            </div>
                             <#if pName?has_content>
                                 <#list pName as pnp>
                                 <#if pnp?length &gt; 0>
@@ -131,6 +134,31 @@
                                     </div>
                                 </#if>
                                 </#list>
+                            <#elseif promotedPlaces?has_content && promotedPlaces?size == 3>
+                                <div class="alert alert-secondary text-center">
+                                    <h3>Promowane miejsca</h3>
+                                </div>
+                                <div class="row mt-5">
+                                    <#list promotedPlaces as pp>
+                                        <#list places as p>
+                                            <#if pp == p.id>
+                                                <div class="col-4">
+                                                    <div class="card text-center">
+                                                        <div class="card-body">
+                                                            <#include "place-type-assign.ftlh">
+                                                            <h4 class="card-title">${p.placeMain.name}</h4>
+                                                            <h5 class="card-text">${type}</h5>
+                                                            <h5 class="card-text">
+                                                                ${p.placeAdditional.averageRating?string("0.00")} <i class="fa fa-star"></i>
+                                                            </h5><br>
+                                                            <a href="/web-app/places-viewer?pName=${p.placeMain.name}" class="btn btn-primary">Wyświetl</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </#if>
+                                        </#list>
+                                    </#list>
+                                </div>
                             </#if>
                         </div>
                     </#if>
@@ -273,12 +301,13 @@
                     </div>
                 </div>
                 </#list>
-                <hr>
+                <div class="mt-5 mb-5">
+                    <hr>
+                </div>
                 </#list>
             </div>
         </div>
     </div>
-<#--</div>-->
 
 <!-- Footer -->
 <#include "footer.ftlh">
