@@ -21,6 +21,10 @@ body {
     color: #95d4cb;
 }
 
+.btn.btn-primary {
+    background-color: #0c3d53 !important;
+}
+
 .alert-primary {
     color: #fff !important;
     background-color: #0c3d53 !important;

@@ -1,5 +1,6 @@
 package com.infoshareacademy.webapp.utils;
 
+import com.infoshareacademy.webapp.Configuration;
 import com.infoshareacademy.webapp.model.Place;
 import com.infoshareacademy.webapp.model.Route;
 
@@ -15,6 +16,7 @@ public class RoutesViewerDataModuleOperatingService implements DataModuleOperati
     private static final String ROUTES_KEY = "routes";
     private static final String ROUTES_NAMES_KEY = "routesNames";
     private static final String ROUTES_PLACE_QUANTITY_RANGE_KEY = "routesPlaceQuantityRange";
+    private static final String PROMOTED_ROUTES_KEY = "promotedRoutes";
 
     @Inject
     private RoutesViewerParameterDataModuleFiltering filtering;
@@ -33,6 +35,7 @@ public class RoutesViewerDataModuleOperatingService implements DataModuleOperati
             putIntoDataModule(ROUTES_NAMES_KEY, routesNames);
             putIntoDataModule(ROUTES_PLACE_QUANTITY_RANGE_KEY, routePlaceQuantityRange);
             putIntoDataModule(PlacesViewerDataModuleOperatingService.PLACES_KEY, places);
+            putIntoDataModule(PROMOTED_ROUTES_KEY, Configuration.promotedRoutes);
     }
 
     public void filterDataModule() {

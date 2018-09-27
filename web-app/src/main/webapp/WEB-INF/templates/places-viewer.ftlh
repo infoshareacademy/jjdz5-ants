@@ -136,7 +136,7 @@
                                 </#list>
                             <#elseif promotedPlaces?has_content && promotedPlaces?size == 3>
                                 <div class="alert alert-secondary text-center">
-                                    <h3>Promowane miejsca</h3>
+                                    <h3>Proponowane miejsca</h3>
                                 </div>
                                 <div class="row mt-5">
                                     <#list promotedPlaces as pp>
