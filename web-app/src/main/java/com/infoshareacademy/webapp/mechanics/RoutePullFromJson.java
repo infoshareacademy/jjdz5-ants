@@ -30,8 +30,8 @@ public class RoutePullFromJson {
     public Route prepareRoute() {
         Route route = new Route(
                 pullIdFromJsonArray(),
-                pullNameFromJsonArray(),
-                pullDescriptionFromJsonArray(),
+                pullTextValueFromJsonArray(RouteConstants.ROUTE_NAME),
+                pullTextValueFromJsonArray(RouteConstants.ROUTE_DESCRIPTION),
                 pullPlacesListFromJsonArray(),
                 pullDistancesListFromJsonArray()
         );
@@ -58,40 +58,22 @@ public class RoutePullFromJson {
         return null;
     }
 
-    private String pullNameFromJsonArray() {
+    private String pullTextValueFromJsonArray(String searchedValue) {
         try {
-            String name = (String) accessJson.pullJsonObject(routesArray, pullIndex)
-                    .get(RouteConstants.ROUTE_NAME);
-            if (isStringMinSizeSuitable(name, RouteConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
-                return name;
+            String pulledValue = (String) accessJson.pullJsonObject(routesArray, pullIndex)
+                    .get(searchedValue);
+            if (isStringMinSizeSuitable(pulledValue, RouteConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
+                return pulledValue;
             } else {
-                System.out.println(getError("Name String is too short (min. " +
+                System.out.println(getError("Value \"" + searchedValue + "\" is too short (min. " +
                         RouteConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
             }
         } catch (ClassCastException e) {
-            System.out.println(getError("(ClassCast) Name is not a String"));
+            System.out.println(getError("(ClassCast) Value \"" + searchedValue + "\" is not a String"));
         } catch (NullPointerException e) {
-            System.out.println(getError("(NullPointer) Name is a null"));
+            System.out.println(getError("(NullPointer) \"" + searchedValue + "\" is a null"));
         }
         return null;
-    }
-
-    private String pullDescriptionFromJsonArray() {
-        try {
-            String description =  (String) accessJson.pullJsonObject(routesArray, pullIndex)
-                    .get(RouteConstants.ROUTE_DESCRIPTION);
-            if (isStringMinSizeSuitable(description, RouteConstants.MINIMAL_VALUE_OF_CHARACTERS)) {
-                return description;
-            } else {
-                System.out.println(getError("Description String is too short (min. " +
-                        RouteConstants.MINIMAL_VALUE_OF_CHARACTERS + " characters)"));
-            }
-        } catch (ClassCastException e) {
-            System.out.println(getError("(ClassCast) Description is not a String"));
-        } catch (NullPointerException e) {
-            System.out.println(getError("(NullPointer) Description is a null"));
-        }
-        return pullNameFromJsonArray();
     }
 
     private List<Integer> pullPlacesListFromJsonArray() {

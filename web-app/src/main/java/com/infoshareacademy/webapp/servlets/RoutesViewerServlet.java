@@ -38,26 +38,36 @@ public class RoutesViewerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletConfiguration.setDefaultContentType(resp);
+        Map<String, List> dataModuleMap = prepareDataModule(req, resp);
+        templateProvider.print(getServletContext(), TEMPLATE_NAME, dataModuleMap, resp);
+    }
 
-        Map<String, List> dataModuleMap = new HashMap<>();
+    private Map<String, List> prepareDataModule(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Map<String,List> dataModuleMap = new HashMap<>();
 
         routesRepository.fillPlacesRepository(getServletContext());
         placesRepository.fillPlacesRepository(getServletContext());
         List<Route> routes = routesRepository.getRoutesRepository();
         List<Place> places = placesRepository.getPlacesRepository();
-        Map<String, String[]> parameters = req.getParameterMap();
 
-        dataModule.setDataModuleMap(dataModuleMap);
-        dataModule.setOperatingRepository(routes);
-        dataModule.setPlacesRepository(places);
-        dataModule.setParameters(parameters);
+        if (areRepositoriesEmpty(routes, places)) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+        } else {
+            Map<String, String[]> parameters = req.getParameterMap();
+            dataModule.setDataModuleMap(dataModuleMap);
+            dataModule.setOperatingRepository(routes);
+            dataModule.setPlacesRepository(places);
+            dataModule.setParameters(parameters);
+            dataModule.fillDataModuleWithRequiredValues();
+            dataModule.filterDataModule();
+            dataModuleMap = dataModule.getDataModuleMap();
+            return dataModuleMap;
+        }
+        return null;
+    }
 
-        dataModule.fillDataModuleWithRequiredValues();
-        dataModule.filterDataModule();
-        dataModuleMap = dataModule.getDataModuleMap();
-
-        templateProvider.print(getServletContext(), TEMPLATE_NAME, dataModuleMap, resp);
-
+    private Boolean areRepositoriesEmpty(List<Route> routes, List<Place> places) {
+        return routes.isEmpty() || places.isEmpty();
     }
 
 }

@@ -151,8 +151,7 @@ public class PlacesViewerParameterDataModuleFiltering implements ParameterDataMo
     private Boolean isRedirectionRouteNameCorrect(String name){
         try {
             return RoutesViewerDataModuleOperatingService.getRoutesNames().stream().anyMatch(
-                    routeName -> name.equalsIgnoreCase(routeName)
-            );
+                    routeName -> name.equalsIgnoreCase(routeName));
         } catch (NullPointerException e) {
             return false;
         }

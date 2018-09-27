@@ -27,12 +27,12 @@ public class RoutesViewerDataModuleOperatingService implements DataModuleOperati
     private static List<Integer> routePlaceQuantityRange;
 
     public void fillDataModuleWithRequiredValues() {
-        prepareRoutesNamesList();
-        preparePlacesQuantityRange();
-        putIntoDataModule(ROUTES_KEY, routes);
-        putIntoDataModule(ROUTES_NAMES_KEY, routesNames);
-        putIntoDataModule(ROUTES_PLACE_QUANTITY_RANGE_KEY, routePlaceQuantityRange);
-        putIntoDataModule(PlacesViewerDataModuleOperatingService.PLACES_KEY, places);
+            prepareRoutesNamesList();
+            preparePlacesQuantityRange();
+            putIntoDataModule(ROUTES_KEY, routes);
+            putIntoDataModule(ROUTES_NAMES_KEY, routesNames);
+            putIntoDataModule(ROUTES_PLACE_QUANTITY_RANGE_KEY, routePlaceQuantityRange);
+            putIntoDataModule(PlacesViewerDataModuleOperatingService.PLACES_KEY, places);
     }
 
     public void filterDataModule() {
