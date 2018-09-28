@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <!--<script src="js/jquery-3.3.1.min.js"></script>-->
+    <script>
+        function validateForm() {
+            var rName = document.forms["additionForm"]["rName"].value;
+            var rDesc = document.forms["additionForm"]["rDesc"].value;
+            if (rName.length < 3) {
+                alert("Nazwa trasy musi się składac z co najmniej 3 znaków.");
+                return false;
+            }
+            if (rDesc.length < 10) {
+                alert("Podany opis jest zbyt krótki (minimum 10 znaków).");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<form name="additionForm" action="#" onsubmit="return validateForm()" method="post">
+    <p>Nazwa: <input type="text" name="rName"> </p><br>
+    <p>Opis: <input type="text" name="rDesc"> </p>
+    <input type="submit" name="Submit">
+</form>
+
+
+</body>
+</html>
