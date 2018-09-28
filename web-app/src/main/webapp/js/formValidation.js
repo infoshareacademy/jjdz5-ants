@@ -20,13 +20,11 @@ function checkboxCount() {
     var numChecked = 0;
 
     for (var i = 0; i < inputList.length; i++) {
-        if (inputList[i].type == "checkbox" && inputList[i].checked) {
+        if (inputList[i].type === "checkbox" && inputList[i].checked) {
             numChecked = numChecked + 1;
         }
     }
-    if (numChecked < 2) {
-        return false;
-    }
-    return true;
+    return numChecked >= 2;
+
 
 }
