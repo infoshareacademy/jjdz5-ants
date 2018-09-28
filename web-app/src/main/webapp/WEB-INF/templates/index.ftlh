@@ -45,7 +45,7 @@
           <i class="fa fa-map"></i> ATRAKCJE
         </div>
         <div class="dropdown-menu" >
-          <a href="#contentTab" class="dropdown-item" href="#">Lista atrakcji</a>
+          <a href="places-viewer" class="dropdown-item" href="#">Lista atrakcji</a>
           <div class="dropdown-divider"></div>
           <a href="#contentTab" class="dropdown-item" href="#">Moje ulubione</a>
           <a href="#contentTab" class="dropdown-item" href="#">Dodaj nową</a>
