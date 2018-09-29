@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession(true);
             session.setAttribute("userName", name);
             req.getServletContext()
-                    .getRequestDispatcher("/welcome-page.jsp").forward(req, resp);
+                    .getRequestDispatcher("/success.jsp").forward(req, resp);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
