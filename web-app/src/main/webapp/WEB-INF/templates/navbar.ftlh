@@ -36,7 +36,7 @@
 
         <a href="#contentTab" class="navbarButton hideMenuOnMobile singleNavbarButton">
             <i class="fa fa-question-circle"></i> POMOC</a>
-        <a href="#" class="navbarButton hideMenuOnMobile navbarRight singleNavbarButton">
+        <a href="signin" class="navbarButton hideMenuOnMobile navbarRight singleNavbarButton">
             <i class="fa fa-user"></i> LOGOWANIE</a>
     </div>
 </div>
