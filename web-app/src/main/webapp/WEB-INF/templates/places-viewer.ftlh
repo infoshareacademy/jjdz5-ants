@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>APP_NAME</title>
+    <title>Tamitu - Atrakcje</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <#include "head-stylesheets-scripts.ftlh">
@@ -13,7 +13,7 @@
 
 <div class="container-fluid mb-5 bg-light">
 
-    <div class="row mt-5 pt-4">
+    <div class="row mt-5 pt-4 mb-5">
 
         <!--Submenu-->
         <div class="col-3 pl-4 pt-3 pb-5">
@@ -251,7 +251,24 @@
                             </div>
                         </div>
                         <div class="col-6 separator-left">
-                            <h3>${p.placeMain.description}</h3>
+                            <#if rName?has_content>
+                                <#list rName as rnp>
+                                    <#--<#if rnp?length &gt; 0>-->
+                                    <#assign rnpLink = rnp>
+                                        <div class="row" style="padding-left: 15px; padding-right: 15px">
+                                            <a href="/web-app/routes-viewer?rName=${rnpLink?replace(" ", "+")}">
+                                                <button class="btn btn-primary" style="background-color: #0c3d53;">
+                                                    <i class="fas fa-undo"></i><span>  Powrót do trasy turystycznej "${rnp}"</span>
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <hr>
+                                    <#--</#if>-->
+                                </#list>
+                            </#if>
+                            <div class="row" style="padding-left: 15px; padding-right: 15px">
+                                <h3>${p.placeMain.description}</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,16 +278,12 @@
             </div>
         </div>
     </div>
-</div>
+<#--</div>-->
 
 <!-- Footer -->
-<footer class="footer-always-bottom center">
-    <div class="section">
-        <a href="#" class="fa fa-facebook-official fa-3x fa-fw"></a>
-        <a href="#" class="fa fa-linkedin fa-3x"></a>
-        <a href="#" class="fa fa-instagram fa-3x"></a>
-    </div>
-</footer>
+<#include "footer.ftlh">
+
+</div>
 
 <#if places?size &gt; 10>
     <script src="js/jquery.paginate.js"></script>

@@ -26,7 +26,7 @@ public class PlaceMainPullFromJson {
         this.pullIndex = pullIndex;
     }
 
-    PlaceMain preparePlaceMain() {
+    public PlaceMain preparePlaceMain() {
         PlaceMain placeMain= new PlaceMain(pullNameFromJsonArray(),
                 pullTypeFromJsonArray(),
                 pullDescriptionFromJsonArray()

@@ -1,0 +1,17 @@
+[
+  {
+    "distances":[0.6976931629699495,8.5523069939292,0.8270854223778219,5.662795781423045],
+    "places":[7,3,4,6,5],"id":1,
+    "name":"Gdańska Trasa Testowa",
+    "description":"Gdańska trasa testowa, stworzona na potrzeby prezentacji."},
+  {
+    "distances":[1560.843074012386],
+    "places":[2,1],"id":2,
+    "name":"Trasa Zagraniczna",
+    "description":"Trasa zagraniczna, stworzona na potrzeby prezentacji."},
+  {
+    "distances":[0,0,0],
+    "places":[3,3,3],"id":3,
+    "name":"Trasa Szwagrowa",
+    "description":"Potrójne zamówienie!"}
+]

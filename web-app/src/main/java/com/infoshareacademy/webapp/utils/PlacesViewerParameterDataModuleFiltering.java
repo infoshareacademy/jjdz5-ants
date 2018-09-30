@@ -58,7 +58,7 @@ public class PlacesViewerParameterDataModuleFiltering implements ParameterDataMo
     public void fillDataModuleWithPlaceNameFilter() {
         preparePlaceNameSelectionLists();
         if (isFilteredBy(PLACE_NAME_PARAMETER)) {
-            addSelectedPlaceToLists(getPlaceNameFromParameter());
+            addSelectedPlaceToLists(getValueFromParameter(PLACE_NAME_PARAMETER));
         } else {
             addDefaultSelectionToList();
         }
@@ -87,6 +87,16 @@ public class PlacesViewerParameterDataModuleFiltering implements ParameterDataMo
         }
     }
 
+    public void checkAndApplyRedirectionToRouteIfCalled() {
+        if (isFilteredBy(RoutesViewerParameterDataModuleFiltering.ROUTE_NAME_PARAMETER)) {
+            String name = getValueFromParameter(
+                    RoutesViewerParameterDataModuleFiltering.ROUTE_NAME_PARAMETER);
+            if (isRedirectionRouteNameCorrect(name)) {
+                putRedirectionToRouteParameterToDataModule(name);
+            }
+        }
+    }
+
     @Override
     public <V> void putIntoDataModule(String dataKey, V dataValue) {
         dataModuleMap.put(dataKey, (List) dataValue);
@@ -102,10 +112,6 @@ public class PlacesViewerParameterDataModuleFiltering implements ParameterDataMo
         placeNameParameter = new ArrayList<>();
     }
 
-    private String getPlaceNameFromParameter() {
-        return ParametersOperatingService.getOnlyFirstValueOfParameter(
-                parameters.get(PLACE_NAME_PARAMETER));
-    }
 
     private void addSelectedPlaceToLists(String placeName) {
         placeIdByNameSelection.add(placesRepository.getPlaceIdByName(placeName));
@@ -141,4 +147,21 @@ public class PlacesViewerParameterDataModuleFiltering implements ParameterDataMo
     private Boolean isMinimalRatingInRange(Integer rate) {
         return rate >= MINIMAL_RATING_VALUE && rate <= MAXIMUM_RATING_VALUE;
     }
+
+    private Boolean isRedirectionRouteNameCorrect(String name){
+        try {
+            return RoutesViewerDataModuleOperatingService.getRoutesNames().stream().anyMatch(
+                    routeName -> name.equalsIgnoreCase(routeName));
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
+    private void putRedirectionToRouteParameterToDataModule(String routeName) {
+        List<String> redirectionRouteName = new ArrayList<>();
+        redirectionRouteName.add(routeName);
+        putIntoDataModule(RoutesViewerParameterDataModuleFiltering.ROUTE_NAME_PARAMETER,
+                redirectionRouteName);
+    }
+
 }

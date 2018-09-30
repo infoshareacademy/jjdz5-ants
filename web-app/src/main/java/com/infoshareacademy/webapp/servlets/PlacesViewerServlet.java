@@ -30,16 +30,10 @@ public class PlacesViewerServlet extends HttpServlet {
     @Inject
     private PlacesViewerDataModuleOperatingService dataModule;
 
-    private Map<String, List> dataModuleMap;
-
-    @Override
-    public void init() throws ServletException {
-        dataModuleMap = new HashMap<>();
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletConfiguration.setDefaultContentType(resp);
+        Map<String, List> dataModuleMap = new HashMap<>();
 
         placesRepository.fillPlacesRepository(getServletContext());
         List<Place> places = placesRepository.getPlacesRepository();
