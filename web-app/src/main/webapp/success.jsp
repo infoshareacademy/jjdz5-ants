@@ -23,8 +23,17 @@
   <meta name="google-signin-client_id"
      content="336118141863-o0p2nu68s5t1n3ater25gh5ic6dsn0rd.apps.googleusercontent.com">
 
+
+  <script>
+      function load()
+      {
+          window.location.href = "#contentTab";
+
+      }
+  </script>
+
 </head>
-<body>
+<body onload="load()">
 
 
  <!-- Navbar menu -->

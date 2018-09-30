@@ -19,8 +19,16 @@
   <meta name="google-signin-client_id"
      content="336118141863-o0p2nu68s5t1n3ater25gh5ic6dsn0rd.apps.googleusercontent.com">
 
+    <script>
+        function load()
+        {
+            window.location.href = "#contentTab";
+
+        }
+    </script>
+
 </head>
-<body>
+<body onload="load()">
 
 
  <!-- Navbar menu -->
@@ -72,7 +80,7 @@
       <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map"></i> TRASY</a>
       <a href="#attractions" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map-pin"></i> ATRAKCJE</a>
       <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-question-circle"></i> POMOC</a>
-      <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-user"></i> LOGOWANIE</a>
+      <a href="#signin #contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-user"></i> LOGOWANIE</a>
     </div>
   </div>
 
@@ -90,7 +98,9 @@
 
   <!-- Welcome section -->
   <section class="row bg-light" id="main-body" role="main">
+
   <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
 
   	<script>
   	function onSignIn(googleUser) {
