@@ -23,3 +23,26 @@ function moveRow(tr){
         }
     }
 }
+
+function getCurrentIdStatus() {
+    var idArray = $.makeArray($('#selectionTable tr[id]').map(function() {
+        return this.id;
+    }));
+    
+    var status = "";
+    for (var i = 0; i < idArray.length; i++) {
+        if (i === (idArray.length - 1)) {
+            var lastId = idArray[i];
+            status += lastId.substring(2);
+        } else {
+            var id = idArray[i];
+            status += id.substring(2) + ",";
+        }
+    }
+    console.log(status);
+    return status;
+}
+
+function printCurrentStatus() {
+    document.getElementById("currentStatus").innerText = getCurrentIdStatus();
+}

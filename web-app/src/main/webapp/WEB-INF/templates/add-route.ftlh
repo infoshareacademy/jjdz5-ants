@@ -46,8 +46,8 @@
 
             </div>
 
-            <div class="col-6 separator-left">
-                aaa
+            <div class="col-6 separator-left" id="currentStatus">
+
             </div>
 
         </div>
@@ -73,7 +73,7 @@
                                 <td>${p.placeMain.name}</td>
                                 <td>${type}</td>
                                 <td>${p.placeAdditional.averageRating}</td>
-                                <td><a href="#"><i class="fas fa-sync" onclick="moveRow(this);"></i></a></td>
+                                <td><a href="#"><i class="fas fa-sync" onclick="moveRow(this); printCurrentStatus();"></i></a></td>
                             </tr>
                         </#list>
                     </tbody>
@@ -81,7 +81,7 @@
             </div>
 
             <div class="col-6 pr-5 separator-left" style="padding: 20px">
-                <table class="table thead-dark table-bordered table-striped text-center">
+                <table class="table thead-dark table-bordered table-striped text-center" id="testTable">
                     <thead class="thead-dark">
                         <tr>
                             <th>Nazwa</th>
@@ -91,6 +91,7 @@
                         </tr>
                     </thead>
                     <tbody id="selectionTable">
+
                     </tbody>
                 </table>
             </div>
@@ -98,6 +99,7 @@
         </div>
 
         <input type="submit" value="Submit">
+
     </form>
 
 </div>

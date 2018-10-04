@@ -9,22 +9,12 @@ function validateAdditionForm() {
         alert("Podany opis jest zbyt krótki (minimum 10 znaków).");
         return false;
     }
-    if (!checkboxCount()) {
+    if (chosenPlacesCounter() < 2) {
         alert("Należy wybrać co najmniej dwie atrakcje turystyczne.");
         return false;
     }
 }
 
-function checkboxCount() {
-    var inputList = document.getElementsByTagName("input");
-    var numChecked = 0;
-
-    for (var i = 0; i < inputList.length; i++) {
-        if (inputList[i].type === "checkbox" && inputList[i].checked) {
-            numChecked = numChecked + 1;
-        }
-    }
-    return numChecked >= 2;
-
-
+function chosenPlacesCounter() {
+    return document.getElementById("selectionTable").getElementsByTagName("tr").length;
 }
