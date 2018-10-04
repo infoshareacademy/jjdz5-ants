@@ -17,6 +17,10 @@
     color: #95d4cb;
 }
 
+.btn.btn-primary {
+    background-color: #0c3d53 !important;
+}
+
 .alert-primary {
     color: #fff !important;
     background-color: #0c3d53 !important;
@@ -57,7 +61,7 @@ hr {
 .autocomplete {
     position: relative !important;
     display: inline-block !important;
-    width: 89%;
+    width: 85%;
 }
 
 #nameInputautocomplete-list.list-group {

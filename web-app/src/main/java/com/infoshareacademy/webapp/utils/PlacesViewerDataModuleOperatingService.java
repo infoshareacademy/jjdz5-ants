@@ -1,6 +1,7 @@
 package com.infoshareacademy.webapp.utils;
 
 import com.infoshareacademy.PlaceOfInterestType;
+import com.infoshareacademy.webapp.Configuration;
 import com.infoshareacademy.webapp.model.Place;
 
 import javax.enterprise.context.RequestScoped;
@@ -16,6 +17,7 @@ public class PlacesViewerDataModuleOperatingService implements DataModuleOperati
     public static final String PLACES_KEY = "places";
     private static final String PLACES_NAMES_KEY = "placesNames";
     private static final String PLACES_TYPES_KEY = "placesTypes";
+    private static final String PROMOTED_PLACES_KEY = "promotedPlaces";
 
     @Inject
     private PlacesViewerParameterDataModuleFiltering filtering;
@@ -32,6 +34,7 @@ public class PlacesViewerDataModuleOperatingService implements DataModuleOperati
         putIntoDataModule(PLACES_KEY, places);
         putIntoDataModule(PLACES_NAMES_KEY, placesNames);
         putIntoDataModule(PLACES_TYPES_KEY, placesTypes);
+        putIntoDataModule(PROMOTED_PLACES_KEY, Configuration.promotedPlaces);
     }
 
     public void filterDataModule() {

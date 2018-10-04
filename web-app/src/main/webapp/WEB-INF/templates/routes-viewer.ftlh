@@ -107,15 +107,42 @@
                             <div class="alert alert-primary">
                                 <h1 class="text-center">Proszę wybrać trasę turystyczną</h1>
                             </div>
+                            <div class="mt-5 mb-5">
+                                <hr>
+                            </div>
                             <#if rName?has_content>
                                 <#list rName as rnp>
                                     <#if rnp?length &gt; 0>
-                                    <div class="alert alert-secondary">
-                                        <h5>Niestety, brak trasy o poszukiwanej nazwie: <strong>"${rnp}"</strong>.</h5>
-                                        <h5>Prosimy spróbować ponownie.</h5>
-                                    </div>
+                                        <div class="alert alert-secondary">
+                                            <h5>Niestety, brak trasy o poszukiwanej nazwie: <strong>"${rnp}"</strong>.</h5>
+                                            <h5>Prosimy spróbować ponownie.</h5>
+                                        </div>
                                     </#if>
                                 </#list>
+                            <#elseif promotedRoutes?has_content && promotedRoutes?size == 3>
+                                <div class="alert alert-secondary text-center">
+                                    <h3>Proponowane trasy</h3>
+                                </div>
+                                <div class="row mt-5">
+                                    <#list promotedRoutes as pr>
+                                        <#list routes as r>
+                                            <#if pr == r.id>
+                                                <div class="col-4">
+                                                    <div class="card text-center">
+                                                        <div class="card-body">
+                                                            <h4 class="card-title">${r.name}</h4>
+                                                            <h5 class="card-text">${r.placesQuantity} <i class="fa fa-landmark"></i></h5>
+                                                            <h5 class="card-text">
+                                                                ${r.overallDistance} km   <i class="fas fa-route"></i>
+                                                            </h5><br>
+                                                            <a href="/web-app/routes-viewer?rName=${r.name}" class="btn btn-primary">Wyświetl</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </#if>
+                                        </#list>
+                                    </#list>
+                                </div>
                             </#if>
                         </div>
                     </#if>
@@ -213,7 +240,9 @@
                             </div>
                         </div>
                     </#list>
-                <hr>
+                <div class="mt-5 mb-5">
+                    <hr>
+                </div>
                 </#list>
             </div>
         </div>
