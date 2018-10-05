@@ -29,3 +29,9 @@ function toggleFunction() {
         el.className = el.className.replace(" showElement", "");
     }
 }
+
+function skipBanner()
+{
+    window.location.href = "#contentTab";
+
+}
