@@ -92,8 +92,9 @@
   <!-- Welcome section -->
   <section class="row bg-light" id="main-body" role="main">
 
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
+   <div class="navbarButton">
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  </div>
 
   	<script>
   	function onSignIn(googleUser) {

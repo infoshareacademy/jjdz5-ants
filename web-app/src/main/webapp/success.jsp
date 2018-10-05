@@ -1,7 +1,6 @@
 
-
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-2"
+    pageEncoding="ISO-8859-2"%>
 <!DOCTYPE html>>
 <html>
 <head>
@@ -66,7 +65,7 @@
 
       <a href="#contentTab" class="navbarButton hideMenuOnMobile singleNavbarButton">
         <i class="fa fa-question-circle"></i> POMOC</a>
-      <a href="#" class="navbarButton hideMenuOnMobile navbarRight singleNavbarButton">
+      <a href="signin" class="navbarButton hideMenuOnMobile navbarRight singleNavbarButton">
         <i class="fa fa-user"></i> LOGOWANIE</a>
     </div>
 
@@ -76,7 +75,7 @@
       <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map"></i> TRASY</a>
       <a href="#attractions" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-map-pin"></i> ATRAKCJE</a>
       <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-question-circle"></i> POMOC</a>
-      <a href="#contentTab" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-user"></i> LOGOWANIE</a>
+      <a href="signin" class="navbarButton" onclick="toggleMenu()"><i class="fa fa-user"></i> LOGOWANIE</a>
     </div>
   </div>
 
@@ -99,8 +98,9 @@
         <% if (session.getAttribute("userName") == null) {%>
             <jsp:forward page="/index.jsp"/>
         <% } %>
-
-<h3>Welcome  ${userName}</h3>
+    <div class=".text-center">
+        <h3>Welcome  ${userName}</h3>
+    </div>
     </section>
 
  <!-- Footer -->
