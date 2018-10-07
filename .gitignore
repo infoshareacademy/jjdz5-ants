@@ -1,0 +1,10 @@
+
+.idea/
+console-app/.idea/
+web-app/.idea/
+
+target/
+console-app/target/
+web-app/target/
+
+*.iml
